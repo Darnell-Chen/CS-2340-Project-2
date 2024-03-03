@@ -14,9 +14,10 @@
         android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/loginEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.575" />
 
     <EditText
         android:id="@+id/loginEmail"
@@ -39,11 +40,11 @@
         android:background="@color/loginWhite"
         android:hint="Password"
         android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="196dp"

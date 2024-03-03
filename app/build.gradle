@@ -3,15 +3,17 @@ plugins {
 }
 
 android {
-    namespace 'com.example.spotifywrappedproject'
+    namespace 'com.example.spotifywrapped'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.spotifywrappedproject"
+        applicationId "com.example.spotifywrapped"
         minSdk 33
         targetSdk 34
         versionCode 1
         versionName "1.0"
+
+        manifestPlaceholders = [redirectSchemeName: "spotifywrapped", redirectHostName: "auth"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,6 +31,9 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.spotify.android:auth:2.1.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
     implementation libs.appcompat
     implementation libs.material

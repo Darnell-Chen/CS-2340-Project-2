@@ -1,4 +1,4 @@
-package com.example.spotifywrappedproject;
+package com.example.spotifywrapped;
 
 import org.junit.Test;
 
