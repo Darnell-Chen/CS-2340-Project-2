@@ -15,45 +15,79 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/loginEmail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.681" />
 
     <EditText
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="44dp"
         android:background="@color/loginWhite"
         android:hint="Email"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/loginPassword"
-        tools:layout_editor_absoluteX="10dp" />
+        tools:layout_editor_absoluteX="9dp" />
 
     <EditText
         android:id="@+id/loginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:background="@color/loginWhite"
         android:hint="Password"
         android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="-16dp" />
 
-    <Button
-        android:id="@+id/loginButton"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="196dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Space
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/spotifyGreen"
+            android:padding="8dp"
+            android:text="Login"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="49dp" />
+
+        <Space
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="156dp"
         android:backgroundTint="@color/spotifyGreen"
-        android:padding="8dp"
-        android:text="Login"
-        android:textSize="20sp"
+        android:text="Click Here To Register!"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
