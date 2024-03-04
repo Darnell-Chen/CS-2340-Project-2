@@ -20,6 +20,18 @@
         android:layout_height="20dp"
         android:layout_weight="0.5"/>
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Registration Page"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+
     <EditText
         android:id="@+id/registerEmail"
         android:layout_width="match_parent"
@@ -39,6 +51,10 @@
         android:background="@color/loginWhite"
         android:hint="Password"
         android:padding="20dp" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

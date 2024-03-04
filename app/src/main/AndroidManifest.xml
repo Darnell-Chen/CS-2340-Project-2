@@ -26,6 +26,11 @@
             android:name=".RegisterActivity"
             android:noHistory="true">
         </activity>
+
+        <activity
+            android:name=".DashboardActivity"
+            android:noHistory="true">
+        </activity>
     </application>
 
 </manifest>
