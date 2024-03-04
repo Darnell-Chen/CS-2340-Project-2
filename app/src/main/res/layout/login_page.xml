@@ -36,12 +36,13 @@
         android:id="@+id/loginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="60dp"
         android:background="@color/loginWhite"
         android:hint="Password"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="-16dp" />
+        tools:layout_editor_absoluteX="10dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
