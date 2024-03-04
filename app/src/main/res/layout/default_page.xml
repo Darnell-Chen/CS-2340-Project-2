@@ -9,14 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/ProfileTV"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476"
+        tools:layout_editor_absoluteX="0dp">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
         <TextView
+            android:id="@+id/TokenTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -28,6 +31,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/TokenBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -40,6 +44,7 @@
             android:layout_height="30dp" />
 
         <TextView
+            android:id="@+id/CodeTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -51,6 +56,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/CodeBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -61,29 +67,30 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/getProfile"
+        android:id="@+id/ProfileBTN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="56dp"
         android:backgroundTint="@color/spotifyGreen"
         android:text="Get User Profile"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-9dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/ProfileTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="44dp"
         android:background="@color/loginWhite"
         android:ellipsize="marquee"
         android:maxLines="4"
         android:text="\n \n \n"
         android:textIsSelectable="true"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/getProfile"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ProfileBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
