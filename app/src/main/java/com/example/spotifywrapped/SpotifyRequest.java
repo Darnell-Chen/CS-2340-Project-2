@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,12 +22,19 @@ import okhttp3.Response;
 public class SpotifyRequest {
 
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
+
+    DatabaseReference fbDB = FirebaseDatabase.getInstance().getReference();
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+
     private Call mCall;
     public void getTopSongs(Activity currActivity, String mAccessToken) {
         if (mAccessToken == null) {
             Toast.makeText(currActivity, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        auth.getUid();
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
