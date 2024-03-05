@@ -26,6 +26,7 @@
             android:background="@color/loginWhite"
             android:ellipsize="marquee"
             android:maxLines="1"
+            android:lines="1"
             android:text=""
             android:textIsSelectable="true"
             android:textSize="20sp" />
@@ -53,6 +54,7 @@
             android:maxLines="1"
             android:text=""
             android:textIsSelectable="true"
+            android:lines="1"
             android:textSize="20sp" />
 
         <Button
