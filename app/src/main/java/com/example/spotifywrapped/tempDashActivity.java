@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -20,6 +23,9 @@ public class tempDashActivity extends AppCompatActivity {
     private TextView tvToken, tvCode, tvProfile;
     private Button btnToken, btnCode, btnProfile;
     private String mAccessToken;
+
+    private DatabaseReference fbDatabase;
+    private FirebaseAuth fbAuth;
 
     public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
     @Override
@@ -51,6 +57,11 @@ public class tempDashActivity extends AppCompatActivity {
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             mAccessToken = response.getAccessToken();
             tvToken.setText(mAccessToken);
+
+            fbAuth = FirebaseAuth.getInstance();
+            fbDatabase = FirebaseDatabase.getInstance().getReference();
+
+            fbDatabase.child("Users").child(fbAuth.getUid().toString()).child("AuthToken").setValue(mAccessToken);
         }
     }
 }
