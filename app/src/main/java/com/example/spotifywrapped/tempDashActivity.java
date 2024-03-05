@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,8 @@ import com.spotify.sdk.android.auth.AuthorizationResponse;
 public class tempDashActivity extends AppCompatActivity {
 
     private TextView tvToken, tvCode, tvProfile;
-    private Button btnToken, btnCode, btnProfile;
-    private String mAccessToken;
+    private Button btnToken, btnSongs, btnProfile;
+    private String mAccessToken = "";
 
     private DatabaseReference fbDatabase;
     private FirebaseAuth fbAuth;
@@ -31,19 +32,31 @@ public class tempDashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.default_page);
+        setContentView(R.layout.test_page);
 
         tvToken = findViewById(R.id.TokenTV);
         tvCode = findViewById(R.id.CodeTV);
         tvProfile = findViewById(R.id.ProfileTV);
 
         btnToken = findViewById(R.id.TokenBTN);
-        btnCode = findViewById(R.id.CodeBTN);
+        btnSongs = findViewById(R.id.getSongsBTN);
         btnProfile = findViewById(R.id.ProfileBTN);
 
         btnToken.setOnClickListener((v) -> {
             AuthToken newAuth = new AuthToken();
             newAuth.getToken(this);
+        });
+
+        btnSongs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAccessToken.equals("")) {
+                    Toast.makeText(tempDashActivity.this, "There's no Auth Token", Toast.LENGTH_SHORT).show();
+                } else {
+                    SpotifyRequest newRequest = new SpotifyRequest();
+                    newRequest.getTopSongs(tempDashActivity.this, mAccessToken);
+                }
+            }
         });
     }
 
