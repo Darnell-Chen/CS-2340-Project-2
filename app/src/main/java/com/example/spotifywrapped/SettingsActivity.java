@@ -28,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_page);
+        setContentView(R.layout.settings_page);
 
         tvToken = findViewById(R.id.TokenTV);
         tvCode = findViewById(R.id.CodeTV);
