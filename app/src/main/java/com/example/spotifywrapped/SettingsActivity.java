@@ -73,4 +73,9 @@ public class SettingsActivity extends AppCompatActivity {
             fbDatabase.child("Users").child(fbAuth.getUid().toString()).child("AuthToken").setValue(mAccessToken);
         }
     }
+
+    public void deleteAccount(View view) {
+        DeleteAccount delete = new DeleteAccount(SettingsActivity.this);
+        delete.terminateAccount();
+    }
 }

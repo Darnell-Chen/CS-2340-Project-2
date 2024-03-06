@@ -28,6 +28,10 @@
         android:layout_marginBottom="44dp"
         android:background="@color/loginWhite"
         android:hint="Email"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:lines="1"
+        android:inputType="text"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/loginPassword"
         tools:layout_editor_absoluteX="9dp" />
@@ -40,6 +44,10 @@
         android:layout_marginBottom="60dp"
         android:background="@color/loginWhite"
         android:hint="Password"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:lines="1"
+        android:inputType="text"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="10dp" />

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@color/loginWhite"
-            android:ellipsize="marquee"
+            android:ellipsize="end"
             android:maxLines="1"
             android:lines="1"
             android:text=""
@@ -50,21 +50,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@color/loginWhite"
-            android:ellipsize="marquee"
+            android:ellipsize="end"
             android:maxLines="1"
+            android:lines="1"
             android:text=""
             android:textIsSelectable="true"
-            android:lines="1"
             android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/getSongsBTN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="@color/spotifyGreen"
-            android:text="Request Songs" />
 
     </LinearLayout>
 
@@ -72,10 +63,10 @@
         android:id="@+id/ProfileBTN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="88dp"
         android:backgroundTint="@color/spotifyGreen"
         android:text="Get User Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/DeleteAccountBTN"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
@@ -85,14 +76,35 @@
         android:layout_margin="15dp"
         android:layout_marginBottom="44dp"
         android:background="@color/loginWhite"
-        android:ellipsize="marquee"
+        android:ellipsize="end"
         android:maxLines="4"
+        android:lines="4"
         android:text="\n \n \n"
         android:textIsSelectable="true"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/ProfileBTN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/getSongsBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/spotifyGreen"
+        android:text="Request Songs"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="320dp" />
+
+    <Button
+        android:id="@+id/DeleteAccountBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="@color/spotifyGreen"
+        android:text="Delete Account"
+        android:onClick="deleteAccount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-14dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

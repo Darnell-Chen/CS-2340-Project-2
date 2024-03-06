@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(MainActivity.this, "login failed. try again", Toast.LENGTH_SHORT).show();
                 }
