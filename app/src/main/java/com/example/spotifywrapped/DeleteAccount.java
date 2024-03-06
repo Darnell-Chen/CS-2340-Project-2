@@ -21,7 +21,6 @@ public class DeleteAccount {
     }
 
     public void terminateAccount() {
-        final boolean[] myReturn = new boolean[1];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -37,11 +36,8 @@ public class DeleteAccount {
 
                 Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
 
-                myReturn[0] = true;
-
                 dialog.dismiss();
                 logout();
-                System.out.println("Account has been deleted");
             }
         });
 
@@ -50,8 +46,6 @@ public class DeleteAccount {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                // Do nothing
-                myReturn[0] = false;
                 dialog.dismiss();
             }
         });
