@@ -28,7 +28,7 @@ public class SpotifyRequest {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private Call mCall;
-    public void getUserTop(Activity currActivity, String mAccessToken, String requestType, String limit) {
+    public void getUserTop(Activity currActivity, String mAccessToken, String requestType, String range) {
         if (mAccessToken == null) {
             Toast.makeText(currActivity, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -38,7 +38,7 @@ public class SpotifyRequest {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url(makeURL(requestType, limit))
+                .url(makeURL(requestType, range))
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -58,11 +58,7 @@ public class SpotifyRequest {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
 
-                    // PRINTING JSON HERE
-//                    System.out.println(jsonObject.toString(3));
-
                     JSONParser.parseTopArtist(jsonObject);
-
 
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -84,10 +80,12 @@ public class SpotifyRequest {
         String limit = "&limit=10";
 
         if (range != "") {
-            base.concat(range);
+            base = base.concat("?timerange=").concat(range);
         }
 
-        base.concat(limit);
+        base = base.concat(limit);
+
+        System.out.println(base);
 
         return base;
     }
