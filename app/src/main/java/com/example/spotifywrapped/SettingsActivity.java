@@ -50,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Toast.makeText(SettingsActivity.this, "There's no Auth Token", Toast.LENGTH_SHORT).show();
                 } else {
                     SpotifyRequest newRequest = new SpotifyRequest();
-                    newRequest.getTopSongs(SettingsActivity.this, mAccessToken);
+                    newRequest.getUserTop(SettingsActivity.this, mAccessToken, "long_term", "10");
                 }
             }
         });

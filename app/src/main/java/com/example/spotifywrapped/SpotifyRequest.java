@@ -28,7 +28,7 @@ public class SpotifyRequest {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private Call mCall;
-    public void getTopSongs(Activity currActivity, String mAccessToken) {
+    public void getUserTop(Activity currActivity, String mAccessToken, String requestType, String limit) {
         if (mAccessToken == null) {
             Toast.makeText(currActivity, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -38,7 +38,7 @@ public class SpotifyRequest {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists")
+                .url(makeURL(requestType, limit))
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -59,7 +59,9 @@ public class SpotifyRequest {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
 
                     // PRINTING JSON HERE
-                    System.out.println(jsonObject.toString(3));
+//                    System.out.println(jsonObject.toString(3));
+
+                    JSONParser.parseTopArtist(jsonObject);
 
 
                 } catch (JSONException e) {
@@ -75,5 +77,18 @@ public class SpotifyRequest {
         if (mCall != null) {
             mCall.cancel();
         }
+    }
+
+    public String makeURL(String requestType, String range) {
+        String base = "https://api.spotify.com/v1/me/top/".concat(requestType);
+        String limit = "&limit=10";
+
+        if (range != "") {
+            base.concat(range);
+        }
+
+        base.concat(limit);
+
+        return base;
     }
 }
