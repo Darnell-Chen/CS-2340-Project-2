@@ -10,11 +10,5 @@ public class WrappedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wrapped_layout);
-
-        WrappedAnimations anim = new WrappedAnimations(this);
-        setContentView(anim);
-
-
-        setContentView(R.layout.wrapped_layout);
     }
 }
