@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JSONParser {
     public static void parseTopArtist(JSONObject jObject) throws JSONException {
@@ -33,8 +34,18 @@ public class JSONParser {
 
         DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child(newChild);
 
-        for (int i = 0; i < value.size(); i++) {
-            currReference.child(key.concat(Integer.toString(i))).setValue(value.get(i));
+        if (key.equals("artist")) {
+            for (int i = 0; i < value.size(); i++) {
+                currReference.child(key.concat(Integer.toString(i))).setValue(value.get(i));
+            }
+        } else {
+            for (int i = 0; i < value.size()/2; i++) {
+                String currSong = value.get(i * 2);
+                String currArtist = value.get((i*2) + 1);
+
+                currReference.child(key.concat(Integer.toString(i))).child("song").setValue(currSong);
+                currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
+            }
         }
     }
 
@@ -42,13 +53,21 @@ public class JSONParser {
 
         JSONArray jsonSongs = jObject.getJSONArray("items");
 
-        ArrayList<String> songsList = new ArrayList<>();
+        ArrayList<String> songList = new ArrayList<>();
 
         for (int i = 0; i < jsonSongs.length(); i++) {
-            JSONObject currArtist = jsonSongs.getJSONObject(i);
-            songsList.add(currArtist.getString("name"));
+            JSONObject currTrack = jsonSongs.getJSONObject(i);
+            String currSong = currTrack.getJSONObject("album").getString("name");
+            String currArtist = currTrack.getJSONArray("artists").getJSONObject(0).getString("name");
+
+            songList.add(currSong);
+            songList.add(currArtist);
+
+            System.out.println(currSong);
+            System.out.println(currArtist);
+
         }
 
-        storeList("song", songsList);
+        storeList("song", songList);
     }
 }

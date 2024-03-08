@@ -58,7 +58,12 @@ public class SpotifyRequest {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
 
-                    JSONParser.parseTopArtist(jsonObject);
+                    // parses the JSON response
+                    if (requestType.equals("tracks")) {
+                        JSONParser.parseTopSongs(jsonObject);
+                    } else {
+                        JSONParser.parseTopArtist(jsonObject);
+                    }
 
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -80,7 +85,7 @@ public class SpotifyRequest {
         String limit = "&limit=10";
 
         if (range != "") {
-            base = base.concat("?timerange=").concat(range);
+            base = base.concat("?time_range=").concat(range);
         }
 
         base = base.concat(limit);
