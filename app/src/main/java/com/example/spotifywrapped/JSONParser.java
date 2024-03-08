@@ -51,21 +51,20 @@ public class JSONParser {
 
     public static void parseTopSongs(JSONObject jObject) throws JSONException {
 
+        // all tracks are held in an array under the key "items"
         JSONArray jsonSongs = jObject.getJSONArray("items");
 
+        // I made it so that all songs are stored in even indexes, and songs in odd - they alternate
+        // so the song name goes first, then the person who made it
         ArrayList<String> songList = new ArrayList<>();
 
         for (int i = 0; i < jsonSongs.length(); i++) {
             JSONObject currTrack = jsonSongs.getJSONObject(i);
-            String currSong = currTrack.getJSONObject("album").getString("name");
+            String currSong = currTrack.getString("name");
             String currArtist = currTrack.getJSONArray("artists").getJSONObject(0).getString("name");
 
             songList.add(currSong);
             songList.add(currArtist);
-
-            System.out.println(currSong);
-            System.out.println(currArtist);
-
         }
 
         storeList("song", songList);
