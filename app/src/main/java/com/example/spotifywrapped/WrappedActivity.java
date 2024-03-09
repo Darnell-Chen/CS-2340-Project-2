@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 
 public class WrappedActivity extends AppCompatActivity {
 
@@ -19,5 +20,13 @@ public class WrappedActivity extends AppCompatActivity {
         animDrawable.setEnterFadeDuration(2500);
         animDrawable.setExitFadeDuration(3000);
         animDrawable.start();
+
+        // This will display the wrapped fragment container
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.wrappedFragmentContainer, TopItemsFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // Name can be null
+                .commit();
     }
 }

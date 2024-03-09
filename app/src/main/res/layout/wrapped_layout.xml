@@ -8,4 +8,10 @@
     android:id="@+id/wrappedBackground"
     tools:context=".WrappedActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/wrappedFragmentContainer"
+        android:name="com.example.spotifywrapped.TopItemsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
