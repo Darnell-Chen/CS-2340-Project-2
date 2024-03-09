@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WrappedActivity">
+    tools:context=".WrappedActivity"
+    android:background="@drawable/gradient_list">
 
     <!--below is the image view where we will
         be displaying images in our stories-->
-    <ImageView
-        android:id="@+id/image"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="com.example.spotifywrapped.TopItemsFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#303030"
-        android:contentDescription="@null"/>
+        android:layout_height="match_parent" />
 
     <!--on below line we are creating
         linear layout for our views-->
@@ -30,6 +30,18 @@
             android:layout_weight="1" />
 
         <!--view to move to the next image-->
+        <TextView
+            android:id="@+id/storyTTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="Screen #"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
         <View
             android:id="@+id/skip"
             android:layout_width="0dp"
@@ -55,21 +67,9 @@
         android:layout_marginEnd="10dp"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_alignBottom="@id/image"
+        android:layout_alignBottom="@id/fragmentContainerView2"
         android:layout_centerInParent="true"
         android:layout_marginBottom="60dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/storyTTV"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="Screen #"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
 
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.spotifywrapped;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -28,6 +29,7 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
     private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4"};
+    private final int numPages = 3;
 
     long pressTime = 0L;
     long limit = 500L;
@@ -95,21 +97,43 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     @Override
     public void onNext() {
-        // this method is called when we move
-        // to next progress view of story.
-        glideImage(storyText[++counter]);
+        if (counter < numPages) {
+            counter++;
+            glideImage(storyText[counter]);
+            getNextFragment(counter);
+            System.out.println(counter);
+        } else {
+            this.onComplete();
+        }
+    }
+
+    private void getNextFragment(int i) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.wrappedFragmentContainer, TopItemsFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // Name can be null
+                .commit();
     }
 
     @Override
     public void onPrev() {
         if ((counter - 1) < 0) return;
         glideImage(storyText[--counter]);
+    }
 
+    private void getPreviousFragment(int i) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.wrappedFragmentContainer, TopItemsFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // Name can be null
+                .commit();
     }
 
     @Override
     public void onComplete() {
-        Intent i = new Intent(WrappedActivity.this, MainActivity.class);
+        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();
     }
