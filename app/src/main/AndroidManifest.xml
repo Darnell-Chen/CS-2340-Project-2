@@ -46,10 +46,6 @@
             android:name=".WrappedActivity"
             android:noHistory="true">
         </activity>
-<<<<<<< HEAD
-=======
-
->>>>>>> Tarun
     </application>
 
 </manifest>
