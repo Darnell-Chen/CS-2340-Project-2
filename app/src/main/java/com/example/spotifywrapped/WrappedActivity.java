@@ -14,12 +14,7 @@ public class WrappedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wrapped_layout);
 
-        ConstraintLayout background = findViewById(R.id.wrappedBackground);
-
-        AnimationDrawable animDrawable = (AnimationDrawable) background.getBackground();
-        animDrawable.setEnterFadeDuration(2500);
-        animDrawable.setExitFadeDuration(3000);
-        animDrawable.start();
+        startAnimation();
 
         // This will display the wrapped fragment container
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -28,5 +23,20 @@ public class WrappedActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();
+    }
+
+    private void startAnimation() {
+        ConstraintLayout background = findViewById(R.id.wrappedBackground);
+
+        AnimationDrawable animDrawable = (AnimationDrawable) background.getBackground();
+        animDrawable.setEnterFadeDuration(2500);
+        animDrawable.setExitFadeDuration(3000);
+        animDrawable.start();
+    }
+
+    private boolean checkAuthentication(){
+        SpotifyRequest spotifyAuth = new SpotifyRequest();
+
+        return true;
     }
 }
