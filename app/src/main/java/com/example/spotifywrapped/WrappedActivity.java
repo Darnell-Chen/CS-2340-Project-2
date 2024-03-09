@@ -119,7 +119,9 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     public void onPrev() {
         if ((counter - 1) < 0) return;
-        glideImage(storyText[--counter]);
+        --counter;
+        glideImage(storyText[counter]);
+        getPreviousFragment(counter);
     }
 
     private void getPreviousFragment(int i) {
