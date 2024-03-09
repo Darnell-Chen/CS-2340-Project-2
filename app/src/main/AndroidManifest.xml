@@ -41,6 +41,12 @@
             android:name=".SettingsActivity"
             android:noHistory="true">
         </activity>
+
+        <activity
+            android:name=".WrappedActivity"
+            android:noHistory="true">
+        </activity>
+
     </application>
 
 </manifest>
