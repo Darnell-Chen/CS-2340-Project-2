@@ -33,10 +33,4 @@ public class WrappedActivity extends AppCompatActivity {
         animDrawable.setExitFadeDuration(3000);
         animDrawable.start();
     }
-
-    private boolean checkAuthentication(){
-        SpotifyRequest spotifyAuth = new SpotifyRequest();
-
-        return true;
-    }
 }
