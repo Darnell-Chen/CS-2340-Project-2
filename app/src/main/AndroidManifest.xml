@@ -46,7 +46,6 @@
             android:name=".WrappedActivity"
             android:noHistory="true">
         </activity>
-
     </application>
 
 </manifest>
