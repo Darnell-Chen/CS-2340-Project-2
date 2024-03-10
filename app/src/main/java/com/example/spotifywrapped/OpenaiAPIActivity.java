@@ -53,7 +53,7 @@ public class OpenaiAPIActivity extends AppCompatActivity {
     }
 
     private String sendOpenAIRequest(String prompt) throws IOException {
-        String apiKey = "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";
+        String apiKey = "";
         URL url = new URL("https://api.openai.com/v1/completions");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
