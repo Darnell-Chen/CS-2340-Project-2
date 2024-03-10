@@ -20,8 +20,6 @@ android {
 
         manifestPlaceholders = [redirectSchemeName: "spotifywrapped", redirectHostName: "auth"]
 
-        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

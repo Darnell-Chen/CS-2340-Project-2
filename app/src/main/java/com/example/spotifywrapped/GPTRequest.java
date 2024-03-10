@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -58,8 +61,11 @@ public class GPTRequest extends AppCompatActivity {
     }
 
     public String sendOpenAIRequest(String prompt) throws IOException {
-        String apiKey = "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";
-        System.out.println(apiKey);
+        Properties properties = new Properties();
+        FileInputStream fis = new FileInputStream(getApplicationInfo().dataDir + "/local.properties");
+        properties.load(fis);
+        fis.close();
+        String apiKey = properties.getProperty("OPENAI_API_KEY", "");
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)
                 .build();
