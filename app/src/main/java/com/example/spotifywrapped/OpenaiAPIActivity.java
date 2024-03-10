@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 public class OpenaiAPIActivity extends AppCompatActivity {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -53,7 +54,7 @@ public class OpenaiAPIActivity extends AppCompatActivity {
     }
 
     private String sendOpenAIRequest(String prompt) throws IOException {
-        String apiKey = "";
+        String apiKey = BuildConfig.OPENAI_API_KEY;
         URL url = new URL("https://api.openai.com/v1/completions");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
@@ -78,4 +79,5 @@ public class OpenaiAPIActivity extends AppCompatActivity {
 
         return response.toString();
     }
+
 }

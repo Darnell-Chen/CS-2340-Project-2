@@ -7,6 +7,10 @@ android {
     namespace 'com.example.spotifywrapped'
     compileSdk 34
 
+    buildFeatures {
+        buildConfig true
+    }
+
     defaultConfig {
         applicationId "com.example.spotifywrapped"
         minSdk 33
@@ -15,6 +19,8 @@ android {
         versionName "1.0"
 
         manifestPlaceholders = [redirectSchemeName: "spotifywrapped", redirectHostName: "auth"]
+
+        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
