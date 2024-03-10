@@ -25,7 +25,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openLLM(View view) {
-        System.out.println("going to LLM");
+        startActivity(new Intent(DashboardActivity.this, OpenaiAPIActivity.class));
+        finish();
     }
 
     public void openSettings(View view) {
