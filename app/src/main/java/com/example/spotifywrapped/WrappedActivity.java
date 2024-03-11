@@ -1,7 +1,10 @@
 package com.example.spotifywrapped;
 
+import static java.util.Arrays.asList;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
@@ -23,13 +26,18 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
-    private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4"};
-    private final int numPages = 3;
+    private final String[] storyText = {"Screen 1", "Screen 2"};
+
+    private final List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class);
+
+    private final int numPages = fragments.size();
 
     long pressTime = 0L;
     long limit = 500L;
@@ -100,20 +108,11 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         if (counter < numPages) {
             counter++;
             glideImage(storyText[counter]);
-            getNextFragment(counter);
+            getCorrectFragment(counter);
             System.out.println(counter);
         } else {
             this.onComplete();
         }
-    }
-
-    private void getNextFragment(int i) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.wrappedFragmentContainer, TopItemsFragment.class, null)
-                .setReorderingAllowed(true)
-                .addToBackStack("name") // Name can be null
-                .commit();
     }
 
     @Override
@@ -121,13 +120,13 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         if ((counter - 1) < 0) return;
         --counter;
         glideImage(storyText[counter]);
-        getPreviousFragment(counter);
+        getCorrectFragment(counter);
     }
 
-    private void getPreviousFragment(int i) {
+    private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.wrappedFragmentContainer, TopItemsFragment.class, null)
+                .replace(R.id.fragmentContainerView, fragments.get(i), null)
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();

@@ -10,7 +10,7 @@
     <!--below is the image view where we will
         be displaying images in our stories-->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
+        android:id="@+id/fragmentContainerView"
         android:name="com.example.spotifywrapped.TopItemsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -63,13 +63,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fragmentContainerView"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="60dp"
         android:gravity="center"
-        android:padding="10dp"
-        android:layout_alignBottom="@id/fragmentContainerView2"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="60dp">
+        android:padding="10dp">
 
     </LinearLayout>
 
