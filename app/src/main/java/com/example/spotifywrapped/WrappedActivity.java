@@ -42,6 +42,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     long pressTime = 0L;
     long limit = 500L;
 
+
     private StoriesProgressView storiesProgressView;
     private TextView storyTTV;
 
