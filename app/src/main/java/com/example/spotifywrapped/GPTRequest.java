@@ -1,20 +1,21 @@
 package com.example.spotifywrapped;
 
+import static dev.ai4j.openai4j.chat.ChatCompletionModel.GPT_3_5_TURBO;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dev.ai4j.openai4j.OpenAiClient;
+import dev.ai4j.openai4j.chat.ChatCompletionRequest;
+import dev.ai4j.openai4j.chat.ChatCompletionResponse;
 
-public class OpenaiAPIActivity extends AppCompatActivity {
+
+public class GPTRequest extends AppCompatActivity {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -59,31 +60,19 @@ public class OpenaiAPIActivity extends AppCompatActivity {
 
     private String sendOpenAIRequest(String prompt) throws IOException {
         String apiKey = BuildConfig.OPENAI_API_KEY;
-        URL url = new URL("https://api.openai.com/v1/completions");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json; utf-8");
-        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
-        conn.setDoOutput(true);
+        OpenAiClient client = OpenAiClient.builder()
+                .openAiApiKey(apiKey)
+                .build();
+        ChatCompletionRequest request = ChatCompletionRequest.builder()
+                .model(GPT_3_5_TURBO)
+                .addUserMessage(prompt)
+                .temperature(0.9)
+                .build();
 
-        System.out.println(apiKey);
-
-        String jsonInputString = String.format("{\"model\": \"gpt-4-0125-preview\", \"prompt\": \"%s\"}", prompt.replace("\"", "\\\""));
-
-        try (OutputStream os = conn.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        StringBuilder response = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-        }
-
-        return response.toString();
+        ChatCompletionResponse response = client.chatCompletion(request).execute();
+        System.out.println(String.valueOf(response));
+        System.out.println("test");
+        return String.valueOf(response);
     }
 
 }

@@ -20,7 +20,7 @@ android {
 
         manifestPlaceholders = [redirectSchemeName: "spotifywrapped", redirectHostName: "auth"]
 
-        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
+        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,6 +41,7 @@ dependencies {
 
     implementation 'com.spotify.android:auth:2.1.1'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'dev.ai4j:openai4j:0.15.0'
 
     implementation libs.appcompat
     implementation libs.material

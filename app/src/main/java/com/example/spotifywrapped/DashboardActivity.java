@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openLLM(View view) {
-        startActivity(new Intent(DashboardActivity.this, OpenaiAPIActivity.class));
+        startActivity(new Intent(DashboardActivity.this, GPTRequest.class));
         finish();
     }
 
