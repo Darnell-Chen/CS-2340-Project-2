@@ -73,7 +73,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         setContentView(R.layout.wrapped_layout);
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
         storiesProgressView.setStoriesCount(storyText.length);
-        storiesProgressView.setStoryDuration(3000L);
+        storiesProgressView.setStoryDuration(9000L);
         storiesProgressView.setStoriesListener(this);
         storiesProgressView.startStories(counter);
 

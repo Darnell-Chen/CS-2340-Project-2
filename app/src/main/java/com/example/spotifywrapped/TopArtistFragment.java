@@ -1,12 +1,19 @@
 package com.example.spotifywrapped;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import com.google.firebase.annotations.concurrent.Background;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,17 @@ public class TopArtistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_top_artist, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        FrameLayout background = getView().findViewById(R.id.topArtistBackground);
+
+        AnimationDrawable animDrawable = (AnimationDrawable) background.getBackground();
+        animDrawable.setEnterFadeDuration(2000);
+        animDrawable.setExitFadeDuration(2500);
+        animDrawable.start();
     }
 }
