@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
-public class WrappedActivity2 extends AppCompatActivity {
+public class WrappedGradient extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
