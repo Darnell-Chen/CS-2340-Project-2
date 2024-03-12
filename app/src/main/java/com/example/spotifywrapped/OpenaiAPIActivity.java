@@ -23,6 +23,10 @@ public class OpenaiAPIActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.openai_page);
+
+        String[] songList = {"Uptown Funk", "All of Me", "Glorious", "Watermelon Sugar"};
+
+        openaiDescription(songList);
     }
 
     public void openaiDescription(String[] songs) {
@@ -61,6 +65,8 @@ public class OpenaiAPIActivity extends AppCompatActivity {
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Authorization", "Bearer " + apiKey);
         conn.setDoOutput(true);
+
+        System.out.println(apiKey);
 
         String jsonInputString = String.format("{\"model\": \"gpt-4-0125-preview\", \"prompt\": \"%s\"}", prompt.replace("\"", "\\\""));
 
