@@ -33,7 +33,7 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
-    private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
+    //private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
 
     private final List<Class<? extends Fragment>> fragments
             = asList(TopArtistFragment.class, TopItemsFragment.class,
@@ -47,7 +47,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
 
     private StoriesProgressView storiesProgressView;
-    private TextView storyTTV;
 
     private int counter = 0;
 
@@ -76,14 +75,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
-        storiesProgressView.setStoriesCount(storyText.length);
+        storiesProgressView.setStoriesCount(fragments.size());
         storiesProgressView.setStoryDuration(9000L);
         storiesProgressView.setStoriesListener(this);
         storiesProgressView.startStories(counter);
-
-        storyTTV = findViewById(R.id.storyTTV);
-
-        glideImage(storyText[counter]);
 
         View reverse = findViewById(R.id.reverse);
 
@@ -111,7 +106,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     public void onNext() {
         if (counter < numPages) {
             counter++;
-            glideImage(storyText[counter]);
             getCorrectFragment(counter);
             System.out.println(counter);
         } else {
@@ -123,7 +117,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     public void onPrev() {
         if ((counter - 1) < 0) return;
         --counter;
-        glideImage(storyText[counter]);
         getCorrectFragment(counter);
     }
 
@@ -149,8 +142,5 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         super.onDestroy();
     }
 
-    private void glideImage(String storyText)
-    {
-        storyTTV.setText(storyText);
-    }
+
 }

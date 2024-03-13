@@ -30,17 +30,6 @@
             android:layout_weight="1" />
 
         <!--view to move to the next image-->
-        <TextView
-            android:id="@+id/storyTTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:text="Screen #"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
 
         <View
             android:id="@+id/skip"
