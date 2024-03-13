@@ -33,9 +33,10 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
-    private final String[] storyText = {"Screen 1", "Screen 2"};
+    private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3"};
 
-    private final List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class);
+    private final List<Class<? extends Fragment>> fragments
+            = asList(TopArtistFragment.class, TopItemsFragment.class, TopGenresFragment.class);
 
     private final int numPages = fragments.size();
 
