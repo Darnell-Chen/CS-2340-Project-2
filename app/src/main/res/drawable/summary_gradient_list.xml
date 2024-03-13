@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/summary_background_color1"
+        android:duration="3000"/>
 
-</selector>
+    <item
+        android:drawable="@drawable/summary_background_color2"
+        android:duration="3000"/>
+
+    <item
+        android:drawable="@drawable/summary_background_color3"
+        android:duration="3000"/>
+</animation-list>
