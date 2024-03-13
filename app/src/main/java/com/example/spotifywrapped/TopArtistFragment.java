@@ -73,7 +73,6 @@ public class TopArtistFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         FrameLayout background = getView().findViewById(R.id.topArtistBackground);
-
         AnimationDrawable animDrawable = (AnimationDrawable) background.getBackground();
         animDrawable.setEnterFadeDuration(2000);
         animDrawable.setExitFadeDuration(2500);
