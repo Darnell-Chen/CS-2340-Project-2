@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WrappedActivity"
-    android:background="@drawable/gradient_list">
+    android:background="@drawable/artists_gradient_list">
 
     <!--below is the image view where we will
         be displaying images in our stories-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.spotifywrapped.TopItemsFragment"
+        android:name="com.example.spotifywrapped.TopArtistFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

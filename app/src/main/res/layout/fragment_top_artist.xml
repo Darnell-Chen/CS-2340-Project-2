@@ -5,7 +5,7 @@
     xmlns:tools2="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_list"
+    android:background="@drawable/artists_gradient_list"
     android:id="@+id/topArtistBackground"
     tools:context=".TopArtistFragment">
 
@@ -16,29 +16,189 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/bestArtistIV"
-            android:layout_width="318dp"
-            android:layout_height="326dp"
-            android:layout_marginTop="44dp"
+            android:id="@+id/spotifyImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="88dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools2:srcCompat="@mipmap/ic_launcher"
             tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/bestArtistTV"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Top Artist"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bestArtistIV"
-            app:layout_constraintVertical_bias="0.085" />
+            android:layout_marginTop="52dp"
+            android:orientation="vertical"
+            android:padding="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/spotifyImage"
+            tools:layout_editor_absoluteX="0dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout234"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/topArtistLabel"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Top Artists"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/artist1TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/artist6TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 6"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/artist2TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 2"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/artistTV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="Artist 7"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/artist3TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 3"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/artist8TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 8"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/artist4TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 4"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/artist9TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 9"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="337dp">
+
+                <TextView
+                    android:id="@+id/artist5TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 5"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/artist10TV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Artist 10"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
