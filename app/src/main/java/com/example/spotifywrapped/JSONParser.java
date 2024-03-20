@@ -10,6 +10,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class JSONParser {
     public static void parseTopArtist(JSONObject jObject) throws JSONException {
@@ -80,5 +82,18 @@ public class JSONParser {
         JSONArray jsonSongs = jObject.getJSONArray("items");
 
         HashMap<String, Integer> topTrackMap = new HashMap<>();
+
+        PriorityQueue<Map.Entry<String, Integer>> maxHeap = new PriorityQueue<>(
+                (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        maxHeap.addAll(topTrackMap.entrySet());
+
+        int count = 0;
+
+        while (!maxHeap.isEmpty() || count < 5) {
+            Map.Entry<String, Integer> entry = maxHeap.poll();
+            System.out.println("Key: " + entry.getKey() + ", Count: " + entry.getValue());
+            count++;
+        }
     }
 }
