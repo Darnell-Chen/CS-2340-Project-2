@@ -38,7 +38,8 @@ public class JSONParser {
             for (int i = 0; i < value.size(); i++) {
                 currReference.child(key.concat(Integer.toString(i))).setValue(value.get(i));
             }
-        } else {
+
+        } else if (key.equals("song")){
             for (int i = 0; i < value.size()/2; i++) {
                 String currSong = value.get(i * 2);
                 String currArtist = value.get((i*2) + 1);
@@ -46,6 +47,7 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("song").setValue(currSong);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
             }
+
         }
     }
 
