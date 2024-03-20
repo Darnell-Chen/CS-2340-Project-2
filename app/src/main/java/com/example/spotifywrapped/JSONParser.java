@@ -26,6 +26,8 @@ public class JSONParser {
         storeList("artist", artistList);
     }
 
+
+
     private static void storeList(String key, ArrayList<String> value) {
         DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -51,6 +53,8 @@ public class JSONParser {
         }
     }
 
+
+
     public static void parseTopSongs(JSONObject jObject) throws JSONException {
 
         // all tracks are held in an array under the key "items"
@@ -70,5 +74,11 @@ public class JSONParser {
         }
 
         storeList("song", songList);
+    }
+
+    public static void parseTopTracks(JSONObject jObject) throws JSONException{
+        JSONArray jsonSongs = jObject.getJSONArray("items");
+
+        HashMap<String, Integer> topTrackMap = new HashMap<>();
     }
 }

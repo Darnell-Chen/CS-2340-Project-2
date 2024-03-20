@@ -61,7 +61,8 @@ public class SpotifyRequest {
                     // parses the JSON response
                     if (requestType.equals("tracks")) {
                         JSONParser.parseTopSongs(jsonObject);
-                    } else {
+                        JSONParser.parseTopTracks(jsonObject);
+                    } else if (requestType.equals("song")){
                         JSONParser.parseTopArtist(jsonObject);
                     }
 
