@@ -78,7 +78,7 @@ public class JSONParser {
         storeList("song", songList);
     }
 
-    public static void parseTopTracks(JSONObject jObject) throws JSONException{
+    public static void parseTopAlbums(JSONObject jObject) throws JSONException{
         JSONArray jsonSongs = jObject.getJSONArray("items");
 
         HashMap<String, Integer> topTrackMap = new HashMap<>();
@@ -90,7 +90,7 @@ public class JSONParser {
 
         int count = 0;
 
-        while (!maxHeap.isEmpty() || count < 5) {
+        while (!maxHeap.isEmpty() || count < 10) {
             Map.Entry<String, Integer> entry = maxHeap.poll();
             System.out.println("Key: " + entry.getKey() + ", Count: " + entry.getValue());
             count++;

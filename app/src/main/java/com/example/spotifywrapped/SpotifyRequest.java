@@ -36,9 +36,19 @@ public class SpotifyRequest {
 
         auth.getUid();
 
+        // urlRequest is basically requestType, but it chooses the proper input for the Request Builder
+        // based on the type the user is requesting (ie. "albums" requires you to pull from "tracks")
+        String urlRequest;
+
+        if (requestType.equals("albums")) {
+            urlRequest = "tracks";
+        } else {
+            urlRequest = requestType;
+        }
+
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url(makeURL(requestType, range))
+                .url(makeURL(urlRequest, range))
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -61,9 +71,10 @@ public class SpotifyRequest {
                     // parses the JSON response
                     if (requestType.equals("tracks")) {
                         JSONParser.parseTopSongs(jsonObject);
-                        JSONParser.parseTopTracks(jsonObject);
-                    } else if (requestType.equals("song")){
+                    } else if (requestType.equals("artists")){
                         JSONParser.parseTopArtist(jsonObject);
+                    } else {
+                        JSONParser.parseTopAlbums(jsonObject);
                     }
 
                 } catch (JSONException e) {
@@ -82,8 +93,21 @@ public class SpotifyRequest {
     }
 
     public String makeURL(String requestType, String range) {
+        String urlRequest;
+        if (requestType.equals("album")) {
+            urlRequest = "tracks";
+        } else {
+            urlRequest = requestType;
+        }
+
         String base = "https://api.spotify.com/v1/me/top/".concat(requestType);
-        String limit = "&limit=10";
+
+        String limit;
+        if (requestType.equals("album")) {
+            limit = "&limit=100";
+        } else {
+            limit = "&limit=10";
+        }
 
         if (range != "") {
             base = base.concat("?time_range=").concat(range);
