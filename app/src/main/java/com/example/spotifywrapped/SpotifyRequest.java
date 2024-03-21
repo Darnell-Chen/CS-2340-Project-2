@@ -104,7 +104,7 @@ public class SpotifyRequest {
 
         String limit;
         if (requestType.equals("album")) {
-            limit = "&limit=100";
+            limit = "&limit=50";
         } else {
             limit = "&limit=10";
         }
