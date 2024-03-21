@@ -36,19 +36,9 @@ public class SpotifyRequest {
 
         auth.getUid();
 
-        // urlRequest is basically requestType, but it chooses the proper input for the Request Builder
-        // based on the type the user is requesting (ie. "albums" requires you to pull from "tracks")
-        String urlRequest;
-
-        if (requestType.equals("albums")) {
-            urlRequest = "tracks";
-        } else {
-            urlRequest = requestType;
-        }
-
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url(makeURL(urlRequest, range))
+                .url(makeURL(requestType, range))
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -94,16 +84,16 @@ public class SpotifyRequest {
 
     public String makeURL(String requestType, String range) {
         String urlRequest;
-        if (requestType.equals("album")) {
+        if (requestType.equals("albums")) {
             urlRequest = "tracks";
         } else {
             urlRequest = requestType;
         }
 
-        String base = "https://api.spotify.com/v1/me/top/".concat(requestType);
+        String base = "https://api.spotify.com/v1/me/top/".concat(urlRequest);
 
         String limit;
-        if (requestType.equals("album")) {
+        if (requestType.equals("albums")) {
             limit = "&limit=50";
         } else {
             limit = "&limit=10";

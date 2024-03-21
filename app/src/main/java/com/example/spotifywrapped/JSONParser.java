@@ -79,9 +79,19 @@ public class JSONParser {
     }
 
     public static void parseTopAlbums(JSONObject jObject) throws JSONException{
-        JSONArray jsonSongs = jObject.getJSONArray("items");
+
+        JSONArray jsonTracks = jObject.getJSONArray("items");
 
         HashMap<String, Integer> topTrackMap = new HashMap<>();
+
+        for (int i = 0; i < jsonTracks.length(); i++) {
+            JSONObject currTrack = jsonTracks.getJSONObject(i);
+            String currAlbum = currTrack.getJSONObject("album").getString("name");
+
+            System.out.println(currAlbum);
+
+            topTrackMap.put(currAlbum, topTrackMap.getOrDefault(currAlbum, 0) + 1);
+        }
 
         PriorityQueue<Map.Entry<String, Integer>> maxHeap = new PriorityQueue<>(
                 (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
@@ -90,7 +100,7 @@ public class JSONParser {
 
         int count = 0;
 
-        while (!maxHeap.isEmpty() || count < 10) {
+        while (!maxHeap.isEmpty() && count < 10) {
             Map.Entry<String, Integer> entry = maxHeap.poll();
             System.out.println("Key: " + entry.getKey() + ", Count: " + entry.getValue());
             count++;
