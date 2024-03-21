@@ -91,12 +91,11 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-                    System.out.println(task.getResult());
                     Toast.makeText(WrappedActivity.this, "Could not retrieve information", Toast.LENGTH_SHORT).show();
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    System.out.println("unsuccessful");
+                    DataSnapshot dataResult = task.getResult();
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
 
                 }

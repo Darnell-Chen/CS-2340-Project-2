@@ -15,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -82,6 +84,21 @@ public class SettingsActivity extends AppCompatActivity {
             fbDatabase = FirebaseDatabase.getInstance().getReference();
 
             fbDatabase.child("Users").child(fbAuth.getUid().toString()).child("AuthToken").setValue(mAccessToken);
+
+            System.out.println(mAccessToken);
+            SpotifyRequest newRequest = new SpotifyRequest();
+
+            String[] requestType = {"artists", "tracks", "albums"};
+            for (int i = 0; i < requestType.length; i++) {
+                newRequest.getUserTop(SettingsActivity.this, mAccessToken, requestType[i], "long_term");
+
+                // probably bad practice, but I set a delay here to give time inbetween every api call
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
