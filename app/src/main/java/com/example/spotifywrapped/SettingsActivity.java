@@ -15,9 +15,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.util.Set;
+
 public class SettingsActivity extends AppCompatActivity {
 
-    private TextView tvToken, tvCode, tvProfile;
+    private TextView tvToken, tvCode, tvProfile, tvBack;
     private Button btnToken, btnSongs, btnProfile;
     private String mAccessToken = "";
 
@@ -33,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         tvToken = findViewById(R.id.TokenTV);
         tvCode = findViewById(R.id.CodeTV);
         tvProfile = findViewById(R.id.ProfileTV);
+        tvBack = findViewById(R.id.settingsBack);
 
         btnToken = findViewById(R.id.TokenBTN);
         btnSongs = findViewById(R.id.getSongsBTN);
@@ -52,6 +55,14 @@ public class SettingsActivity extends AppCompatActivity {
                     SpotifyRequest newRequest = new SpotifyRequest();
                     newRequest.getUserTop(SettingsActivity.this, mAccessToken, "albums", "long_term");
                 }
+            }
+        });
+
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingsActivity.this, DashboardActivity.class));
+                finish();
             }
         });
     }

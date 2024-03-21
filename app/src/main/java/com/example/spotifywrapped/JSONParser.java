@@ -52,6 +52,10 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
             }
 
+        } else if (key.equals("album")) {
+            for (int i = 0; i < value.size(); i++) {
+                currReference.child(key.concat(Integer.toString(i))).setValue(value.get(i));
+            }
         }
     }
 
@@ -100,10 +104,14 @@ public class JSONParser {
 
         int count = 0;
 
+        ArrayList<String> topAlbumList = new ArrayList<>();
+
         while (!maxHeap.isEmpty() && count < 10) {
             Map.Entry<String, Integer> entry = maxHeap.poll();
-            System.out.println("Key: " + entry.getKey() + ", Count: " + entry.getValue());
+            topAlbumList.add(entry.getKey());
             count++;
         }
+
+        storeList("album", topAlbumList);
     }
 }

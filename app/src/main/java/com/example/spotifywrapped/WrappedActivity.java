@@ -2,6 +2,7 @@ package com.example.spotifywrapped;
 
 import static java.util.Arrays.asList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +26,12 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestFutureTarget;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
@@ -34,6 +42,8 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
     //private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
+    private DatabaseReference mDatabase;
+    private FirebaseAuth auth;
 
     private final List<Class<? extends Fragment>> fragments
             = asList(TopArtistFragment.class, TopItemsFragment.class,
@@ -74,6 +84,25 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
+        mDatabase.child("Users").child(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    System.out.println(task.getResult());
+                    Toast.makeText(WrappedActivity.this, "Could not retrieve information", Toast.LENGTH_SHORT).show();
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    System.out.println("unsuccessful");
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                }
+            }
+        });
+
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
         storiesProgressView.setStoriesCount(fragments.size());
         storiesProgressView.setStoryDuration(9000L);
