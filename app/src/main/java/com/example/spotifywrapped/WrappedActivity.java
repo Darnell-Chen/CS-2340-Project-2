@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,10 +57,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     long pressTime = 0L;
     long limit = 500L;
 
-
     private StoriesProgressView storiesProgressView;
-
     private int counter = 0;
+
+    private ArrayList<DataSnapshot> snapshotList = new ArrayList<>();
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
@@ -96,6 +98,9 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 }
                 else {
                     DataSnapshot dataResult = task.getResult();
+                    snapshotList.add(dataResult.child("top artists"));
+                    snapshotList.add(dataResult.child("top songs"));
+                    snapshotList.add(dataResult.child("top albums"));
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
 
                 }
@@ -135,7 +140,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         if (counter < numPages) {
             counter++;
             getCorrectFragment(counter);
-            System.out.println(counter);
         } else {
             this.onComplete();
         }
@@ -150,8 +154,20 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putString("snapShotKey", snapshotList.get(i).toString());
+        Fragment fragment = null;
+        try {
+            fragment = fragments.get(i).newInstance();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        }
+        // Set the arguments bundle to the fragment instance
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, fragments.get(i), null)
+                .replace(R.id.fragmentContainerView, fragment, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();

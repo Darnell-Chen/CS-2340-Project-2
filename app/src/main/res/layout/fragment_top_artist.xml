@@ -102,7 +102,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/artistTV"
+                    android:id="@+id/artist7TV"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
