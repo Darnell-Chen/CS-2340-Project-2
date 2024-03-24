@@ -58,6 +58,23 @@ public class WrappedViewModel extends ViewModel {
         return topArtistList;
     }
 
+    public ArrayList<String> getTopAlbum() {
+        DataSnapshot topAlbumSnapshot = dataResult.child("top albums");
+        HashMap<String, String> newList = (HashMap<String, String>) topAlbumSnapshot.getValue();
+
+        ArrayList<String> topAlbumList = new ArrayList<>();
+        for (int i = 0; i < newList.size(); i++) {
+            topAlbumList.add(newList.get("album" + i));
+        }
+
+        return topAlbumList;
+    }
+
+    public void getTopSong() {
+        DataSnapshot topAlbumSnapshot = dataResult.child("top songs");
+
+    }
+
     public LiveData<Boolean> getBool() {
         return dataReceived;
     }
