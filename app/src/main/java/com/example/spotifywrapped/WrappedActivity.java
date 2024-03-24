@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,24 +20,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestFutureTarget;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +35,14 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private WrappedViewModel wrappedVM;
 
-    private final List<Class<? extends Fragment>> fragments
-            = asList(TopArtistFragment.class, TopItemsFragment.class,
-            TopGenresFragment.class, TopAlbumsFragment.class,
-            SummaryFragment.class, LLMFragment.class);
+    private List<Class<? extends Fragment>> fragments;
 
-    private final int numPages = fragments.size();
+//    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
+//                     TopGenresFragment.class, TopAlbumsFragment.class,
+//                     SummaryFragment.class, LLMFragment.class);
+
+    private int numPages;
+//    private final int numPages = fragments.size();
 
     long pressTime = 0L;
     long limit = 500L;
@@ -88,8 +75,23 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
 
+
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData();
+
+        // for future decision - do we want a loading screen?
+//        wrappedVM.getBool().observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//            }
+//        });
+
+
+        fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
+                TopGenresFragment.class, TopAlbumsFragment.class,
+                SummaryFragment.class, LLMFragment.class);
+
+        numPages = fragments.size();
 
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
         storiesProgressView.setStoriesCount(fragments.size());

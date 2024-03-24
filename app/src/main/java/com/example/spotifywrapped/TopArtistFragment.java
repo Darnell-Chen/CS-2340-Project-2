@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -56,17 +57,27 @@ public class TopArtistFragment extends Fragment {
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
 
-//        wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
-//        ArrayList<String> topArtists = wrappedVM.getTopArtist();
+        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
 
-//        Context context = getActivity();
-//        for (int i = 1; i <= 10; i++) {
-//            String name = "artist" + i + "TV";
-//            int id = getResources().getIdentifier(name, "id", context.getPackageName());
-//            if (id != 0) {
-//                TextView textView = (TextView) view.findViewById(id);
-//                textView.setText(topArtists.get(i - 1));
-//            }
-//        }
+        wrappedVM.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                getData(view);
+            }
+        });
+    }
+
+    public void getData(View view) {
+        ArrayList<String> topArtists = wrappedVM.getTopArtist();
+
+        Context context = getActivity();
+        for (int i = 1; i <= 10; i++) {
+            String name = "artist" + i + "TV";
+            int id = getResources().getIdentifier(name, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topArtists.get(i - 1));
+            }
+        }
     }
 }

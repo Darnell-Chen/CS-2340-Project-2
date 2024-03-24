@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,8 +24,8 @@ import java.util.HashMap;
 
 public class WrappedViewModel extends ViewModel {
 
+    private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
-    private boolean dataReceived = false;
 
     public void getFirebaseData() {
 
@@ -37,7 +39,7 @@ public class WrappedViewModel extends ViewModel {
                 }
                 else {
                     dataResult = task.getResult();
-                    dataReceived = true;
+                    dataReceived.setValue(true);
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 }
             }
@@ -54,5 +56,9 @@ public class WrappedViewModel extends ViewModel {
         }
 
         return topArtistList;
+    }
+
+    public LiveData<Boolean> getBool() {
+        return dataReceived;
     }
 }
