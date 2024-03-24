@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -37,6 +39,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.shts.android.storiesprogressview.StoriesProgressView;
@@ -44,8 +47,8 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
     //private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
-    private DatabaseReference mDatabase;
-    private FirebaseAuth auth;
+
+    private WrappedViewModel wrappedVM;
 
     private final List<Class<? extends Fragment>> fragments
             = asList(TopArtistFragment.class, TopItemsFragment.class,
@@ -59,8 +62,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private StoriesProgressView storiesProgressView;
     private int counter = 0;
-
-    private ArrayList<DataSnapshot> snapshotList = new ArrayList<>();
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
@@ -87,25 +88,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        auth = FirebaseAuth.getInstance();
-        mDatabase.child("Users").child(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(WrappedActivity.this, "Could not retrieve information", Toast.LENGTH_SHORT).show();
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    DataSnapshot dataResult = task.getResult();
-                    snapshotList.add(dataResult.child("top artists"));
-                    snapshotList.add(dataResult.child("top songs"));
-                    snapshotList.add(dataResult.child("top albums"));
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-                }
-            }
-        });
+        wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
+        wrappedVM.getFirebaseData();
 
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
         storiesProgressView.setStoriesCount(fragments.size());
@@ -154,20 +138,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Bundle bundle = new Bundle();
-        bundle.putString("snapShotKey", snapshotList.get(i).toString());
-        Fragment fragment = null;
-        try {
-            fragment = fragments.get(i).newInstance();
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        }
-        // Set the arguments bundle to the fragment instance
-        fragment.setArguments(bundle);
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, fragment, null)
+                .replace(R.id.fragmentContainerView, fragments.get(i), null)
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();
