@@ -52,7 +52,7 @@ public class WrappedViewModel extends ViewModel {
 
         ArrayList<String> topArtistList = new ArrayList<>();
         for (int i = 0; i < newList.size(); i++) {
-            topArtistList.add(newList.get("artist" + i));
+            topArtistList.add(topArtistSnapshot.child("artist" + i).child("artist").getValue().toString());
         }
 
         return topArtistList;

@@ -79,14 +79,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData();
 
-        // for future decision - do we want a loading screen?
-//        wrappedVM.getBool().observe(this, new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean aBoolean) {
-//            }
-//        });
-
-
         fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
                 TopGenresFragment.class, TopAlbumsFragment.class,
                 SummaryFragment.class, LLMFragment.class);

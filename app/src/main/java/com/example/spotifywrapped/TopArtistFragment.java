@@ -71,7 +71,7 @@ public class TopArtistFragment extends Fragment {
         ArrayList<String> topArtists = wrappedVM.getTopArtist();
 
         Context context = getActivity();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= topArtists.size(); i++) {
             String name = "artist" + i + "TV";
             int id = getResources().getIdentifier(name, "id", context.getPackageName());
             if (id != 0) {
