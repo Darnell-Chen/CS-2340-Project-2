@@ -3,7 +3,6 @@ package com.example.spotifywrapped;
 import static android.app.PendingIntent.getActivity;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -16,8 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.checkerframework.checker.units.qual.A;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +55,17 @@ public class WrappedViewModel extends ViewModel {
         }
 
         return topArtistList;
+    }
+
+    public RequestCreator getTopArtistImg() {
+        DataSnapshot topArtistSnapshot = dataResult.child("top artists").child("artist0").child("url");
+        String artistImg = topArtistSnapshot.getValue().toString();
+        RequestCreator image = transformImage(artistImg);
+        return image;
+    }
+
+    private RequestCreator transformImage(String artistImg) {
+        return Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
     }
 
     public ArrayList<String> getTopAlbum() {

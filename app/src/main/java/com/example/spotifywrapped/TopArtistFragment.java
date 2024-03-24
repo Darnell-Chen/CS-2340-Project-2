@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -37,6 +38,7 @@ import java.util.concurrent.TimeUnit;
 public class TopArtistFragment extends Fragment {
 
     private WrappedViewModel wrappedVM;
+    private ImageView artistIV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class TopArtistFragment extends Fragment {
         animDrawable.setEnterFadeDuration(2000);
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
+        artistIV = (ImageView) getActivity().findViewById(R.id.spotifyImage1);
 
         wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
 
@@ -79,5 +82,7 @@ public class TopArtistFragment extends Fragment {
                 textView.setText(topArtists.get(i - 1));
             }
         }
+
+        wrappedVM.getTopArtistImg().into(artistIV);
     }
 }

@@ -57,7 +57,7 @@ public class JSONParser {
 
                 currReference.child(key.concat(Integer.toString(i))).child("song").setValue(currSong);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
-                currReference.child(key.concat(Integer.toString(i))).child("image").setValue(currImage);
+                currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
 
         } else if (key.equals("album")) {
