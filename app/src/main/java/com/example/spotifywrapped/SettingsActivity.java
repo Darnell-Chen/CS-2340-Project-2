@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             System.out.println(mAccessToken);
             SpotifyRequest newRequest = new SpotifyRequest();
 
-            String[] requestType = {"artists", "tracks", "albums"};
+            String[] requestType = {"artists", "tracks", "albums", "genres"};
             for (int i = 0; i < requestType.length; i++) {
                 newRequest.getUserTop(SettingsActivity.this, mAccessToken, requestType[i], "long_term");
 

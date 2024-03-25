@@ -63,8 +63,10 @@ public class SpotifyRequest {
                         JSONParser.parseTopSongs(jsonObject);
                     } else if (requestType.equals("artists")){
                         JSONParser.parseTopArtist(jsonObject);
-                    } else {
+                    } else if (requestType.equals("albums")){
                         JSONParser.parseTopAlbums(jsonObject);
+                    } else {
+                        JSONParser.parseTopGenres(jsonObject);
                     }
 
                 } catch (JSONException e) {
@@ -86,6 +88,8 @@ public class SpotifyRequest {
         String urlRequest;
         if (requestType.equals("albums")) {
             urlRequest = "tracks";
+        } else if (requestType.equals("genres")){
+            urlRequest = "artists";
         } else {
             urlRequest = requestType;
         }
@@ -93,7 +97,7 @@ public class SpotifyRequest {
         String base = "https://api.spotify.com/v1/me/top/".concat(urlRequest);
 
         String limit;
-        if (requestType.equals("albums")) {
+        if (requestType.equals("albums") || requestType.equals("genres")) {
             limit = "&limit=50";
         } else {
             limit = "&limit=10";
@@ -104,8 +108,6 @@ public class SpotifyRequest {
         }
 
         base = base.concat(limit);
-
-        System.out.println(base);
 
         return base;
     }

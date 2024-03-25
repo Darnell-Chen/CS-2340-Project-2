@@ -70,6 +70,11 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
+        } else if (key.equals("genre")) {
+            for (int i = 0; i < value.size(); i++) {
+                String currGenre = (String) value.get(i);
+                currReference.child(key.concat(Integer.toString(i))).setValue(currGenre);
+            }
         }
     }
 
@@ -131,5 +136,37 @@ public class JSONParser {
         }
 
         storeList("album", topAlbumList);
+    }
+
+    public static void parseTopGenres(JSONObject jObject) throws JSONException {
+        JSONArray jsonArtists = jObject.getJSONArray("items");
+
+        HashMap<String, Integer> genreMap = new HashMap<>();
+
+        for (int i = 0; i < jsonArtists.length(); i++) {
+            JSONArray currGenreList = jsonArtists.getJSONObject(i).getJSONArray("genres");
+
+            for (int j = 0; j < currGenreList.length(); j++) {
+                String currGenre = currGenreList.getString(j);
+                genreMap.put(currGenre, genreMap.getOrDefault(currGenre, 0) + 1);
+            }
+        }
+
+        PriorityQueue<Map.Entry<String, Integer>> maxHeap = new PriorityQueue<>(
+                (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        maxHeap.addAll(genreMap.entrySet());
+
+        int count = 0;
+
+        ArrayList<String> topGenreList = new ArrayList<>();
+
+        while (!maxHeap.isEmpty() && count < 10) {
+            Map.Entry<String, Integer> entry = maxHeap.poll();
+            topGenreList.add(entry.getKey());
+            count++;
+        }
+
+        storeList("genre", topGenreList);
     }
 }
