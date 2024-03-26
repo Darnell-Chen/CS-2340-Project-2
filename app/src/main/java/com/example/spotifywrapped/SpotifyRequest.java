@@ -111,6 +111,8 @@ public class SpotifyRequest {
 
         base = base.concat(limit);
 
+        System.out.println(base);
+
         return base;
     }
 }
