@@ -60,6 +60,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                     storiesProgressView.resume();
                     return limit < now - pressTime;
             }
+
             return false;
         }
     };
