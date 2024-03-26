@@ -24,31 +24,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"/>
+        <activity
+            android:name=".AuthTokenActivity"
+            android:exported="false" />
         <activity
             android:name=".DashboardActivity"
-            android:noHistory="true">
-        </activity>
-
-        <activity
-            android:name=".referenceAPI"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"/>
         <activity
             android:name=".SettingsActivity"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"/>
         <activity
             android:name=".WrappedActivity"
-            android:noHistory="true">
-        </activity>
+            android:noHistory="true"/>
     </application>
 
 </manifest>

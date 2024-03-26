@@ -1,5 +1,9 @@
 package com.example.spotifywrapped;
 
+import android.content.Context;
+
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,7 +19,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class JSONParser {
-    public static void parseTopArtist(JSONObject jObject) throws JSONException {
+    public static void parseTopArtist(JSONObject jObject, AuthViewModel vm) throws JSONException {
 
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
@@ -26,12 +30,12 @@ public class JSONParser {
             artistList.add(currArtist.getString("name"));
             artistList.add(currArtist.getJSONArray("images").getJSONObject(0).getString("url"));
         }
-        storeList("artist", artistList);
+        storeList("artist", artistList, vm);
     }
 
 
 
-    private static void storeList(String key, ArrayList<?> value) {
+    private static void storeList(String key, ArrayList<?> value, AuthViewModel vm) {
         DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -76,11 +80,13 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).setValue(currGenre);
             }
         }
+
+        vm.setRetrieved(vm.getRetrieved().getValue());
     }
 
 
 
-    public static void parseTopSongs(JSONObject jObject) throws JSONException {
+    public static void parseTopSongs(JSONObject jObject, AuthViewModel vm) throws JSONException {
 
         // all tracks are held in an array under the key "items"
         JSONArray jsonSongs = jObject.getJSONArray("items");
@@ -99,10 +105,10 @@ public class JSONParser {
             songList.add(newSong);
         }
 
-        storeList("song", songList);
+        storeList("song", songList, vm);
     }
 
-    public static void parseTopAlbums(JSONObject jObject) throws JSONException{
+    public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm) throws JSONException{
 
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
@@ -135,10 +141,10 @@ public class JSONParser {
             count++;
         }
 
-        storeList("album", topAlbumList);
+        storeList("album", topAlbumList, vm);
     }
 
-    public static void parseTopGenres(JSONObject jObject) throws JSONException {
+    public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
         HashMap<String, Integer> genreMap = new HashMap<>();
@@ -167,6 +173,6 @@ public class JSONParser {
             count++;
         }
 
-        storeList("genre", topGenreList);
+        storeList("genre", topGenreList, vm);
     }
 }

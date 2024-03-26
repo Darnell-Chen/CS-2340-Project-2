@@ -5,31 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:id="@+id/settingsBack"
+        android:id="@+id/TVAuthToken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:padding="10sp"
-        android:text="Back"
-        android:textColor="@color/spotifyGreen"
-        android:textSize="25sp"
+        android:text="Hello"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.457" />
 
     <Button
-        android:id="@+id/DeleteAccountBTN"
-        android:layout_width="match_parent"
+        android:id="@+id/authButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
         android:backgroundTint="@color/spotifyGreen"
-        android:text="Delete Account"
-        android:onClick="deleteAccount"
+        android:text="Connect To Spotify"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-14dp" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.755" />
 </androidx.constraintlayout.widget.ConstraintLayout>

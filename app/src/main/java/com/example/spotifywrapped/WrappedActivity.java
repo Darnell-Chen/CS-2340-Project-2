@@ -37,12 +37,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private List<Class<? extends Fragment>> fragments;
 
-//    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
-//                     TopGenresFragment.class, TopAlbumsFragment.class,
-//                     SummaryFragment.class, LLMFragment.class);
-
     private int numPages;
-//    private final int numPages = fragments.size();
 
     long pressTime = 0L;
     long limit = 500L;

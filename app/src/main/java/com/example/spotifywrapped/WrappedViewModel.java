@@ -82,8 +82,9 @@ public class WrappedViewModel extends ViewModel {
 
     public void getTopSong() {
         DataSnapshot topAlbumSnapshot = dataResult.child("top songs");
-
     }
+
+
 
     public LiveData<Boolean> getBool() {
         return dataReceived;
