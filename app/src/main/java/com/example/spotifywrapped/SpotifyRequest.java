@@ -51,8 +51,6 @@ public class SpotifyRequest {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d("HTTP", "Failed to fetch data: " + e);
-//                Toast.makeText(currActivity, "Failed to fetch data, watch Logcat for more details",
-//                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -110,6 +108,8 @@ public class SpotifyRequest {
         }
 
         base = base.concat(limit);
+
+        System.out.println(base);
 
         return base;
     }

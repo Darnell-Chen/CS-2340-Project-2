@@ -110,6 +110,8 @@ public class JSONParser {
 
     public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm) throws JSONException{
 
+        parseAudio(jObject, vm);
+
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
         HashMap<Track, Integer> topTrackMap = new HashMap<>();
@@ -142,6 +144,10 @@ public class JSONParser {
         }
 
         storeList("album", topAlbumList, vm);
+    }
+
+    private static void parseAudio(JSONObject jObject, AuthViewModel vm) {
+
     }
 
     public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
