@@ -51,6 +51,7 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
+            // TODO: if key = "audio", create another child ie branch
 
         } else if (key.equals("song")){
             for (int i = 0; i < value.size()/2; i++) {
@@ -147,7 +148,7 @@ public class JSONParser {
     }
 
     private static void parseAudio(JSONObject jObject, AuthViewModel vm) {
-
+        // TODO: parse to retrieve song URL, store to firebase
     }
 
     public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
