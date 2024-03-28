@@ -51,7 +51,7 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
-            // TODO: if key = "audio", create another child ie branch
+
 
         } else if (key.equals("song")){
             for (int i = 0; i < value.size()/2; i++) {
@@ -79,6 +79,13 @@ public class JSONParser {
             for (int i = 0; i < value.size(); i++) {
                 String currGenre = (String) value.get(i);
                 currReference.child(key.concat(Integer.toString(i))).setValue(currGenre);
+            }
+        }
+        // TODO: Check
+        else if (key.equals("audio")) {
+            for (int i = 0; i < value.size(); i++) {
+                String currPreviewURL = (String) value.get(i);
+                currReference.child(key.concat(Integer.toString(i))).setValue(currPreviewURL);
             }
         }
 
@@ -147,8 +154,18 @@ public class JSONParser {
         storeList("album", topAlbumList, vm);
     }
 
-    private static void parseAudio(JSONObject jObject, AuthViewModel vm) {
-        // TODO: parse to retrieve song URL, store to firebase
+    // TODO: Check if works
+    private static void parseAudio(JSONObject jObject, AuthViewModel vm) throws JSONException {
+        JSONArray jsonTracks = jObject.getJSONArray("items");
+
+        ArrayList<String> trackURLs = new ArrayList<>();
+
+        for (int i = 0; i < jsonTracks.length(); i++) {
+            JSONObject currTrack = jsonTracks.getJSONObject(i);
+            String previewURL = currTrack.getString("preview_url");
+            trackURLs.add(previewURL);
+        }
+        storeList("audio", trackURLs, vm);
     }
 
     public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
