@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -136,6 +138,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     @Override
     public void onComplete() {
+        getSummaryImage();
         Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();
@@ -147,5 +150,14 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         super.onDestroy();
     }
 
-
+    public void getSummaryImage() {
+        Bitmap summaryImage = wrappedVM.getScreenshots().get(0);
+        boolean exported = ImageExporter.saveBitmapToGallery(this, summaryImage,
+                "summary_image", "Image exported from layout");
+        if (exported) {
+            Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class SummaryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private WrappedViewModel wrappedVM;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -77,6 +80,8 @@ public class SummaryFragment extends Fragment {
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
 
+        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
+
         exportImage(view);
     }
 
@@ -86,13 +91,14 @@ public class SummaryFragment extends Fragment {
             @Override
             public void run() {
                 Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(summaryBackground);
-                boolean exported = ImageExporter.saveBitmapToGallery(requireContext(), bitmap,
+                wrappedVM.addImage(bitmap);
+                /*boolean exported = ImageExporter.saveBitmapToGallery(requireContext(), bitmap,
                         "summary_image", "Image exported from layout");
                 if (exported) {
                     Toast.makeText(requireContext(), "Image exported successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(requireContext(), "Failed to export image", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
     }

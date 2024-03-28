@@ -2,6 +2,7 @@ package com.example.spotifywrapped;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ public class WrappedViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
+
+    private ArrayList<Bitmap> screenshotList = new ArrayList<>();
 
     public void getFirebaseData() {
 
@@ -89,4 +92,13 @@ public class WrappedViewModel extends ViewModel {
     public LiveData<Boolean> getBool() {
         return dataReceived;
     }
+
+    public void addImage(Bitmap bitmap) {
+        screenshotList.add(bitmap);
+    }
+
+    public ArrayList<Bitmap> getScreenshots() {
+        return screenshotList;
+    }
 }
+
