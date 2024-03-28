@@ -52,6 +52,7 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
 
+
         } else if (key.equals("song")){
             for (int i = 0; i < value.size()/2; i++) {
                 ArrayList<Track> songList = (ArrayList<Track>) value;
@@ -80,8 +81,18 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).setValue(currGenre);
             }
         }
+        // TODO: Check
+        else if (key.equals("audio")) {
+            for (int i = 0; i < value.size(); i++) {
+                String currPreviewURL = (String) value.get(i);
+                currReference.child(key.concat(Integer.toString(i))).setValue(currPreviewURL);
+            }
+        }
 
-        vm.setRetrieved(vm.getRetrieved().getValue());
+        // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
+        if (!key.equals("audio")) {
+            vm.setRetrieved(vm.getRetrieved().getValue());
+        }
     }
 
 
@@ -146,8 +157,18 @@ public class JSONParser {
         storeList("album", topAlbumList, vm);
     }
 
-    private static void parseAudio(JSONObject jObject, AuthViewModel vm) {
+    // TODO: Check if works
+    private static void parseAudio(JSONObject jObject, AuthViewModel vm) throws JSONException {
+        JSONArray jsonTracks = jObject.getJSONArray("items");
 
+        ArrayList<String> trackURLs = new ArrayList<>();
+
+        for (int i = 0; i < jsonTracks.length(); i++) {
+            JSONObject currTrack = jsonTracks.getJSONObject(i);
+            String previewURL = currTrack.getString("preview_url");
+            trackURLs.add(previewURL);
+        }
+        storeList("audio", trackURLs, vm);
     }
 
     public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
