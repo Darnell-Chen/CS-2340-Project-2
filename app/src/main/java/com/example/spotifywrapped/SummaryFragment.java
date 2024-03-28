@@ -102,10 +102,4 @@ public class SummaryFragment extends Fragment {
             }
         });
     }
-
-    private View createFragmentView() {
-        // Inflate the fragment's layout programmatically
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-        return inflater.inflate(R.layout.fragment_summary, null, false);
-    }
 }

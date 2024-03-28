@@ -69,8 +69,6 @@ public class TopArtistFragment extends Fragment {
                 getData(view);
             }
         });
-
-        //exportImage(view);
     }
 
     public void getData(View view) {
@@ -88,22 +86,4 @@ public class TopArtistFragment extends Fragment {
 
         wrappedVM.getTopArtistImg().into(artistIV);
     }
-
-    /*public void exportImage(View view) {
-        FrameLayout artistBackground = view.findViewById(R.id.topArtistBackground);
-        artistBackground.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(artistBackground);
-                wrappedVM.addImage(bitmap);
-                /*boolean exported = ImageExporter.saveBitmapToGallery(requireContext(), bitmap,
-                        "summary_image", "Image exported from layout");
-                if (exported) {
-                    Toast.makeText(requireContext(), "Image exported successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireContext(), "Failed to export image", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }*/
 }
