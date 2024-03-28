@@ -89,7 +89,10 @@ public class JSONParser {
             }
         }
 
-        vm.setRetrieved(vm.getRetrieved().getValue());
+        // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
+        if (!key.equals("audio")) {
+            vm.setRetrieved(vm.getRetrieved().getValue());
+        }
     }
 
 
