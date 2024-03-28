@@ -39,7 +39,9 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private WrappedViewModel wrappedVM;
 
-    private List<Class<? extends Fragment>> fragments;
+    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
+            TopGenresFragment.class, TopAlbumsFragment.class,
+            SummaryFragment.class, LLMFragment.class);
 
     private int numPages;
 
@@ -47,7 +49,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     long limit = 500L;
 
     private StoriesProgressView storiesProgressView;
-    MediaPlayer mediaPlayer;
+    private ArrayList<String> audioList;
+    private MediaPlayer mediaPlayer;
     private int counter = 0;
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -79,9 +82,13 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData();
 
-        fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
-                TopGenresFragment.class, TopAlbumsFragment.class,
-                SummaryFragment.class, LLMFragment.class);
+        wrappedVM.getBool().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                audioList = wrappedVM.getAudioList();
+                playAudio();
+            }
+        });
 
         numPages = fragments.size();
 
@@ -90,8 +97,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         storiesProgressView.setStoryDuration(9000L);
         storiesProgressView.setStoriesListener(this);
         storiesProgressView.startStories(counter);
-
-        playAudio();
 
         View reverse = findViewById(R.id.reverse);
 
@@ -117,9 +122,18 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     public void onNext() {
         if (counter < numPages) {
-            counter++;
-            getCorrectFragment(counter);
+            int next = counter + 1;
+            getCorrectFragment(next);
+            if (audioList != null) {
+                if (mediaPlayer == null) {
+                    mediaPlayer = new MediaPlayer();
+                }
+                playAudio();
+            }
         } else {
+            if (mediaPlayer != null) {
+                releaseMediaPlayer();
+            }
             this.onComplete();
         }
     }
@@ -127,22 +141,41 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     public void onPrev() {
         if ((counter - 1) < 0) return;
-        --counter;
-        getCorrectFragment(counter);
+        int prev = counter - 1;
+        getCorrectFragment(prev);
+
+        if (audioList != null) {
+            if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+            }
+            playAudio();
+        }
     }
 
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        boolean isForwardNavigation = i > counter;
+
+        int enterAnimation = isForwardNavigation ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
+        int exitAnimation = isForwardNavigation ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
+
+
         fragmentManager.beginTransaction()
+                .setCustomAnimations( enterAnimation, exitAnimation)
                 .replace(R.id.fragmentContainerView, fragments.get(i), null)
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();
+
+        counter = i;
     }
 
     private void playAudio() {
 
-        String audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        releaseMediaPlayer();
+
+        String audioUrl = audioList.get(counter);
 
         // initializing media player
         mediaPlayer = new MediaPlayer();
@@ -175,7 +208,17 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     protected void onDestroy() {
         storiesProgressView.destroy();
+        releaseMediaPlayer();
         super.onDestroy();
+    }
+
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
 }

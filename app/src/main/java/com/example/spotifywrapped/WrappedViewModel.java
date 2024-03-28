@@ -68,23 +68,41 @@ public class WrappedViewModel extends ViewModel {
         return Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
     }
 
-    public ArrayList<String> getTopAlbum() {
-        DataSnapshot topAlbumSnapshot = dataResult.child("top albums");
-        HashMap<String, String> newList = (HashMap<String, String>) topAlbumSnapshot.getValue();
+    public ArrayList<String> getAudioList() {
+        DataSnapshot topAudioSnapshot = dataResult.child("top audios");
+        HashMap<String, String> newList = (HashMap<String, String>) topAudioSnapshot.getValue();
 
-        ArrayList<String> topAlbumList = new ArrayList<>();
+        ArrayList<String> topAudioList = new ArrayList<>();
         for (int i = 0; i < newList.size(); i++) {
-            topAlbumList.add(newList.get("album" + i));
+            topAudioList.add(newList.get("audio" + i));
         }
 
-        return topAlbumList;
+        System.out.println(topAudioList);
+        return topAudioList;
     }
 
     public void getTopSong() {
         DataSnapshot topAlbumSnapshot = dataResult.child("top songs");
     }
 
+    public ArrayList<Track> getTopAlbums() {
+        DataSnapshot topAlbumSnapshot = dataResult.child("top albums");
 
+        int snapshotSize = (int) topAlbumSnapshot.getChildrenCount();
+
+        ArrayList<Track> albumList = new ArrayList<>();
+
+        for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
+            DataSnapshot currSnapshot = topAlbumSnapshot.child("album" + i);
+            String currAlbumName = (String) currSnapshot.child("album").getValue(String.class);
+            String currArtist = (String) currSnapshot.child("artist").getValue(String.class);
+            String currImage = (String) currSnapshot.child("url").getValue(String.class);
+
+            albumList.add(new Track(currArtist, currAlbumName, currImage));
+        }
+
+        return albumList;
+    }
 
     public LiveData<Boolean> getBool() {
         return dataReceived;
