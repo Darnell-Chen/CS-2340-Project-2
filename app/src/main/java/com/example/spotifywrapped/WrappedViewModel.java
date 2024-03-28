@@ -85,7 +85,14 @@ public class WrappedViewModel extends ViewModel {
         DataSnapshot topAlbumSnapshot = dataResult.child("top songs");
     }
 
-    public ArrayList<Track> getTopAlbums() {
+    public ArrayList<Track>
+
+
+
+
+
+
+    getTopAlbums() {
         DataSnapshot topAlbumSnapshot = dataResult.child("top albums");
 
         int snapshotSize = (int) topAlbumSnapshot.getChildrenCount();
