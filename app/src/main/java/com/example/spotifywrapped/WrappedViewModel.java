@@ -25,6 +25,7 @@ public class WrappedViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
+    //TODO: ADD GPTRequest to WrappedViewModel
 
     public void getFirebaseData() {
 

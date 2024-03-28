@@ -50,7 +50,9 @@ public class GPTRequest extends AppCompatActivity {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("Describe the behavior, thoughts, and dress style of someone who listens to these songs: ");
         for (int i = 0; i < songs.size(); i++) {
-            promptBuilder.append(songs.get(i));
+            Track song = songs.get(i);
+            // Updated to use artist name and track name from the Track object
+            promptBuilder.append(song.getTrackName()).append(" by ").append(song.getArtistName());
             if (i < songs.size() - 1) {
                 promptBuilder.append(", ");
             } else {
