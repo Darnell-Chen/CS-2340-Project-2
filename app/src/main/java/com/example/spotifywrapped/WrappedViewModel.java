@@ -26,11 +26,11 @@ public class WrappedViewModel extends ViewModel {
     private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
 
-    public void getFirebaseData() {
+    public void getFirebaseData(String range) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        mDatabase.child("Users").child(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {

@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class JSONParser {
-    public static void parseTopArtist(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    public static void parseTopArtist(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
 
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
@@ -30,18 +30,18 @@ public class JSONParser {
             artistList.add(currArtist.getString("name"));
             artistList.add(currArtist.getJSONArray("images").getJSONObject(0).getString("url"));
         }
-        storeList("artist", artistList, vm);
+        storeList("artist", artistList, vm, range);
     }
 
 
 
-    private static void storeList(String key, ArrayList<?> value, AuthViewModel vm) {
+    private static void storeList(String key, ArrayList<?> value, AuthViewModel vm, String range) {
         DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         String newChild = "top ".concat(key).concat("s");
 
-        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child(newChild);
+        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child(range).child(newChild);
 
         if (key.equals("artist")) {
             for (int i = 0; i < value.size()/2; i++) {
@@ -90,14 +90,21 @@ public class JSONParser {
         }
 
         // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
-        if (!key.equals("audio")) {
-            vm.setRetrieved(vm.getRetrieved().getValue());
+        if (!key.equals("audio") && (vm.getRangeRetrieved().getValue() < vm.getMax_range())) {
+            if (vm.getRangeRetrieved().getValue() == vm.getMax_range() - 1) {
+                vm.postRangeRetrieved(0);
+
+                // setRequestRetrieved() automatically adds by one
+                vm.setRequestRetrieved(vm.getRequestRetrieved());
+            } else {
+                vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
+            }
         }
     }
 
 
 
-    public static void parseTopSongs(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    public static void parseTopSongs(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
 
         // all tracks are held in an array under the key "items"
         JSONArray jsonSongs = jObject.getJSONArray("items");
@@ -116,12 +123,12 @@ public class JSONParser {
             songList.add(newSong);
         }
 
-        storeList("song", songList, vm);
+        storeList("song", songList, vm, range);
     }
 
-    public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm) throws JSONException{
+    public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm, String range) throws JSONException{
 
-        parseAudio(jObject, vm);
+        parseAudio(jObject, vm, range);
 
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
@@ -154,11 +161,11 @@ public class JSONParser {
             count++;
         }
 
-        storeList("album", topAlbumList, vm);
+        storeList("album", topAlbumList, vm, range);
     }
 
     // TODO: Check if works
-    private static void parseAudio(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    private static void parseAudio(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
         ArrayList<String> trackURLs = new ArrayList<>();
@@ -168,10 +175,10 @@ public class JSONParser {
             String previewURL = currTrack.getString("preview_url");
             trackURLs.add(previewURL);
         }
-        storeList("audio", trackURLs, vm);
+        storeList("audio", trackURLs, vm, range);
     }
 
-    public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    public static void parseTopGenres(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
         HashMap<String, Integer> genreMap = new HashMap<>();
@@ -200,6 +207,6 @@ public class JSONParser {
             count++;
         }
 
-        storeList("genre", topGenreList, vm);
+        storeList("genre", topGenreList, vm, range);
     }
 }

@@ -34,6 +34,9 @@
             android:name=".DashboardActivity"
             android:noHistory="true"/>
         <activity
+            android:name=".InitialWrappedActivity"
+            android:noHistory="true"/>
+        <activity
             android:name=".SettingsActivity"
             android:noHistory="true">
         </activity>

@@ -22,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openWrapped(View view) {
-        startActivity(new Intent(DashboardActivity.this, WrappedActivity.class));
+        startActivity(new Intent(DashboardActivity.this, InitialWrappedActivity.class));
         finish();
     }
 

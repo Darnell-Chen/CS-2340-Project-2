@@ -60,13 +60,13 @@ public class SpotifyRequest {
 
                     // parses the JSON response
                     if (requestType.equals("tracks")) {
-                        JSONParser.parseTopSongs(jsonObject, vm);
+                        JSONParser.parseTopSongs(jsonObject, vm, range);
                     } else if (requestType.equals("artists")){
-                        JSONParser.parseTopArtist(jsonObject, vm);
+                        JSONParser.parseTopArtist(jsonObject, vm, range);
                     } else if (requestType.equals("albums")){
-                        JSONParser.parseTopAlbums(jsonObject, vm);
+                        JSONParser.parseTopAlbums(jsonObject, vm, range);
                     } else {
-                        JSONParser.parseTopGenres(jsonObject, vm);
+                        JSONParser.parseTopGenres(jsonObject, vm, range);
                     }
 
                 } catch (JSONException e) {
