@@ -47,7 +47,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:lines="1"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="10dp" />

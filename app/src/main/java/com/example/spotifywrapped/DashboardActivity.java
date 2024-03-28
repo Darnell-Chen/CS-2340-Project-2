@@ -17,7 +17,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openWrapped(View view) {
-        System.out.println("going to Wrapped");
+        startActivity(new Intent(DashboardActivity.this, WrappedActivity.class));
+        finish();
     }
 
     public void openDuo(View view) {

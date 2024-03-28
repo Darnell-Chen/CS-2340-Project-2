@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET"/>
+=======
+    <uses-permission android:name="android.permission.INTERNET" />
+>>>>>>> main
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -24,24 +28,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"/>
+        <activity
+            android:name=".AuthTokenActivity"
+            android:exported="false" />
         <activity
             android:name=".DashboardActivity"
-            android:noHistory="true">
-        </activity>
-
-        <activity
-            android:name=".referenceAPI"
-            android:noHistory="true">
-        </activity>
-
+            android:noHistory="true"/>
         <activity
             android:name=".SettingsActivity"
+<<<<<<< HEAD
             android:noHistory="true">
         </activity>
 
@@ -49,6 +47,12 @@
             android:name=".GPTRequest"
             android:noHistory="true">
         </activity>
+=======
+            android:noHistory="true"/>
+        <activity
+            android:name=".WrappedActivity"
+            android:noHistory="true"/>
+>>>>>>> main
     </application>
 
 </manifest>

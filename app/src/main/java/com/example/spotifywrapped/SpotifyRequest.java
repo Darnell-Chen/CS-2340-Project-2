@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,7 +30,7 @@ public class SpotifyRequest {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private Call mCall;
-    public void getTopSongs(Activity currActivity, String mAccessToken) {
+    public void getUserTop(Activity currActivity, String mAccessToken, String requestType, String range, AuthViewModel vm) {
         if (mAccessToken == null) {
             Toast.makeText(currActivity, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -38,7 +40,7 @@ public class SpotifyRequest {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists")
+                .url(makeURL(requestType, range))
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -49,8 +51,6 @@ public class SpotifyRequest {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(currActivity, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -58,14 +58,21 @@ public class SpotifyRequest {
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
 
-                    // PRINTING JSON HERE
-                    System.out.println(jsonObject.toString(3));
-
+                    // parses the JSON response
+                    if (requestType.equals("tracks")) {
+                        JSONParser.parseTopSongs(jsonObject, vm);
+                    } else if (requestType.equals("artists")){
+                        JSONParser.parseTopArtist(jsonObject, vm);
+                    } else if (requestType.equals("albums")){
+                        JSONParser.parseTopAlbums(jsonObject, vm);
+                    } else {
+                        JSONParser.parseTopGenres(jsonObject, vm);
+                    }
 
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(currActivity, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(currActivity, "Failed to parse data, watch Logcat for more details",
+//                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -75,5 +82,35 @@ public class SpotifyRequest {
         if (mCall != null) {
             mCall.cancel();
         }
+    }
+
+    public String makeURL(String requestType, String range) {
+        String urlRequest;
+        if (requestType.equals("albums")) {
+            urlRequest = "tracks";
+        } else if (requestType.equals("genres")){
+            urlRequest = "artists";
+        } else {
+            urlRequest = requestType;
+        }
+
+        String base = "https://api.spotify.com/v1/me/top/".concat(urlRequest);
+
+        String limit;
+        if (requestType.equals("albums") || requestType.equals("genres")) {
+            limit = "&limit=50";
+        } else {
+            limit = "&limit=10";
+        }
+
+        if (range != "") {
+            base = base.concat("?time_range=").concat(range);
+        }
+
+        base = base.concat(limit);
+
+        System.out.println(base);
+
+        return base;
     }
 }
