@@ -81,8 +81,23 @@ public class WrappedViewModel extends ViewModel {
         return topAudioList;
     }
 
-    public void getTopSong() {
-        DataSnapshot topAlbumSnapshot = dataResult.child("top songs");
+    public ArrayList<Track> getTopSong() {
+        DataSnapshot topSongSnapshot = dataResult.child("top songs");
+
+        int snapshotSize = (int) topSongSnapshot.getChildrenCount();
+
+        ArrayList<Track> songList = new ArrayList<>();
+
+        for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
+            DataSnapshot currSnapshot = topSongSnapshot.child("song" + i);
+            String currAlbumName = (String) currSnapshot.child("artist").getValue(String.class);
+            String currArtist = (String) currSnapshot.child("song").getValue(String.class);
+            String currImage = (String) currSnapshot.child("url").getValue(String.class);
+
+            songList.add(new Track(currArtist, currAlbumName, currImage));
+        }
+
+        return songList;
     }
 
     public ArrayList<Track> getTopAlbums() {
