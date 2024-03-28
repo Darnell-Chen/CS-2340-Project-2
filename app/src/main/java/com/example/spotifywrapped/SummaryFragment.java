@@ -1,5 +1,7 @@
 package com.example.spotifywrapped;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,5 +76,30 @@ public class SummaryFragment extends Fragment {
         animDrawable.setEnterFadeDuration(2000);
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
+
+        exportImage(view);
+    }
+
+    public void exportImage(View view) {
+        FrameLayout summaryBackground = view.findViewById(R.id.summaryBackground);
+        summaryBackground.post(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(summaryBackground);
+                boolean exported = ImageExporter.saveBitmapToGallery(requireContext(), bitmap,
+                        "summary_image", "Image exported from layout");
+                if (exported) {
+                    Toast.makeText(requireContext(), "Image exported successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Failed to export image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private View createFragmentView() {
+        // Inflate the fragment's layout programmatically
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        return inflater.inflate(R.layout.fragment_summary, null, false);
     }
 }
