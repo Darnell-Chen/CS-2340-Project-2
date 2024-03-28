@@ -2,12 +2,15 @@ package com.example.spotifywrapped;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class AuthTokenActivity extends AppCompatActivity {

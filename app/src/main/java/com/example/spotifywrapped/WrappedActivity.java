@@ -14,14 +14,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +47,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     long limit = 500L;
 
     private StoriesProgressView storiesProgressView;
+    MediaPlayer mediaPlayer;
     private int counter = 0;
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -86,8 +91,9 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         storiesProgressView.setStoriesListener(this);
         storiesProgressView.startStories(counter);
 
-        View reverse = findViewById(R.id.reverse);
+        playAudio();
 
+        View reverse = findViewById(R.id.reverse);
 
         reverse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +140,31 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .commit();
     }
 
+    private void playAudio() {
+
+        String audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+        // initializing media player
+        mediaPlayer = new MediaPlayer();
+
+        // below line is use to set the audio
+        // stream type for our media player.
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        // below line is use to set our
+        // url to our media player.
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            // below line is use to prepare
+            // and start our media player.
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onComplete() {
         Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
@@ -146,6 +177,5 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         storiesProgressView.destroy();
         super.onDestroy();
     }
-
 
 }
