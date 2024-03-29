@@ -64,7 +64,7 @@ public class WrappedViewModel extends ViewModel {
         return image;
     }
 
-    private RequestCreator transformImage(String artistImg) {
+    public RequestCreator transformImage(String artistImg) {
         return Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
     }
 
