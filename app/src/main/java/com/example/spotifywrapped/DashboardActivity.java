@@ -26,25 +26,8 @@ public class DashboardActivity extends AppCompatActivity {
         finish();
     }
 
-    public void openDuo(View view) {
-        //SummaryFragment fragment = new SummaryFragment();
-        //fragment.exportImage();
-        /*
-        LinearLayout layout = findViewById(R.id.dashboardLayout);
-        Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(layout);
-
-        boolean exported = ImageExporter.saveBitmapToGallery(this, bitmap,
-                "layout_image", "Image exported from layout");
-        if (exported) {
-            Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
-        }*/
-        System.out.println("going to Duo");
-    }
-
-    public void openLLM(View view) {
-        startActivity(new Intent(DashboardActivity.this, GPTRequest.class));
+    public void openGames() {
+        startActivity(new Intent(DashboardActivity.this, InitialWrappedActivity.class));
         finish();
     }
 
