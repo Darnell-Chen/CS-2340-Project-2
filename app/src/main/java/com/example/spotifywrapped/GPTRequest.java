@@ -26,10 +26,6 @@ public class GPTRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.openai_page);
-
-        ArrayList<Track> songList = wrappedVM.getTopSong();
-
-        openaiDescription(songList);
     }
 
     public void openaiDescription(ArrayList<Track> songs) {
@@ -46,12 +42,11 @@ public class GPTRequest extends AppCompatActivity {
             }});
     }
 
-    private String generatePrompt(ArrayList<Track> songs) {
+    public String generatePrompt(ArrayList<Track> songs) {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("Describe the behavior, thoughts, and dress style of someone who listens to these songs: ");
         for (int i = 0; i < songs.size(); i++) {
             Track song = songs.get(i);
-            // Updated to use artist name and track name from the Track object
             promptBuilder.append(song.getTrackName()).append(" by ").append(song.getArtistName());
             if (i < songs.size() - 1) {
                 promptBuilder.append(", ");
@@ -62,7 +57,7 @@ public class GPTRequest extends AppCompatActivity {
         return promptBuilder.toString();
     }
 
-    private String sendOpenAIRequest(String prompt) throws IOException {
+    public String sendOpenAIRequest(String prompt) throws IOException {
         String apiKey = BuildConfig.OPENAI_API_KEY;
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)

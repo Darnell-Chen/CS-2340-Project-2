@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class WrappedViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
-    //TODO: ADD GPTRequest to WrappedViewModel
+    private GPTRequest gptRequest;
 
     public void getFirebaseData() {
 
@@ -119,6 +120,11 @@ public class WrappedViewModel extends ViewModel {
 
         return albumList;
     }
+
+    public String getGPTResponse() throws IOException {
+        return gptRequest.sendOpenAIRequest(gptRequest.generatePrompt(getTopSong()));
+    }
+
 
     public LiveData<Boolean> getBool() {
         return dataReceived;
