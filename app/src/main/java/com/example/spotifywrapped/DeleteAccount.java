@@ -8,13 +8,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import android.widget.EditText;
+import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +56,32 @@ public class DeleteAccount {
         alert.show();
     }
 
+
+    private void reAuthenticate(String password) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Get auth credentials from the user for re-authentication. The example below shows
+        // email and password credentials but there are multiple possible providers,
+        // such as GoogleAuthProvider or FacebookAuthProvider.
+        AuthCredential credential = EmailAuthProvider
+                .getCredential("user@example.com", "password1234");
+
+        // Prompt the user to re-provide their sign-in credentials
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        currentUser.delete();
+
+                        Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
+
+//                        dialog.dismiss();
+                        logout();
+                    }
+                });
+    }
+
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         Intent loginPage = new Intent(context, MainActivity.class);
@@ -76,17 +110,19 @@ public class DeleteAccount {
                             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             // TODO: Add password validation logic here
 
+                            System.out.println(password);
+
                             // If password validation succeeds
-                            if (currentUser != null) {
-                                currentUser.delete().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getContext(), "Account has been deleted", Toast.LENGTH_SHORT).show();
-                                        logout();
-                                    } else {
-                                        Toast.makeText(getContext(), "Failed to delete account", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
+//                            if (currentUser != null) {
+//                                currentUser.delete().addOnCompleteListener(task -> {
+//                                    if (task.isSuccessful()) {
+//                                        Toast.makeText(getContext(), "Account has been deleted", Toast.LENGTH_SHORT).show();
+//                                        logout();
+//                                    } else {
+//                                        Toast.makeText(getContext(), "Failed to delete account", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                            }
                         }
                     });
 

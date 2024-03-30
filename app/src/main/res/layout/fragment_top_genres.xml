@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/toowe'ls"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/genre_gradient_list"
+    android:id="@+id/topGenreBackground"
+    tools:context=".TopGenresFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="40sp"
+            android:text="your top genres."
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="10"
+                android:id="@+id/genre1"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre1"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6913ff03"/>
+
+            <Space
+                android:layout_weight="90"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="20"
+                android:id="@+id/genre2"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre2"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6903ff9e"/>
+
+            <Space
+                android:layout_weight="80"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="25"
+                android:id="@+id/genre3"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre3"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6903cdff"/>
+
+            <Space
+                android:layout_weight="75"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="30"
+                android:id="@+id/genre4"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre4"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#69035fff"/>
+
+            <Space
+                android:layout_weight="70"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="35"
+                android:id="@+id/genre5"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre5"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#69030bff"/>
+
+            <Space
+                android:layout_weight="65"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

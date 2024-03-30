@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/toowe'ls"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/album_gradient_list"
+    android:id="@+id/topAlbumBackground"
+    tools:context=".TopAlbumsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        tools2:ignore="UselessParent">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="40sp"
+            android:text="your top albums."
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="1"/>
+
+            <ImageView
+                android:id="@+id/albumIV1"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                tools2:srcCompat="@color/spotifyGreen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/albumNameTV1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/albumArtistTV1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist Name"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="2"/>
+
+            <ImageView
+                android:id="@+id/albumIV2"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                tools2:srcCompat="@color/spotifyGreen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/albumNameTV2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/albumArtistTV2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist Name"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="3"/>
+
+            <ImageView
+                android:id="@+id/albumIV3"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                tools2:srcCompat="@color/spotifyGreen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/albumNameTV3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/albumArtistTV3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist Name"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="4"/>
+
+            <ImageView
+                android:id="@+id/albumIV4"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                tools2:srcCompat="@color/spotifyGreen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/albumNameTV4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/albumArtistTV4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist Name"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="5"/>
+
+            <ImageView
+                android:id="@+id/albumIV5"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                tools2:srcCompat="@color/spotifyGreen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/albumNameTV5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/albumArtistTV5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist Name"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

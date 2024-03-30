@@ -5,94 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/getSongsBTN"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:id="@+id/TokenTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/loginWhite"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"
-            android:text=""
-            android:textIsSelectable="true"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/TokenBTN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="@color/spotifyGreen"
-            android:text="Request Token" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:id="@+id/CodeTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/loginWhite"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"
-            android:text=""
-            android:textIsSelectable="true"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/ProfileBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
-        android:backgroundTint="@color/spotifyGreen"
-        android:text="Get User Profile"
-        app:layout_constraintBottom_toTopOf="@+id/DeleteAccountBTN"
-        tools:layout_editor_absoluteX="0dp" />
-
     <TextView
-        android:id="@+id/ProfileTV"
-        android:layout_width="match_parent"
+        android:id="@+id/settingsBack"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginBottom="44dp"
-        android:background="@color/loginWhite"
-        android:ellipsize="end"
-        android:maxLines="4"
-        android:lines="4"
-        android:text="\n \n \n"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/ProfileBTN"
+        android:clickable="true"
+        android:padding="10sp"
+        android:text="Back"
+        android:textColor="@color/spotifyGreen"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/getSongsBTN"
+        android:id="@+id/ChangePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="@color/spotifyGreen"
-        android:text="Request Songs"
-        app:layout_constraintBottom_toTopOf="@+id/ProfileTV"
-        tools:layout_editor_absoluteX="10dp" />
+        android:text="Change Password"
+        android:onClick="deleteAccount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-14dp" />
+
 
     <Button
         android:id="@+id/DeleteAccountBTN"
