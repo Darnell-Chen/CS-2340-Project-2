@@ -26,8 +26,8 @@ public class DashboardActivity extends AppCompatActivity {
         finish();
     }
 
-    public void openGames() {
-        startActivity(new Intent(DashboardActivity.this, InitialWrappedActivity.class));
+    public void openGames(View view) {
+        startActivity(new Intent(DashboardActivity.this, GamesActivity.class));
         finish();
     }
 

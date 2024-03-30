@@ -70,14 +70,34 @@ public class WrappedViewModel extends ViewModel {
 
     public ArrayList<String> getAudioList() {
         DataSnapshot topAudioSnapshot = dataResult.child("top audios");
-        HashMap<String, String> newList = (HashMap<String, String>) topAudioSnapshot.getValue();
+        int snapshotSize = (int) topAudioSnapshot.getChildrenCount();
 
         ArrayList<String> topAudioList = new ArrayList<>();
-        for (int i = 0; i < newList.size(); i++) {
-            topAudioList.add(newList.get("audio" + i));
+
+        for (int i = 0; (i < snapshotSize) && (i < 20); i++) {
+            DataSnapshot currSnapshot = topAudioSnapshot.child("audio" + i);
+            topAudioList.add((String) currSnapshot.child("url").getValue());
         }
 
-        System.out.println(topAudioList);
+        return topAudioList;
+    }
+
+    public ArrayList<Track> getGameTracks() {
+        DataSnapshot topAudioSnapshot = dataResult.child("top audios");
+        int snapshotSize = (int) topAudioSnapshot.getChildrenCount();
+
+        ArrayList<Track> topAudioList = new ArrayList<>();
+
+        for (int i = 0; i < snapshotSize; i++) {
+            DataSnapshot currSnapshot = topAudioSnapshot.child("audio" + i);
+
+            String audioURL = (String) currSnapshot.child("url").getValue();
+            String artistName = (String) currSnapshot.child("artist").getValue();
+            String songName = (String) currSnapshot.child("song").getValue();
+            Track currTrack = new Track(artistName, songName, audioURL);
+
+            topAudioList.add(currTrack);
+        }
         return topAudioList;
     }
 

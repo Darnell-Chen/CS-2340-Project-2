@@ -126,7 +126,7 @@ public class AuthTokenActivity extends AppCompatActivity {
                     int nextRequest = (int) viewmodel.getRequestRetrieved();
                     int nextRange = (int) viewmodel.getRangeRetrieved().getValue();
 
-                    if (nextRequest == requestType.length && nextRange == 0) {
+                    if (nextRequest >= requestType.length && nextRange == 0) {
                         startActivity(new Intent(AuthTokenActivity.this, DashboardActivity.class));
                         finish();
 

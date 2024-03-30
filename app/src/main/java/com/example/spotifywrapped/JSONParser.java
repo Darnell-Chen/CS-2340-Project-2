@@ -58,7 +58,7 @@ public class JSONParser {
                 ArrayList<Track> songList = (ArrayList<Track>) value;
                 String currSong = songList.get(i).getTrackName();
                 String currArtist = songList.get((i)).getArtistName();
-                String currImage = songList.get((i)).getImageURL();
+                String currImage = songList.get((i)).getURL();
 
                 currReference.child(key.concat(Integer.toString(i))).child("song").setValue(currSong);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
@@ -70,7 +70,7 @@ public class JSONParser {
                 ArrayList<Track> albumList = (ArrayList<Track>) value;
                 String currAlbum = albumList.get(i).getTrackName();
                 String currArtist = albumList.get((i)).getArtistName();
-                String currImage = albumList.get((i)).getImageURL();
+                String currImage = albumList.get((i)).getURL();
                 currReference.child(key.concat(Integer.toString(i))).child("album").setValue(currAlbum);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
@@ -83,9 +83,18 @@ public class JSONParser {
         }
         // TODO: Check
         else if (key.equals("audio")) {
-            for (int i = 0; i < value.size(); i++) {
-                String currPreviewURL = (String) value.get(i);
-                currReference.child(key.concat(Integer.toString(i))).setValue(currPreviewURL);
+            ArrayList<Track> trackList = (ArrayList<Track>) value;
+
+            for (int i = 0; i < trackList.size(); i++) {
+                DatabaseReference childReference = currReference.child(key.concat(Integer.toString(i)));
+
+                String audioURL = (String) trackList.get(i).getURL();
+                String artistName = (String) trackList.get(i).getArtistName();
+                String songName = (String) trackList.get(i).getTrackName();
+
+                childReference.child("url").setValue(audioURL);
+                childReference.child("artist").setValue(artistName);
+                childReference.child("song").setValue(songName);
             }
         }
 
@@ -164,18 +173,20 @@ public class JSONParser {
         storeList("album", topAlbumList, vm, range);
     }
 
-    // TODO: Check if works
     private static void parseAudio(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
-        ArrayList<String> trackURLs = new ArrayList<>();
+        ArrayList<Track> trackList = new ArrayList<>();
 
         for (int i = 0; i < jsonTracks.length(); i++) {
-            JSONObject currTrack = jsonTracks.getJSONObject(i);
-            String previewURL = currTrack.getString("preview_url");
-            trackURLs.add(previewURL);
+            JSONObject currTrackItem = jsonTracks.getJSONObject(i);
+            String songName = currTrackItem.getString("name");
+            String artistName = currTrackItem.getJSONArray("artists").getJSONObject(0).getString("name");
+            String previewURL = currTrackItem.getString("preview_url");
+            Track currTrack = new Track(artistName, songName, previewURL);
+            trackList.add(currTrack);
         }
-        storeList("audio", trackURLs, vm, range);
+        storeList("audio", trackList, vm, range);
     }
 
     public static void parseTopGenres(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {

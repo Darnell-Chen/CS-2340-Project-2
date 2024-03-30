@@ -79,8 +79,8 @@ public class TopAlbumsFragment extends Fragment {
             id = getResources().getIdentifier(albumIMG, "id", context.getPackageName());
             if (id != 0) {
                 ImageView imageView = (ImageView) view.findViewById(id);
-                System.out.println(topAlbumList.get(i - 1).getImageURL());
-                wrappedVM.transformImage(topAlbumList.get(i - 1).getImageURL()).into(imageView);
+                System.out.println(topAlbumList.get(i - 1).getURL());
+                wrappedVM.transformImage(topAlbumList.get(i - 1).getURL()).into(imageView);
             }
         }
     }

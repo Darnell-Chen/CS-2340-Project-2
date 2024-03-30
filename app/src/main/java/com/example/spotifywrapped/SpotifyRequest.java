@@ -65,7 +65,7 @@ public class SpotifyRequest {
                         JSONParser.parseTopArtist(jsonObject, vm, range);
                     } else if (requestType.equals("albums")){
                         JSONParser.parseTopAlbums(jsonObject, vm, range);
-                    } else {
+                    } else if (requestType.equals("genres")){
                         JSONParser.parseTopGenres(jsonObject, vm, range);
                     }
 
