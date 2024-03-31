@@ -155,10 +155,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        boolean isForwardNavigation = i > counter;
+        boolean transactionForward = i > counter;
 
-        int enterAnimation = isForwardNavigation ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
-        int exitAnimation = isForwardNavigation ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
+        int enterAnimation = transactionForward ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
+        int exitAnimation = transactionForward ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
 
 
         fragmentManager.beginTransaction()

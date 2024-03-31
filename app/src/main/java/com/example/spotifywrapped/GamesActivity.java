@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,12 +30,13 @@ public class GamesActivity extends AppCompatActivity {
     WrappedViewModel vm;
 
     // this is the fragment that holds our actual game
-    private GameSecondFragment gameFragment = new GameSecondFragment();;
+    private GameSecondFragment gameFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_games);
+        gameFragment = new GameSecondFragment();
 
         homeButton = findViewById(R.id.homeBTN);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -47,5 +49,14 @@ public class GamesActivity extends AppCompatActivity {
 
         vm = new ViewModelProvider(this).get(WrappedViewModel.class);
         vm.getFirebaseData("long_term");
+    }
+
+    public void switchFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.gameFragmentContainer, gameFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
