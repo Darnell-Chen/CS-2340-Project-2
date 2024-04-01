@@ -11,33 +11,21 @@
         android:layout_width="match_parent"
         android:id="@+id/constraintLayoutGame2">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/highScoreTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="High Score: 0"
+            android:textSize="25dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5" />
-
-            <TextView
-                android:id="@+id/highScoreTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right"
-                android:text="High Score: 0"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+            app:layout_constraintVertical_bias="0.031" />
 
         <LinearLayout
             android:id="@+id/linearLayout7"
@@ -79,6 +67,7 @@
             android:orientation="vertical"
             android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
@@ -89,13 +78,18 @@
                 android:paddingRight="25dp"
                 android:text="TextView"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <Button
                     android:id="@+id/choiceBTN1"
