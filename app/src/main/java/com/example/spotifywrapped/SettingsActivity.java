@@ -40,5 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void deleteAccount(View view) {
         DeleteAccount delete = new DeleteAccount(SettingsActivity.this);
+        delete.terminateAccount();
     }
 }

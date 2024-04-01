@@ -56,7 +56,7 @@ public class DeleteAccount {
         alert.show();
     }
 
-    private void reAuthenticate(String email, String password) {
+    public static void reAuthenticate(String email, String password, Context context) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
@@ -67,7 +67,7 @@ public class DeleteAccount {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // On successful re-authentication, proceed to delete the account
-                            deleteAccount();
+                            deleteAccount(context);
                         } else {
                             Toast.makeText(context, "Re-authentication failed", Toast.LENGTH_SHORT).show();
                         }
@@ -75,13 +75,13 @@ public class DeleteAccount {
         }
     }
 
-    private void deleteAccount() {
+    private static void deleteAccount(Context context) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             currentUser.delete().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
-                    logout();
+                    logout(context);
                 } else {
                     Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show();
                 }
@@ -89,7 +89,7 @@ public class DeleteAccount {
         }
     }
 
-    private void logout() {
+    private static void logout(Context context) {
         FirebaseAuth.getInstance().signOut();
         Intent loginPage = new Intent(context, MainActivity.class);
         loginPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -101,22 +101,6 @@ public class DeleteAccount {
 
     // DialogFragment for confirming account deletion with password
     public static class ConfirmDeleteDialogFragment extends DialogFragment {
-
-        public interface DeleteAccountListener {
-            void onConfirmDelete(String email, String password);
-        }
-
-        private DeleteAccountListener listener;
-
-        @Override
-        public void onAttach(@NonNull Context context) {
-            super.onAttach(context);
-            try {
-                listener = (DeleteAccountListener) context;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + " must implement DeleteAccountListener");
-            }
-        }
 
         @NonNull
         @Override
@@ -133,7 +117,7 @@ public class DeleteAccount {
                     .setPositiveButton("Confirm", (dialog, id) -> {
                         String email = emailInput.getText().toString();
                         String password = passwordInput.getText().toString();
-                        listener.onConfirmDelete(email, password);
+                        reAuthenticate(email, password, getContext());
                     });
 
             return builder.create();
