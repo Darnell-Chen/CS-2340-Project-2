@@ -30,6 +30,7 @@ public class WrappedViewModel extends ViewModel {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
         mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
