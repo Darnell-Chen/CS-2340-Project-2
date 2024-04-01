@@ -56,30 +56,37 @@ public class DeleteAccount {
         alert.show();
     }
 
-
-    private void reAuthenticate(String password) {
+    private void reAuthenticate(String email, String password) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Get auth credentials from the user for re-authentication. The example below shows
-        // email and password credentials but there are multiple possible providers,
-        // such as GoogleAuthProvider or FacebookAuthProvider.
-        AuthCredential credential = EmailAuthProvider
-                .getCredential("user@example.com", "password1234");
+        if (user != null) {
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
 
-        // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        currentUser.delete();
+            // Prompt the user to re-provide their sign-in credentials
+            user.reauthenticate(credential)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // On successful re-authentication, proceed to delete the account
+                            deleteAccount();
+                        } else {
+                            Toast.makeText(context, "Re-authentication failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
 
-                        Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
-
-//                        dialog.dismiss();
-                        logout();
-                    }
-                });
+    private void deleteAccount() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            currentUser.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
+                    logout();
+                } else {
+                    Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void logout() {
@@ -94,50 +101,42 @@ public class DeleteAccount {
 
     // DialogFragment for confirming account deletion with password
     public static class ConfirmDeleteDialogFragment extends DialogFragment {
+
+        public interface DeleteAccountListener {
+            void onConfirmDelete(String email, String password);
+        }
+
+        private DeleteAccountListener listener;
+
+        @Override
+        public void onAttach(@NonNull Context context) {
+            super.onAttach(context);
+            try {
+                listener = (DeleteAccountListener) context;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString() + " must implement DeleteAccountListener");
+            }
+        }
+
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_confirm_delete, null);
+
+            final EditText emailInput = view.findViewById(R.id.email);
             final EditText passwordInput = view.findViewById(R.id.password);
 
             builder.setView(view)
-                    .setTitle("Enter Password to Confirm Account Deletion")
-                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            String password = passwordInput.getText().toString();
-                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                            // TODO: Add password validation logic here
-
-                            System.out.println(password);
-
-                            // If password validation succeeds
-//                            if (currentUser != null) {
-//                                currentUser.delete().addOnCompleteListener(task -> {
-//                                    if (task.isSuccessful()) {
-//                                        Toast.makeText(getContext(), "Account has been deleted", Toast.LENGTH_SHORT).show();
-//                                        logout();
-//                                    } else {
-//                                        Toast.makeText(getContext(), "Failed to delete account", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                            }
-                        }
+                    .setTitle("Enter Credentials to Confirm Account Deletion")
+                    .setPositiveButton("Confirm", (dialog, id) -> {
+                        String email = emailInput.getText().toString();
+                        String password = passwordInput.getText().toString();
+                        listener.onConfirmDelete(email, password);
                     });
 
             return builder.create();
-        }
-
-        private void logout() {
-            FirebaseAuth.getInstance().signOut();
-            Activity activity = getActivity();
-            if (activity != null) {
-                Intent loginPage = new Intent(activity, MainActivity.class);
-                loginPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity.startActivity(loginPage);
-                activity.finish();
-            }
         }
     }
 }
