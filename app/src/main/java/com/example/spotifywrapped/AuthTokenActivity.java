@@ -126,7 +126,7 @@ public class AuthTokenActivity extends AppCompatActivity {
                     int nextRequest = (int) viewmodel.getRequestRetrieved();
                     int nextRange = (int) viewmodel.getRangeRetrieved().getValue();
 
-                    if (nextRequest >= (requestType.length - 1) && nextRange == 0) {
+                    if (nextRequest >= (requestType.length - 1) && nextRange >= 0) {
                         if (nextRange == 0) {
                             // grabs user profile
                             newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], rangeType[0], viewmodel);
