@@ -33,6 +33,8 @@ public class GameSecondFragment extends Fragment {
         // Required empty public constructor
     }
 
+    // STOP MUSIC WHEN HOME BUTTON PRESSED
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,12 @@ public class GameSecondFragment extends Fragment {
         songPool = new ArrayList<Track>();
         choices = new Track[4];
         getScreenItems(ourView);
+        resetScore();
         promptUser();
+    }
+
+    private void resetScore() {
+        currScore.setText("0");
     }
 
     private void getScreenItems(View view) {
@@ -154,7 +161,6 @@ public class GameSecondFragment extends Fragment {
             // TERMINATE GAME
             /* Pop up in the middle of the screen which tells the user that they lost, what their score was,
             and the high score they need to beat. */
-            // RESET SCORES
             beginGame();
         }
     }
