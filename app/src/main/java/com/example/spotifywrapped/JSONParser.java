@@ -220,4 +220,23 @@ public class JSONParser {
 
         storeList("genre", topGenreList, vm, range);
     }
+
+    public static void parseUserProfile(JSONObject jsonObject, AuthViewModel vm) throws JSONException {
+        //get display name
+        String userName = jsonObject.getString("display_name");
+        //get image
+        String userImage = jsonObject.getJSONArray("images").getJSONObject(0).getString("url");
+
+        System.out.println("username: " + userName);
+
+        //Store it to firebase
+        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child("profile");
+        currReference.child("name").setValue(userName);
+        currReference.child("image").setValue(userImage);
+
+        vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
+    }
 }
