@@ -148,12 +148,22 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         getSummaryImage();
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                        finish();
                     }})
-                .setNegativeButton("No",null).show();
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }).show();
         //getSummaryImage();
-        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-        startActivity(i);
-        finish();
+        //Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+        //startActivity(i);
+        //finish();
     }
 
     @Override
