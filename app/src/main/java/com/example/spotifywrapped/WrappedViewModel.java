@@ -28,11 +28,12 @@ public class WrappedViewModel extends ViewModel {
     private DataSnapshot dataResult;
     private GPTRequest gptRequest = new GPTRequest();
 
-    public void getFirebaseData() {
+    public void getFirebaseData(String range) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        mDatabase.child("Users").child(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -66,20 +67,40 @@ public class WrappedViewModel extends ViewModel {
         return image;
     }
 
-    private RequestCreator transformImage(String artistImg) {
+    public RequestCreator transformImage(String artistImg) {
         return Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
     }
 
     public ArrayList<String> getAudioList() {
         DataSnapshot topAudioSnapshot = dataResult.child("top audios");
-        HashMap<String, String> newList = (HashMap<String, String>) topAudioSnapshot.getValue();
+        int snapshotSize = (int) topAudioSnapshot.getChildrenCount();
 
         ArrayList<String> topAudioList = new ArrayList<>();
-        for (int i = 0; i < newList.size(); i++) {
-            topAudioList.add(newList.get("audio" + i));
+
+        for (int i = 0; (i < snapshotSize) && (i < 20); i++) {
+            DataSnapshot currSnapshot = topAudioSnapshot.child("audio" + i);
+            topAudioList.add((String) currSnapshot.child("url").getValue());
         }
 
-        System.out.println(topAudioList);
+        return topAudioList;
+    }
+
+    public ArrayList<Track> getGameTracks() {
+        DataSnapshot topAudioSnapshot = dataResult.child("top audios");
+        int snapshotSize = (int) topAudioSnapshot.getChildrenCount();
+
+        ArrayList<Track> topAudioList = new ArrayList<>();
+
+        for (int i = 0; i < snapshotSize; i++) {
+            DataSnapshot currSnapshot = topAudioSnapshot.child("audio" + i);
+
+            String audioURL = (String) currSnapshot.child("url").getValue();
+            String artistName = (String) currSnapshot.child("artist").getValue();
+            String songName = (String) currSnapshot.child("song").getValue();
+            Track currTrack = new Track(artistName, songName, audioURL);
+
+            topAudioList.add(currTrack);
+        }
         return topAudioList;
     }
 

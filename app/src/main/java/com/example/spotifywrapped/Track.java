@@ -1,18 +1,18 @@
 package com.example.spotifywrapped;
 
 public class Track {
-    private String imageURL;
+    private String itemURL;
     private String artistName;
     private String trackName;
 
-    Track (String artist, String album, String url) {
-        this.imageURL = url;
+    Track (String artist, String track, String url) {
+        this.itemURL = url;
         this.artistName = artist;
-        this.trackName = album;
+        this.trackName = track;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getURL() {
+        return itemURL;
     }
 
     public String getArtistName() {

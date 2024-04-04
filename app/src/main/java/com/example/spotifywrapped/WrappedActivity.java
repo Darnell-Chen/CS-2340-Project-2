@@ -35,8 +35,6 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
-    //private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
-
     private WrappedViewModel wrappedVM;
 
     private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
@@ -78,9 +76,11 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
 
+        Intent receiverIntent = getIntent();
+        String range = receiverIntent.getStringExtra("term");
 
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
-        wrappedVM.getFirebaseData();
+        wrappedVM.getFirebaseData(range);
 
         wrappedVM.getBool().observe(this, new Observer<Boolean>() {
             @Override
@@ -155,10 +155,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        boolean isForwardNavigation = i > counter;
+        boolean transactionForward = i > counter;
 
-        int enterAnimation = isForwardNavigation ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
-        int exitAnimation = isForwardNavigation ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
+        int enterAnimation = transactionForward ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
+        int exitAnimation = transactionForward ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
 
 
         fragmentManager.beginTransaction()

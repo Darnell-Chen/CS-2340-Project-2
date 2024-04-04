@@ -55,16 +55,16 @@ public class AuthTokenActivity extends AppCompatActivity {
         // will implement fade-in for button in final part of project
 //        connectButton.setAlpha(0);
 
+        tv = findViewById(R.id.TVAuthToken);
+        setText();
+        getFadeOutViewPropertyAnimator().start();
+
         connectButton.setOnClickListener((v) -> {
             AuthToken newAuth = new AuthToken();
             newAuth.getToken(this);
             tv.setText("loading...");
             getFadeInViewPropertyAnimator().start();
         });
-
-        tv = findViewById(R.id.TVAuthToken);
-        setText();
-        getFadeOutViewPropertyAnimator().start();
     }
 
     private ViewPropertyAnimator getFadeInViewPropertyAnimator(){
@@ -116,20 +116,22 @@ public class AuthTokenActivity extends AppCompatActivity {
             SpotifyRequest newRequest = new SpotifyRequest();
 
             String[] requestType = {"artists", "tracks", "albums", "genres"};
+            String[] rangeType = {"long_term", "medium_term", "short_term"};
 
-            newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[0], "long_term", viewmodel);
+            newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[0], rangeType[0], viewmodel);
 
-            viewmodel.getRetrieved().observe(this, new Observer<Integer>() {
+            viewmodel.getRangeRetrieved().observe(this, new Observer<Integer>() {
                 @Override
                 public void onChanged(Integer retrieved) {
-                    int nextRequest = (int) viewmodel.getRetrieved().getValue();
+                    int nextRequest = (int) viewmodel.getRequestRetrieved();
+                    int nextRange = (int) viewmodel.getRangeRetrieved().getValue();
 
-                    if (nextRequest == requestType.length) {
+                    if (nextRequest >= requestType.length && nextRange == 0) {
                         startActivity(new Intent(AuthTokenActivity.this, DashboardActivity.class));
                         finish();
 
                     } else {
-                        newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], "long_term", viewmodel);
+                        newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], rangeType[nextRange], viewmodel);
                     }
                 }
             });

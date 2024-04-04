@@ -1,8 +1,13 @@
 package com.example.spotifywrapped;
 
+
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,16 +22,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openWrapped(View view) {
-        startActivity(new Intent(DashboardActivity.this, WrappedActivity.class));
+        startActivity(new Intent(DashboardActivity.this, InitialWrappedActivity.class));
         finish();
     }
 
-    public void openDuo(View view) {
-        System.out.println("going to Duo");
-    }
-
-    public void openLLM(View view) {
-        startActivity(new Intent(DashboardActivity.this, GPTRequest.class));
+    public void openGames(View view) {
+        startActivity(new Intent(DashboardActivity.this, GamesActivity.class));
         finish();
     }
 

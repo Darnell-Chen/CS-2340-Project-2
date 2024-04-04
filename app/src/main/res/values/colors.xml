@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="spotifyGreen">#1DB954</color>
     <color name="loginWhite">#20808080</color>
+    <color name="gameButton">#40000000</color>
 </resources>

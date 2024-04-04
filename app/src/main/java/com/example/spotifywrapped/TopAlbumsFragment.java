@@ -55,5 +55,33 @@ public class TopAlbumsFragment extends Fragment {
 
     private void getData(View view) {
         ArrayList<Track> topAlbumList = wrappedVM.getTopAlbums();
+
+        Context context = getActivity();
+        for (int i = 1; i <= topAlbumList.size(); i++) {
+            String albumName = "albumNameTV" + i;
+            String artistName = "albumArtistTV" + i;
+            String albumIMG = "albumIV" + i;
+
+            System.out.println(topAlbumList.size());
+
+            int id = getResources().getIdentifier(albumName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topAlbumList.get(i - 1).getTrackName());
+            }
+
+            id = getResources().getIdentifier(artistName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topAlbumList.get(i - 1).getArtistName());
+            }
+
+            id = getResources().getIdentifier(albumIMG, "id", context.getPackageName());
+            if (id != 0) {
+                ImageView imageView = (ImageView) view.findViewById(id);
+                System.out.println(topAlbumList.get(i - 1).getURL());
+                wrappedVM.transformImage(topAlbumList.get(i - 1).getURL()).into(imageView);
+            }
+        }
     }
 }

@@ -3,101 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:foregroundTint="#00D31212">
+
+    <ImageButton
+        android:id="@+id/SettingsBTN"
+        android:layout_width="71dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="openSettings"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.631"
+        app:srcCompat="@drawable/settings_icon" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="68dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Space
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/WrappedButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/spotifyGreen"
+            android:onClick="openWrapped"
+            android:padding="10dp"
+            android:text="Your Wrapped"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/WrappedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="52dp"
-                android:backgroundTint="@color/spotifyGreen"
-                android:onClick="openWrapped"
-                android:padding="10dp"
-                android:text="Your Wrapped"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/DuoBTN"
-                tools:layout_editor_absoluteX="-16dp" />
+        <Button
+            android:id="@+id/GameBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/spotifyGreen"
+            android:padding="10dp"
+            android:text="Play Mini-Game"
+            android:onClick="openGames"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="0dp" />
 
-            <Button
-                android:id="@+id/DuoBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp"
-                android:backgroundTint="@color/spotifyGreen"
-                android:onClick="openDuo"
-                android:padding="10dp"
-                android:text="Get a Duo"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/LLMBTN"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <Button
-                android:id="@+id/LLMBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp"
-                android:backgroundTint="@color/spotifyGreen"
-                android:onClick="openLLM"
-                android:padding="10dp"
-                android:text="LLM"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/SettingsBTN"
-                tools:layout_editor_absoluteX="-16dp" />
-
-            <Button
-                android:id="@+id/SettingsBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="56dp"
-                android:backgroundTint="@color/spotifyGreen"
-                android:onClick="openSettings"
-                android:padding="10dp"
-                android:text="Settings"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/LogoutBTN"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <Button
-                android:id="@+id/LogoutBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="64dp"
-                android:backgroundTint="@color/spotifyGreen"
-                android:onClick="logout"
-                android:padding="10dp"
-                android:text="Logout"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/LogoutBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/spotifyGreen"
+            android:onClick="logout"
+            android:padding="10dp"
+            android:text="Logout"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="0dp" />
 
     </LinearLayout>
 
