@@ -26,7 +26,7 @@ import java.util.List;
 
 public class GamesActivity extends AppCompatActivity {
 
-    Button homeButton, startButton;
+    Button homeButton;
     WrappedViewModel vm;
 
     // this is the fragment that holds our actual game
