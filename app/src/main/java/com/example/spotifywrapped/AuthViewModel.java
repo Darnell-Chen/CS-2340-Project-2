@@ -8,6 +8,8 @@ public class AuthViewModel extends ViewModel {
 
     // keeps track of which spotify request is currently being retrieved
     private Integer requestRetrieved;
+
+    private Integer profileRetrieved;
     private MutableLiveData<Integer> rangeRetrieved;
 
     // this will define how many term ranges we have (short, medium, long)
@@ -46,4 +48,5 @@ public class AuthViewModel extends ViewModel {
     public int getMax_range() {
         return max_range;
     }
+
 }

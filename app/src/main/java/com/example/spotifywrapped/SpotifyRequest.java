@@ -67,6 +67,8 @@ public class SpotifyRequest {
                         JSONParser.parseTopAlbums(jsonObject, vm, range);
                     } else if (requestType.equals("genres")){
                         JSONParser.parseTopGenres(jsonObject, vm, range);
+                    } else if (requestType.equals("profile")) {
+                        JSONParser.parseUserProfile(jsonObject, vm);
                     }
 
                 } catch (JSONException e) {
@@ -109,7 +111,11 @@ public class SpotifyRequest {
 
         base = base.concat(limit);
 
-        System.out.println(base);
+        //return the api link. Tells link to retrieve profile
+        if (requestType.equals("profile")) {
+            System.out.println("returning profile base");
+            return "https://api.spotify.com/v1/me";
+        }
 
         return base;
     }
