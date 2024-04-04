@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,7 +13,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -138,7 +141,16 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     @Override
     public void onComplete() {
-        getSummaryImage();
+        new AlertDialog.Builder(this)
+                .setMessage("Would you like to export an image file of your wrapped summary?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        getSummaryImage();
+                    }})
+                .setNegativeButton("No",null).show();
+        //getSummaryImage();
         Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();
