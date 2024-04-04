@@ -225,7 +225,18 @@ public class JSONParser {
         //get display name
         String userName = jsonObject.getString("display_name");
         //get image
-        String userImage = jsonObject.getJSONArray("images").getJSONObject(0).getString("url");
+
+        JSONArray userImageRef = jsonObject.getJSONArray("images");
+
+        String userImage = "https://i1.sndcdn.com/artworks-kzdRRliuzKhhsTvk-Vx9EJg-t500x500.jpg";
+
+        int imgArraySize = userImageRef.length();
+
+        if (imgArraySize > 0) {
+            userImage = userImageRef.getJSONObject(imgArraySize - 1).getString("url");
+        }
+
+        System.out.println(imgArraySize);
 
         System.out.println("username: " + userName);
 
