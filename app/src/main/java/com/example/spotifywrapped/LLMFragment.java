@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -13,12 +14,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class LLMFragment extends Fragment {
 
     WrappedViewModel wrappedVM;
+    String GPTResponse;
     public LLMFragment() {
-        // Required empty public constructor
     }
     public static LLMFragment newInstance() {
         LLMFragment fragment = new LLMFragment();
@@ -28,22 +30,6 @@ public class LLMFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
-
-        new Thread(() -> {
-            try {
-                String response = wrappedVM.getGPTResponse();
-
-                if (isAdded()) {
-                    getActivity().runOnUiThread(() -> {
-                        // Now safe to update UI
-                        System.out.println(response);
-                    });
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
 
@@ -59,11 +45,47 @@ public class LLMFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         FrameLayout background = getView().findViewById(R.id.llmBackground);
 
+        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
+
+        wrappedVM.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (wrappedVM.getFragmentDataRecieved("LLM")) {
+                    GPTResponse = wrappedVM.getLLMString();
+                    startFragment();
+                } else {
+                    sendGPTRequest();
+                }
+            }
+        });
+
         AnimationDrawable animDrawable = (AnimationDrawable) background.getBackground();
         animDrawable.setEnterFadeDuration(2000);
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
+    }
 
+    public void sendGPTRequest() {
+        new Thread(() -> {
+            try {
+                String response = wrappedVM.getGPTResponse();
 
+                if (isAdded()) {
+                    getActivity().runOnUiThread(() -> {
+                        // Now safe to update UI
+                        wrappedVM.setFragmentDataRecieved("LLM", true);
+                        wrappedVM.setLLMString(response);
+                        GPTResponse = response;
+                        startFragment();
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void startFragment() {
+        System.out.println(GPTResponse);
     }
 }

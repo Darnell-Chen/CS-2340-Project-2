@@ -28,6 +28,11 @@ public class WrappedViewModel extends ViewModel {
     private DataSnapshot dataResult;
     private GPTRequest gptRequest = new GPTRequest();
 
+    // used to keep track if a fragment should call for an item again
+    private HashMap<String, Boolean> fragmentDataRecieved = new HashMap<>();
+
+    private String LLMString;
+
     public void getFirebaseData(String range) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -149,5 +154,21 @@ public class WrappedViewModel extends ViewModel {
 
     public LiveData<Boolean> getBool() {
         return dataReceived;
+    }
+
+    public Boolean getFragmentDataRecieved(String key) {
+        return fragmentDataRecieved.getOrDefault(key, false);
+    }
+
+    public void setFragmentDataRecieved(String key, Boolean value) {
+        fragmentDataRecieved.put(key, value);
+    }
+
+    public String getLLMString() {
+        return LLMString;
+    }
+
+    public void setLLMString(String LLMString) {
+        this.LLMString = LLMString;
     }
 }

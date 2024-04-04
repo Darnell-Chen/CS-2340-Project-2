@@ -101,10 +101,11 @@ public class JSONParser {
         // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
         if (!key.equals("audio") && (vm.getRangeRetrieved().getValue() < vm.getMax_range())) {
             if (vm.getRangeRetrieved().getValue() == vm.getMax_range() - 1) {
-                vm.postRangeRetrieved(0);
-
                 // setRequestRetrieved() automatically adds by one
                 vm.setRequestRetrieved(vm.getRequestRetrieved());
+
+                // might want to have this second in case the program decides to race async threads
+                vm.postRangeRetrieved(0);
             } else {
                 vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
             }

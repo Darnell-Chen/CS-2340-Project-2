@@ -87,6 +87,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             public void onChanged(Boolean aBoolean) {
                 audioList = wrappedVM.getAudioList();
                 playAudio();
+
             }
         });
 
@@ -220,5 +221,4 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             mediaPlayer = null;
         }
     }
-
 }
