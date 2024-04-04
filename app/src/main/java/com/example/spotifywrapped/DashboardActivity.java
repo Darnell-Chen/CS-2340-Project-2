@@ -62,6 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
         RequestCreator image = transformImage(userImage);
 
         image.into(profileImg);
+
     }
 
     public RequestCreator transformImage(String artistImg) {
