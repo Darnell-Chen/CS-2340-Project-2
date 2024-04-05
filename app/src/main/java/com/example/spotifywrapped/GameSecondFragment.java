@@ -15,16 +15,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GameSecondFragment extends Fragment {
 
     private WrappedViewModel vm;
-    private ArrayList<Track> songList;
-    private ArrayList<Track> songPool;
+    private ArrayList<Track> songList, songPool;
     private TextView currScore, highScore, prompt;
-    private Button option1, option2, option3, option4;
+    private Button option1, option2, option3, option4, homeButton;
     private Track correctChoice;
     private Track[] choices;
     private MediaPlayer mediaPlayer;
@@ -32,8 +32,6 @@ public class GameSecondFragment extends Fragment {
     public GameSecondFragment() {
         // Required empty public constructor
     }
-
-    // STOP MUSIC WHEN HOME BUTTON PRESSED
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +79,14 @@ public class GameSecondFragment extends Fragment {
         option2 = view.findViewById(R.id.choiceBTN2);
         option3 = view.findViewById(R.id.choiceBTN3);
         option4 = view.findViewById(R.id.choiceBTN4);
+        homeButton = getActivity().findViewById(R.id.homeBTN);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                releaseMediaPlayer();
+            }
+        });
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +174,12 @@ public class GameSecondFragment extends Fragment {
     private Track selectTrack(ArrayList<Track> pool) {
         Random rand = new Random();
         int sel = rand.nextInt(pool.size());
-        return pool.remove(sel);
+        Track currTrack = pool.get(sel);
+        pool.remove(sel);
+
+        // we can't return pool.remove(sel) - likely b/c it doesnt process immediately
+        // causing overlap in choices
+        return currTrack;
     }
 
     private void resetPool() {
@@ -182,6 +193,7 @@ public class GameSecondFragment extends Fragment {
 
         // initializing media player
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setLooping(true);
 
         // below line is use to set the audio
         // stream type for our media player.
