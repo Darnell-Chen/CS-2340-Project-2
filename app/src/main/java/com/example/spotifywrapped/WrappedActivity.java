@@ -317,5 +317,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         String base64ImageData = Base64.encodeToString(imageData, Base64.DEFAULT);
 
         currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(base64ImageData);
+
     }
 }
