@@ -15,9 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -36,11 +38,11 @@ import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
-    //private final String[] storyText = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5", "Screen 6"};
-
     private WrappedViewModel wrappedVM;
 
-    private List<Class<? extends Fragment>> fragments;
+    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
+            TopGenresFragment.class, TopAlbumsFragment.class,
+            SummaryFragment.class, LLMFragment.class);
 
     private int numPages;
 
@@ -48,6 +50,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     long limit = 500L;
 
     private StoriesProgressView storiesProgressView;
+    private ArrayList<String> audioList;
+    private MediaPlayer mediaPlayer;
     private int counter = 0;
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -75,13 +79,20 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.wrapped_layout);
 
+        Intent receiverIntent = getIntent();
+        String range = receiverIntent.getStringExtra("term");
 
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
-        wrappedVM.getFirebaseData();
+        wrappedVM.getFirebaseData(range);
 
-        fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
-                TopGenresFragment.class, TopAlbumsFragment.class,
-                SummaryFragment.class, LLMFragment.class);
+        wrappedVM.getBool().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                audioList = wrappedVM.getAudioList();
+                playAudio();
+
+            }
+        });
 
         numPages = fragments.size();
 
@@ -92,7 +103,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         storiesProgressView.startStories(counter);
 
         View reverse = findViewById(R.id.reverse);
-
 
         reverse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +126,18 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     public void onNext() {
         if (counter < numPages) {
-            counter++;
-            getCorrectFragment(counter);
+            int next = counter + 1;
+            getCorrectFragment(next);
+            if (audioList != null) {
+                if (mediaPlayer == null) {
+                    mediaPlayer = new MediaPlayer();
+                }
+                playAudio();
+            }
         } else {
+            if (mediaPlayer != null) {
+                releaseMediaPlayer();
+            }
             this.onComplete();
         }
     }
@@ -126,17 +145,61 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     @Override
     public void onPrev() {
         if ((counter - 1) < 0) return;
-        --counter;
-        getCorrectFragment(counter);
+        int prev = counter - 1;
+        getCorrectFragment(prev);
+
+        if (audioList != null) {
+            if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+            }
+            playAudio();
+        }
     }
 
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        boolean transactionForward = i > counter;
+
+        int enterAnimation = transactionForward ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
+        int exitAnimation = transactionForward ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
+
+
         fragmentManager.beginTransaction()
+                .setCustomAnimations( enterAnimation, exitAnimation)
                 .replace(R.id.fragmentContainerView, fragments.get(i), null)
                 .setReorderingAllowed(true)
                 .addToBackStack("name") // Name can be null
                 .commit();
+
+        counter = i;
+    }
+
+    private void playAudio() {
+
+        releaseMediaPlayer();
+
+        String audioUrl = audioList.get(counter);
+
+        // initializing media player
+        mediaPlayer = new MediaPlayer();
+
+        // below line is use to set the audio
+        // stream type for our media player.
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        // below line is use to set our
+        // url to our media player.
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            // below line is use to prepare
+            // and start our media player.
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -161,15 +224,22 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                     }
                 }).show();
         //getSummaryImage();
-        //Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-        //startActivity(i);
-        //finish();
     }
 
     @Override
     protected void onDestroy() {
         storiesProgressView.destroy();
+        releaseMediaPlayer();
         super.onDestroy();
+    }
+
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     public void getSummaryImage() {

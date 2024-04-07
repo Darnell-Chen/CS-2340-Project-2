@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class JSONParser {
-    public static void parseTopArtist(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    public static void parseTopArtist(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
 
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
@@ -30,18 +30,18 @@ public class JSONParser {
             artistList.add(currArtist.getString("name"));
             artistList.add(currArtist.getJSONArray("images").getJSONObject(0).getString("url"));
         }
-        storeList("artist", artistList, vm);
+        storeList("artist", artistList, vm, range);
     }
 
 
 
-    private static void storeList(String key, ArrayList<?> value, AuthViewModel vm) {
+    private static void storeList(String key, ArrayList<?> value, AuthViewModel vm, String range) {
         DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         String newChild = "top ".concat(key).concat("s");
 
-        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child(newChild);
+        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child(range).child(newChild);
 
         if (key.equals("artist")) {
             for (int i = 0; i < value.size()/2; i++) {
@@ -52,12 +52,13 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
             }
 
+
         } else if (key.equals("song")){
             for (int i = 0; i < value.size()/2; i++) {
                 ArrayList<Track> songList = (ArrayList<Track>) value;
                 String currSong = songList.get(i).getTrackName();
                 String currArtist = songList.get((i)).getArtistName();
-                String currImage = songList.get((i)).getImageURL();
+                String currImage = songList.get((i)).getURL();
 
                 currReference.child(key.concat(Integer.toString(i))).child("song").setValue(currSong);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
@@ -69,7 +70,7 @@ public class JSONParser {
                 ArrayList<Track> albumList = (ArrayList<Track>) value;
                 String currAlbum = albumList.get(i).getTrackName();
                 String currArtist = albumList.get((i)).getArtistName();
-                String currImage = albumList.get((i)).getImageURL();
+                String currImage = albumList.get((i)).getURL();
                 currReference.child(key.concat(Integer.toString(i))).child("album").setValue(currAlbum);
                 currReference.child(key.concat(Integer.toString(i))).child("artist").setValue(currArtist);
                 currReference.child(key.concat(Integer.toString(i))).child("url").setValue(currImage);
@@ -80,13 +81,40 @@ public class JSONParser {
                 currReference.child(key.concat(Integer.toString(i))).setValue(currGenre);
             }
         }
+        // TODO: Check
+        else if (key.equals("audio")) {
+            ArrayList<Track> trackList = (ArrayList<Track>) value;
 
-        vm.setRetrieved(vm.getRetrieved().getValue());
+            for (int i = 0; i < trackList.size(); i++) {
+                DatabaseReference childReference = currReference.child(key.concat(Integer.toString(i)));
+
+                String audioURL = (String) trackList.get(i).getURL();
+                String artistName = (String) trackList.get(i).getArtistName();
+                String songName = (String) trackList.get(i).getTrackName();
+
+                childReference.child("url").setValue(audioURL);
+                childReference.child("artist").setValue(artistName);
+                childReference.child("song").setValue(songName);
+            }
+        }
+
+        // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
+        if (!key.equals("audio") && (vm.getRangeRetrieved().getValue() < vm.getMax_range())) {
+            if (vm.getRangeRetrieved().getValue() == vm.getMax_range() - 1) {
+                // setRequestRetrieved() automatically adds by one
+                vm.setRequestRetrieved(vm.getRequestRetrieved());
+
+                // might want to have this second in case the program decides to race async threads
+                vm.postRangeRetrieved(0);
+            } else {
+                vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
+            }
+        }
     }
 
 
 
-    public static void parseTopSongs(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    public static void parseTopSongs(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
 
         // all tracks are held in an array under the key "items"
         JSONArray jsonSongs = jObject.getJSONArray("items");
@@ -105,10 +133,12 @@ public class JSONParser {
             songList.add(newSong);
         }
 
-        storeList("song", songList, vm);
+        storeList("song", songList, vm, range);
     }
 
-    public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm) throws JSONException{
+    public static void parseTopAlbums(JSONObject jObject, AuthViewModel vm, String range) throws JSONException{
+
+        parseAudio(jObject, vm, range);
 
         JSONArray jsonTracks = jObject.getJSONArray("items");
 
@@ -141,10 +171,26 @@ public class JSONParser {
             count++;
         }
 
-        storeList("album", topAlbumList, vm);
+        storeList("album", topAlbumList, vm, range);
     }
 
-    public static void parseTopGenres(JSONObject jObject, AuthViewModel vm) throws JSONException {
+    private static void parseAudio(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
+        JSONArray jsonTracks = jObject.getJSONArray("items");
+
+        ArrayList<Track> trackList = new ArrayList<>();
+
+        for (int i = 0; i < jsonTracks.length(); i++) {
+            JSONObject currTrackItem = jsonTracks.getJSONObject(i);
+            String songName = currTrackItem.getString("name");
+            String artistName = currTrackItem.getJSONArray("artists").getJSONObject(0).getString("name");
+            String previewURL = currTrackItem.getString("preview_url");
+            Track currTrack = new Track(artistName, songName, previewURL);
+            trackList.add(currTrack);
+        }
+        storeList("audio", trackList, vm, range);
+    }
+
+    public static void parseTopGenres(JSONObject jObject, AuthViewModel vm, String range) throws JSONException {
         JSONArray jsonArtists = jObject.getJSONArray("items");
 
         HashMap<String, Integer> genreMap = new HashMap<>();
@@ -173,6 +219,25 @@ public class JSONParser {
             count++;
         }
 
-        storeList("genre", topGenreList, vm);
+        storeList("genre", topGenreList, vm, range);
+    }
+
+    public static void parseUserProfile(JSONObject jsonObject, AuthViewModel vm) throws JSONException {
+        //get display name
+        String userName = jsonObject.getString("display_name");
+        //get image
+        String userImage = jsonObject.getJSONArray("images").getJSONObject(0).getString("url");
+
+        System.out.println("username: " + userName);
+
+        //Store it to firebase
+        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child("profile");
+        currReference.child("name").setValue(userName);
+        currReference.child("image").setValue(userImage);
+
+        vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
     }
 }

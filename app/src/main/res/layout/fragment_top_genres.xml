@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/toowe'ls"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/genre_gradient_list"
@@ -9,195 +10,185 @@
     tools:context=".TopGenresFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="20">
 
-        <ImageView
-            android:id="@+id/spotifyImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="88dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="40sp"
+            android:text="your top genres."
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:orientation="vertical"
-            android:padding="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/spotifyImage"
-            tools:layout_editor_absoluteX="0dp">
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <LinearLayout
-                android:id="@+id/linearLayout234"
+            <TextView
+                android:layout_weight="10"
+                android:id="@+id/genre1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre1"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6913ff03"/>
 
-                <TextView
-                    android:id="@+id/topGenreLabel"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Top Genres"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <Space
+                android:layout_weight="90"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
-
-                <TextView
-                    android:id="@+id/genre1TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 1"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/genre6TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 6"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
-
-                <TextView
-                    android:id="@+id/genre2TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 2"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/genre7TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:text="Genre 7"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
-
-                <TextView
-                    android:id="@+id/genre3TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 3"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/genre8TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 8"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
-
-                <TextView
-                    android:id="@+id/genre4TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 4"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/genre9TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 9"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="337dp">
-
-                <TextView
-                    android:id="@+id/genre5TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 5"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/genre10TV"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:text="Genre 10"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="20"
+                android:id="@+id/genre2"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre2"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6903ff9e"/>
+
+            <Space
+                android:layout_weight="80"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="25"
+                android:id="@+id/genre3"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre3"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#6903cdff"/>
+
+            <Space
+                android:layout_weight="75"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="30"
+                android:id="@+id/genre4"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre4"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#69035fff"/>
+
+            <Space
+                android:layout_weight="70"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_weight="35"
+                android:id="@+id/genre5"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/genre_circle_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Genre5"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:backgroundTint="#69030bff"/>
+
+            <Space
+                android:layout_weight="65"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

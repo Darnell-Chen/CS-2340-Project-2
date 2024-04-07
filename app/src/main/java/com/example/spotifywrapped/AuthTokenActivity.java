@@ -2,12 +2,15 @@ package com.example.spotifywrapped;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class AuthTokenActivity extends AppCompatActivity {
@@ -51,16 +55,16 @@ public class AuthTokenActivity extends AppCompatActivity {
         // will implement fade-in for button in final part of project
 //        connectButton.setAlpha(0);
 
+        tv = findViewById(R.id.TVAuthToken);
+        setText();
+        getFadeOutViewPropertyAnimator().start();
+
         connectButton.setOnClickListener((v) -> {
             AuthToken newAuth = new AuthToken();
             newAuth.getToken(this);
             tv.setText("loading...");
             getFadeInViewPropertyAnimator().start();
         });
-
-        tv = findViewById(R.id.TVAuthToken);
-        setText();
-        getFadeOutViewPropertyAnimator().start();
     }
 
     private ViewPropertyAnimator getFadeInViewPropertyAnimator(){
@@ -111,21 +115,28 @@ public class AuthTokenActivity extends AppCompatActivity {
             System.out.println(mAccessToken);
             SpotifyRequest newRequest = new SpotifyRequest();
 
-            String[] requestType = {"artists", "tracks", "albums", "genres"};
+            String[] requestType = {"artists", "tracks", "albums", "genres", "profile"};
+            String[] rangeType = {"long_term", "medium_term", "short_term"};
 
-            newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[0], "long_term", viewmodel);
+            newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[0], rangeType[0], viewmodel);
 
-            viewmodel.getRetrieved().observe(this, new Observer<Integer>() {
+            viewmodel.getRangeRetrieved().observe(this, new Observer<Integer>() {
                 @Override
                 public void onChanged(Integer retrieved) {
-                    int nextRequest = (int) viewmodel.getRetrieved().getValue();
+                    int nextRequest = (int) viewmodel.getRequestRetrieved();
+                    int nextRange = (int) viewmodel.getRangeRetrieved().getValue();
 
-                    if (nextRequest == requestType.length) {
-                        startActivity(new Intent(AuthTokenActivity.this, DashboardActivity.class));
-                        finish();
+                    if (nextRequest >= (requestType.length - 1) && nextRange >= 0) {
+                        if (nextRange == 0) {
+                            // grabs user profile
+                            newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], rangeType[0], viewmodel);
+                        } else {
+                            startActivity(new Intent(AuthTokenActivity.this, DashboardActivity.class));
+                            finish();
+                        }
 
                     } else {
-                        newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], "long_term", viewmodel);
+                        newRequest.getUserTop(AuthTokenActivity.this, mAccessToken, requestType[nextRequest], rangeType[nextRange], viewmodel);
                     }
                 }
             });

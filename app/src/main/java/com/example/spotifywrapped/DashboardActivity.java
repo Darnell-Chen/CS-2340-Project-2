@@ -22,16 +22,13 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openWrapped(View view) {
-        startActivity(new Intent(DashboardActivity.this, WrappedActivity.class));
+        startActivity(new Intent(DashboardActivity.this, InitialWrappedActivity.class));
         finish();
     }
 
-    public void openDuo(View view) {
-        System.out.println("going to Duo");
-    }
-
-    public void openLLM(View view) {
-        System.out.println("going to LLM");
+    public void openGames(View view) {
+        startActivity(new Intent(DashboardActivity.this, GamesActivity.class));
+        finish();
     }
 
     public void openSettings(View view) {

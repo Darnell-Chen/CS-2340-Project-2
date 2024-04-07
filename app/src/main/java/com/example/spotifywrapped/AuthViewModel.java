@@ -7,21 +7,46 @@ import androidx.lifecycle.ViewModel;
 public class AuthViewModel extends ViewModel {
 
     // keeps track of which spotify request is currently being retrieved
-    private MutableLiveData<Integer> retrieved;
+    private Integer requestRetrieved;
+
+    private Integer profileRetrieved;
+    private MutableLiveData<Integer> rangeRetrieved;
+
+    // this will define how many term ranges we have (short, medium, long)
+    private final int max_range = 3;
 
     public AuthViewModel() {
-        retrieved = new MutableLiveData<>();
-        retrieved.setValue(0);
+        requestRetrieved = 0;
+
+        rangeRetrieved = new MutableLiveData<>();
+        rangeRetrieved.setValue(0);
     }
-    public LiveData<Integer> getRetrieved() {
-        Integer value = retrieved.getValue();
-        if (value == null) {
-            value = 0;
+    public Integer getRequestRetrieved() {
+        if (requestRetrieved == null) {
+            requestRetrieved = 0;
         }
-        return retrieved;
+        return requestRetrieved;
     }
 
-    public void setRetrieved(Integer retrievedValue) {
-        this.retrieved.postValue(++retrievedValue);
+    public void setRequestRetrieved(Integer retrievedValue) {
+        this.requestRetrieved = ++retrievedValue;
     }
+
+    public MutableLiveData<Integer> getRangeRetrieved() {
+        if (rangeRetrieved == null) {
+            rangeRetrieved = new MutableLiveData<>();
+            rangeRetrieved.setValue(0);
+        }
+
+        return rangeRetrieved;
+    }
+
+    public void postRangeRetrieved(int retrievedValue) {
+        this.rangeRetrieved.postValue(retrievedValue);
+    }
+
+    public int getMax_range() {
+        return max_range;
+    }
+
 }

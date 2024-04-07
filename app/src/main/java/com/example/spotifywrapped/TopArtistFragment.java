@@ -69,6 +69,8 @@ public class TopArtistFragment extends Fragment {
                 getData(view);
             }
         });
+
+        System.out.println("hello again from top artist fragment");
     }
 
     public void getData(View view) {

@@ -51,8 +51,6 @@ public class SpotifyRequest {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d("HTTP", "Failed to fetch data: " + e);
-//                Toast.makeText(currActivity, "Failed to fetch data, watch Logcat for more details",
-//                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -62,13 +60,15 @@ public class SpotifyRequest {
 
                     // parses the JSON response
                     if (requestType.equals("tracks")) {
-                        JSONParser.parseTopSongs(jsonObject, vm);
+                        JSONParser.parseTopSongs(jsonObject, vm, range);
                     } else if (requestType.equals("artists")){
-                        JSONParser.parseTopArtist(jsonObject, vm);
+                        JSONParser.parseTopArtist(jsonObject, vm, range);
                     } else if (requestType.equals("albums")){
-                        JSONParser.parseTopAlbums(jsonObject, vm);
-                    } else {
-                        JSONParser.parseTopGenres(jsonObject, vm);
+                        JSONParser.parseTopAlbums(jsonObject, vm, range);
+                    } else if (requestType.equals("genres")){
+                        JSONParser.parseTopGenres(jsonObject, vm, range);
+                    } else if (requestType.equals("profile")) {
+                        JSONParser.parseUserProfile(jsonObject, vm);
                     }
 
                 } catch (JSONException e) {
@@ -110,6 +110,12 @@ public class SpotifyRequest {
         }
 
         base = base.concat(limit);
+
+        //return the api link. Tells link to retrieve profile
+        if (requestType.equals("profile")) {
+            System.out.println("returning profile base");
+            return "https://api.spotify.com/v1/me";
+        }
 
         return base;
     }
