@@ -85,6 +85,12 @@ public class SummaryFragment extends Fragment {
         exportImage(view);
     }
 
+    private View createFragmentView() {
+        // Inflate the fragment's layout programmatically
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        return inflater.inflate(R.layout.fragment_summary, null, false);
+    }
+
     public void exportImage(View view) {
         FrameLayout summaryBackground = view.findViewById(R.id.summaryBackground);
         summaryBackground.post(new Runnable() {

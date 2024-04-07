@@ -29,10 +29,10 @@ public class WrappedViewModel extends ViewModel {
     private DataSnapshot dataResult;
     private GPTRequest gptRequest = new GPTRequest();
 
-    private ArrayList<Bitmap> screenshotList = new ArrayList<>();
-
     // used to keep track if a fragment should call for an item again
     private HashMap<String, Boolean> fragmentDataRecieved = new HashMap<>();
+
+    private ArrayList<Bitmap> screenshotList = new ArrayList<>();
 
     private String LLMString;
 
@@ -178,7 +178,6 @@ public class WrappedViewModel extends ViewModel {
     public void addImage(Bitmap bitmap) {
         screenshotList.add(bitmap);
     }
-
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
     }
