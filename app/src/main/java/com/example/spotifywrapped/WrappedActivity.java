@@ -207,6 +207,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         new AlertDialog.Builder(this)
                 .setMessage("Would you like to export an image file of your wrapped summary?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         getSummaryImage();
