@@ -21,6 +21,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,11 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -202,29 +208,71 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         }
     }
 
+
     @Override
     public void onComplete() {
+
         new AlertDialog.Builder(this)
                 .setMessage("Would you like to export an image file of your wrapped summary?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        getSummaryImage();
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
-                    }})
+                        getSummaryImage(true);
+                        new AlertDialog.Builder(WrappedActivity.this)
+                                .setMessage("Would you like to save your wrapped summary to be viewed later?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        storeBitmap(getSummaryImage(false));
+                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                }).show();
+                    }
+                })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
+                        new AlertDialog.Builder(WrappedActivity.this)
+                                .setMessage("Would you like to save your wrapped summary to be viewed later?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        storeBitmap(getSummaryImage(false));
+                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                }).show();
                     }
                 }).show();
+
         //getSummaryImage();
+        //Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+        //startActivity(i);
+        //finish();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -242,14 +290,32 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         }
     }
 
-    public void getSummaryImage() {
+    public Bitmap getSummaryImage(boolean export) {
         Bitmap summaryImage = wrappedVM.getScreenshots().get(0);
-        boolean exported = ImageExporter.saveBitmapToGallery(this, summaryImage,
-                "summary_image", "Image exported from layout");
-        if (exported) {
-            Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
+        if (export) {
+            boolean exported = ImageExporter.saveBitmapToGallery(this, summaryImage,
+                    "summary_image", "Image exported from layout");
+            if (exported) {
+                Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
+            }
         }
+        return summaryImage;
+    }
+
+    private static void storeBitmap(Bitmap bitmap) {
+        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference currReference
+                = fbDatabase.child("Users").child(auth.getUid().toString()).child("Summaries");
+
+        ByteArrayOutputStream imageStore = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageStore);
+        byte[] imageData = imageStore.toByteArray();
+
+        String base64ImageData = Base64.encodeToString(imageData, Base64.DEFAULT);
+
+        currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(base64ImageData);
     }
 }
