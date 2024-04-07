@@ -2,6 +2,7 @@ package com.example.spotifywrapped;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class WrappedViewModel extends ViewModel {
 
     // used to keep track if a fragment should call for an item again
     private HashMap<String, Boolean> fragmentDataRecieved = new HashMap<>();
+
+    private ArrayList<Bitmap> screenshotList = new ArrayList<>();
 
     private String LLMString;
 
@@ -170,5 +173,12 @@ public class WrappedViewModel extends ViewModel {
 
     public void setLLMString(String LLMString) {
         this.LLMString = LLMString;
+    }
+
+    public void addImage(Bitmap bitmap) {
+        screenshotList.add(bitmap);
+    }
+    public ArrayList<Bitmap> getScreenshots() {
+        return screenshotList;
     }
 }

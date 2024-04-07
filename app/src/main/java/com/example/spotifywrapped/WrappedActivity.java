@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,7 +13,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -201,10 +204,31 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     @Override
     public void onComplete() {
-        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-        startActivity(i);
-        finish();
+        new AlertDialog.Builder(this)
+                .setMessage("Would you like to export an image file of your wrapped summary?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        getSummaryImage();
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                            finish();
+                    }
+                }).show();
+            //getSummaryImage();
+            //Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+            //startActivity(i);
+            //finish();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -219,6 +243,17 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+    }
+
+    public void getSummaryImage() {
+        Bitmap summaryImage = wrappedVM.getScreenshots().get(0);
+        boolean exported = ImageExporter.saveBitmapToGallery(this, summaryImage,
+                "summary_image", "Image exported from layout");
+        if (exported) {
+            Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
         }
     }
 }
