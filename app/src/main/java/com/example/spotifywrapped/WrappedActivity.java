@@ -88,6 +88,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         Intent receiverIntent = getIntent();
         String range = receiverIntent.getStringExtra("term");
 
+
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData(range);
 
@@ -219,58 +220,38 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         getSummaryImage(true);
-                        new AlertDialog.Builder(WrappedActivity.this)
-                                .setMessage("Would you like to save your wrapped summary to be viewed later?")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setCancelable(false)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        storeBitmap(getSummaryImage(false));
-                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                }).show();
+                        showSecondDialog();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new AlertDialog.Builder(WrappedActivity.this)
-                                .setMessage("Would you like to save your wrapped summary to be viewed later?")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setCancelable(false)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        storeBitmap(getSummaryImage(false));
-                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                }).show();
+                        showSecondDialog();
                     }
                 }).show();
+    }
 
-        //getSummaryImage();
-        //Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-        //startActivity(i);
-        //finish();
+    private void showSecondDialog() {
+        new AlertDialog.Builder(WrappedActivity.this)
+                .setMessage("Would you like to save your wrapped summary to be viewed later?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        storeBitmap(getSummaryImage(false));
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }).show();
     }
 
 
@@ -317,6 +298,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         String base64ImageData = Base64.encodeToString(imageData, Base64.DEFAULT);
 
         currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(base64ImageData);
-
     }
+
 }

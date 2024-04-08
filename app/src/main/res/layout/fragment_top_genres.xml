@@ -10,7 +10,7 @@
     tools:context=".TopGenresFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,26 +38,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="100">
+            android:padding="5dp">
 
             <TextView
-                android:layout_weight="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="#1"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp"
+                android:backgroundTint="#6913ff03"/>
+
+
+            <TextView
+                android:layout_weight="3"
                 android:id="@+id/genre1"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/genre_circle_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Genre1"
+                android:text="Genre 1"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:backgroundTint="#6913ff03"/>
-
-            <Space
-                android:layout_weight="90"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -69,16 +75,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="#2"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp"
+                android:backgroundTint="#6913ff03"/>
+
+            <TextView
+                android:layout_weight="3"
                 android:id="@+id/genre2"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/genre_circle_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre2"
@@ -86,11 +101,6 @@
                 android:textSize="30sp"
                 android:backgroundTint="#6903ff9e"/>
 
-            <Space
-                android:layout_weight="80"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
         </LinearLayout>
 
         <Space
@@ -101,16 +111,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="#3"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp"
+                android:backgroundTint="#6913ff03"/>
+
+            <TextView
+                android:layout_weight="3"
                 android:id="@+id/genre3"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/genre_circle_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre3"
@@ -118,11 +137,6 @@
                 android:textSize="30sp"
                 android:backgroundTint="#6903cdff"/>
 
-            <Space
-                android:layout_weight="75"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
         </LinearLayout>
 
         <Space
@@ -133,16 +147,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="#4"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp"
+                android:backgroundTint="#6913ff03"/>
+
+            <TextView
+                android:layout_weight="3"
                 android:id="@+id/genre4"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/genre_circle_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre4"
@@ -150,11 +173,6 @@
                 android:textSize="30sp"
                 android:backgroundTint="#69035fff"/>
 
-            <Space
-                android:layout_weight="70"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
         </LinearLayout>
 
         <Space
@@ -165,27 +183,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="#5"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp"
+                android:backgroundTint="#6913ff03"/>
+
+            <TextView
+                android:layout_weight="3"
                 android:id="@+id/genre5"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/genre_circle_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre5"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:backgroundTint="#69030bff"/>
-
-            <Space
-                android:layout_weight="65"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 public class TopItemsFragment extends Fragment {
 
-
+    private WrappedViewModel wrappedVM;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +36,17 @@ public class TopItemsFragment extends Fragment {
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
 
+        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
+
+        wrappedVM.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                getData(view);
+            }
+        });
+
+    }
+
+    private void getData(View view) {
     }
 }

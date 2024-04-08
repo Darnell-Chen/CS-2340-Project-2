@@ -34,12 +34,15 @@ public class WrappedViewModel extends ViewModel {
 
     private ArrayList<Bitmap> screenshotList = new ArrayList<>();
 
-    private String LLMString;
+    private String LLMString, term;
+
 
     public void getFirebaseData(String range) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        term = range;
 
         mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -154,6 +157,21 @@ public class WrappedViewModel extends ViewModel {
         return gptRequest.sendOpenAIRequest(gptRequest.generatePrompt(getTopSong()));
     }
 
+    public ArrayList<String> getTopGenres() {
+        DataSnapshot topGenreSnapshot = dataResult.child("top genres");
+
+        int snapshotSize = (int) topGenreSnapshot.getChildrenCount();
+
+        ArrayList<String> genreList = new ArrayList<>();
+
+        for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
+            DataSnapshot currSnapshot = topGenreSnapshot.child("album" + i);
+            genreList.add(currSnapshot.child("genre" + i).getValue(String.class));
+        }
+
+        return genreList;
+    }
+
 
     public LiveData<Boolean> getBool() {
         return dataReceived;
@@ -180,5 +198,9 @@ public class WrappedViewModel extends ViewModel {
     }
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
+    }
+
+    public String getTerm() {
+        return this.term;
     }
 }

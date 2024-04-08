@@ -70,7 +70,6 @@ public class TopArtistFragment extends Fragment {
             }
         });
 
-        System.out.println("hello again from top artist fragment");
     }
 
     public void getData(View view) {
