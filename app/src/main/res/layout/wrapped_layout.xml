@@ -11,7 +11,7 @@
         be displaying images in our stories-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.spotifywrapped.TopArtistFragment"
+        android:name="com.example.spotifywrapped.TransitionFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

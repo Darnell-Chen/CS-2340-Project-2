@@ -3,23 +3,16 @@ package com.example.spotifywrapped;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
@@ -76,6 +69,7 @@ public class TopGenresFragment extends Fragment {
             if (id != 0) {
                 TextView textView = (TextView) view.findViewById(id);
                 textView.setText(topGenres.get(i - 1));
+                System.out.println(topGenres.get(i - 1));
             }
         }
     }

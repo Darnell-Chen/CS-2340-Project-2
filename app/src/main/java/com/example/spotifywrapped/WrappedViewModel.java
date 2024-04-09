@@ -29,14 +29,14 @@ public class WrappedViewModel extends ViewModel {
     // used to keep track if a fragment should call for an item again
     private HashMap<String, Boolean> fragmentDataRecieved = new HashMap<>();
     private ArrayList<Bitmap> screenshotList = new ArrayList<>();
-    private String LLMString, term;
+    private String LLMString;
 
     public void getFirebaseData(String range) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        term = range;
+        WrappedMiscellaneous.setTerm(range);
 
         mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -159,9 +159,10 @@ public class WrappedViewModel extends ViewModel {
         ArrayList<String> genreList = new ArrayList<>();
 
         for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
-            DataSnapshot currSnapshot = topGenreSnapshot.child("album" + i);
-            genreList.add(currSnapshot.child("genre" + i).getValue(String.class));
+            genreList.add(topGenreSnapshot.child("genre" + i).getValue(String.class));
         }
+
+        System.out.println("genreList: " + String.valueOf(genreList));
 
         return genreList;
     }
@@ -188,8 +189,5 @@ public class WrappedViewModel extends ViewModel {
     }
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
-    }
-    public String getTerm() {
-        return this.term;
     }
 }

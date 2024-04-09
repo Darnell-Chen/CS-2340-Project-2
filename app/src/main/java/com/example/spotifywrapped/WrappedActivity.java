@@ -40,14 +40,17 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
     private WrappedViewModel wrappedVM;
 
-    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
-            TopGenresFragment.class, TopAlbumsFragment.class,
+    private List<Class<? extends Fragment>> fragments = asList(
+            TransitionFragment.class, TransitionFragment.class,
+            TopArtistFragment.class, TransitionFragment.class,
+            TopItemsFragment.class, TransitionFragment.class,
+            TopGenresFragment.class, TransitionFragment.class,
+            TopAlbumsFragment.class, TransitionFragment.class,
             SummaryFragment.class, LLMFragment.class);
 
     private int numPages;
-
     long pressTime = 0L;
-    long limit = 500L;
+    long limit = 700L;
 
     private StoriesProgressView storiesProgressView;
     private ArrayList<String> audioList;
@@ -82,7 +85,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         Intent receiverIntent = getIntent();
         String range = receiverIntent.getStringExtra("term");
 
-
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData(range);
 
@@ -94,6 +96,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
             }
         });
+
+        WrappedMiscellaneous.setCounter(0);
 
         numPages = fragments.size();
 
@@ -165,7 +169,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         int enterAnimation = transactionForward ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
         int exitAnimation = transactionForward ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
 
-
         fragmentManager.beginTransaction()
                 .setCustomAnimations( enterAnimation, exitAnimation)
                 .replace(R.id.fragmentContainerView, fragments.get(i), null)
@@ -174,6 +177,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .commit();
 
         counter = i;
+        WrappedMiscellaneous.setCounter(i);
     }
 
     private void playAudio() {
@@ -288,10 +292,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         ByteArrayOutputStream imageStore = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageStore);
         byte[] imageData = imageStore.toByteArray();
-//
-//        String base64ImageData = Base64.encodeToString(imageData, Base64.DEFAULT);
-//
-//        currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(base64ImageData);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://spotify-wrapped-f4043.appspot.com");
@@ -313,19 +313,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 });
             }
         });
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Log.d(null, "onFailure: upload unsuccessful");
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-//                uploadTask.get
-//                currReference.child(currImageName).setValue(currImageName);
-//            }
-//        });
     }
 
 }
