@@ -1,7 +1,5 @@
 package com.example.spotifywrapped;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -24,18 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WrappedViewModel extends ViewModel {
-
     private MutableLiveData<Boolean> dataReceived = new MutableLiveData<Boolean>();
     private DataSnapshot dataResult;
     private GPTRequest gptRequest = new GPTRequest();
 
     // used to keep track if a fragment should call for an item again
     private HashMap<String, Boolean> fragmentDataRecieved = new HashMap<>();
-
     private ArrayList<Bitmap> screenshotList = new ArrayList<>();
-
     private String LLMString, term;
-
 
     public void getFirebaseData(String range) {
 
@@ -172,7 +166,6 @@ public class WrappedViewModel extends ViewModel {
         return genreList;
     }
 
-
     public LiveData<Boolean> getBool() {
         return dataReceived;
     }
@@ -184,22 +177,18 @@ public class WrappedViewModel extends ViewModel {
     public void setFragmentDataRecieved(String key, Boolean value) {
         fragmentDataRecieved.put(key, value);
     }
-
     public String getLLMString() {
         return LLMString;
     }
-
     public void setLLMString(String LLMString) {
         this.LLMString = LLMString;
     }
-
     public void addImage(Bitmap bitmap) {
         screenshotList.add(bitmap);
     }
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
     }
-
     public String getTerm() {
         return this.term;
     }

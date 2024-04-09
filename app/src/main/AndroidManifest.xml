@@ -16,6 +16,9 @@
         android:theme="@style/Theme.SpotifyWrapped"
         tools:targetApi="31">
         <activity
+            android:name=".PastWrappedActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPWActivity"
             android:exported="false" />
         <activity

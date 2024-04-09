@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -81,12 +80,12 @@ public class GameSecondFragment extends Fragment {
         option4 = view.findViewById(R.id.choiceBTN4);
         homeButton = getActivity().findViewById(R.id.homeBTN);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                releaseMediaPlayer();
-            }
-        });
+//        homeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                releaseMediaPlayer();
+//            }
+//        });
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +212,7 @@ public class GameSecondFragment extends Fragment {
         }
     }
 
-    private void releaseMediaPlayer() {
+    public void releaseMediaPlayer() {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
