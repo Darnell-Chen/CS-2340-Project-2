@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -73,8 +71,6 @@ public class SpotifyRequest {
 
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
-//                    Toast.makeText(currActivity, "Failed to parse data, watch Logcat for more details",
-//                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

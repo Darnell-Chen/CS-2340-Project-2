@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -189,5 +191,21 @@ public class WrappedViewModel extends ViewModel {
     }
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
+    }
+
+    public void storeWrapped() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String currTime = currentDateTime.format(formatter);
+
+        // Remove milliseconds from the formatted date and time
+        String newRef = currTime.replace(".", "");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + auth.getUid().toString());
+
+
+        mDatabase.child("profile").child("Summary").child(newRef).setValue(dataResult.getValue());
     }
 }

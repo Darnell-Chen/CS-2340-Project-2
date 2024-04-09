@@ -1,14 +1,9 @@
 package com.example.spotifywrapped;
 
-import android.content.Context;
-
-import androidx.lifecycle.ViewModelProvider;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,7 +160,7 @@ public class JSONParser {
 
         ArrayList<Track> topAlbumList = new ArrayList<>();
 
-        while (!maxHeap.isEmpty() && count < 10) {
+        while (!maxHeap.isEmpty() && count < 5) {
             Map.Entry<Track, Integer> entry = maxHeap.poll();
             topAlbumList.add(entry.getKey());
             count++;
@@ -179,7 +174,7 @@ public class JSONParser {
 
         ArrayList<Track> trackList = new ArrayList<>();
 
-        for (int i = 0; i < jsonTracks.length(); i++) {
+        for (int i = 0; i < jsonTracks.length() && i < 20; i++) {
             JSONObject currTrackItem = jsonTracks.getJSONObject(i);
             String songName = currTrackItem.getString("name");
             String artistName = currTrackItem.getJSONArray("artists").getJSONObject(0).getString("name");
@@ -213,7 +208,7 @@ public class JSONParser {
 
         ArrayList<String> topGenreList = new ArrayList<>();
 
-        while (!maxHeap.isEmpty() && count < 10) {
+        while (!maxHeap.isEmpty() && count < 5) {
             Map.Entry<String, Integer> entry = maxHeap.poll();
             topGenreList.add(entry.getKey());
             count++;

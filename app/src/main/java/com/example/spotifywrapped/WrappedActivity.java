@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,15 +20,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -236,7 +226,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        storeBitmap(getSummaryImage(false));
+                        wrappedVM.storeWrapped();
                         Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
                         startActivity(i);
                         finish();
@@ -281,38 +271,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             }
         }
         return summaryImage;
-    }
-
-    private static void storeBitmap(Bitmap bitmap) {
-        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        DatabaseReference currReference
-                = fbDatabase.child("Users").child(auth.getUid().toString()).child("profile").child("Summaries");
-
-        ByteArrayOutputStream imageStore = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageStore);
-        byte[] imageData = imageStore.toByteArray();
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://spotify-wrapped-f4043.appspot.com");
-
-        String currImageName = "summaryData" + Long.toString(System.currentTimeMillis());
-        StorageReference currUser = storageRef.child(auth.getUid()).child(currImageName);
-
-        UploadTask uploadTask = currUser.putBytes(imageData);
-
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                currUser.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(url);
-                    }
-                });
-            }
-        });
     }
 
 }
