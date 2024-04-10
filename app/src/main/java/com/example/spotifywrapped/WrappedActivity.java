@@ -47,6 +47,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     private MediaPlayer mediaPlayer;
     private int counter = 0;
 
+    private boolean isSummary;
+
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -78,12 +80,18 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData(range);
 
+        // I hope no one ever sees this line of code. It tells you whether this is a summary or a regular wrapped.
+        if (range.length() > 15) {
+            isSummary = true;
+        } else {
+            isSummary = false;
+        }
+
         wrappedVM.getBool().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 audioList = wrappedVM.getAudioList();
                 playAudio();
-
             }
         });
 
@@ -208,13 +216,21 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         getSummaryImage(true);
-                        showSecondDialog();
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity();
+                        }
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showSecondDialog();
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity();
+                        }
                     }
                 }).show();
     }
@@ -227,17 +243,13 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         wrappedVM.storeWrapped();
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
+                        endActivity();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
+                        endActivity();
                     }
                 }).show();
     }
@@ -271,6 +283,12 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             }
         }
         return summaryImage;
+    }
+
+    public void endActivity() {
+        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }

@@ -2,14 +2,10 @@ package com.example.spotifywrapped;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,7 +70,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openGames(View view) {
-        startActivity(new Intent(DashboardActivity.this, GamesActivity.class));
+        startActivity(new Intent(DashboardActivity.this, PastWrappedActivity.class));
         finish();
     }
 

@@ -38,9 +38,18 @@ public class WrappedViewModel extends ViewModel {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
+        DatabaseReference currPath;
+
         WrappedMiscellaneous.setTerm(range);
 
-        mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        if (range.equals("long_term") || range.equals("short_term") || range.equals("medium_term")) {
+            currPath = mDatabase.child("Users").child(auth.getUid()).child(range);
+        } else {
+            // re-using range to get date-time for past wrapped
+            currPath = mDatabase.child("Users").child(auth.getUid()).child("profile").child("Summary").child(range);
+        }
+
+        currPath.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -164,8 +173,6 @@ public class WrappedViewModel extends ViewModel {
             genreList.add(topGenreSnapshot.child("genre" + i).getValue(String.class));
         }
 
-        System.out.println("genreList: " + String.valueOf(genreList));
-
         return genreList;
     }
 
@@ -200,7 +207,7 @@ public class WrappedViewModel extends ViewModel {
         String currTime = currentDateTime.format(formatter);
 
         // Remove milliseconds from the formatted date and time
-        String newRef = currTime.replace(".", "");
+        String newRef = currTime.replace(".", "").concat(" " + WrappedMiscellaneous.getTerm());
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + auth.getUid().toString());
