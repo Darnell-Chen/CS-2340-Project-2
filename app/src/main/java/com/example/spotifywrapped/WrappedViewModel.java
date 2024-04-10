@@ -129,8 +129,8 @@ public class WrappedViewModel extends ViewModel {
 
         for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
             DataSnapshot currSnapshot = topSongSnapshot.child("song" + i);
-            String currAlbumName = (String) currSnapshot.child("artist").getValue(String.class);
-            String currArtist = (String) currSnapshot.child("song").getValue(String.class);
+            String currAlbumName = (String) currSnapshot.child("song").getValue(String.class);
+            String currArtist = (String) currSnapshot.child("artist").getValue(String.class);
             String currImage = (String) currSnapshot.child("url").getValue(String.class);
 
             songList.add(new Track(currArtist, currAlbumName, currImage));

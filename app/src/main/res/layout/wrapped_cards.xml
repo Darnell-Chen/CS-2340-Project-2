@@ -8,6 +8,28 @@
     app:cardCornerRadius="10dp"
     app:cardBackgroundColor="#56db61">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/miniFrame1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="292"
+            android:rotationX="100"
+            android:rotationY="-330"
+            android:src="@drawable/background_color3"
+            android:alpha="0.28"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <LinearLayout
         android:id="@+id/myCard"
@@ -26,10 +48,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Date: "
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:text="Date: "/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/TVDate"

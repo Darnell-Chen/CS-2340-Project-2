@@ -1,19 +1,24 @@
 package com.example.spotifywrapped;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,47 +26,22 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class SummaryFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private WrappedViewModel wrappedVM;
+
+    private View view;
 
     public SummaryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SummaryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SummaryFragment newInstance(String param1, String param2) {
+    public static SummaryFragment newInstance() {
         SummaryFragment fragment = new SummaryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -82,30 +62,96 @@ public class SummaryFragment extends Fragment {
 
         wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
 
-        exportImage(view);
-    }
+        this.view = view;
 
-    private View createFragmentView() {
-        // Inflate the fragment's layout programmatically
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-        return inflater.inflate(R.layout.fragment_summary, null, false);
-    }
-
-    public void exportImage(View view) {
-        FrameLayout summaryBackground = view.findViewById(R.id.summaryBackground);
-        summaryBackground.post(new Runnable() {
+        wrappedVM.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
-            public void run() {
-                Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(summaryBackground);
-                wrappedVM.addImage(bitmap);
-                /*boolean exported = ImageExporter.saveBitmapToGallery(requireContext(), bitmap,
-                        "summary_image", "Image exported from layout");
-                if (exported) {
-                    Toast.makeText(requireContext(), "Image exported successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireContext(), "Failed to export image", Toast.LENGTH_SHORT).show();
-                }*/
+            public void onChanged(Boolean aBoolean) {
+                getData(view);
             }
         });
+
     }
+
+    private void getData(View view) {
+        getTopArtist();
+        getTopGenres();
+        getTopSongs();
+        getTopAlbums();
+    }
+
+    private void getTopArtist() {
+        ArrayList<String> topArtists = wrappedVM.getTopArtist();
+
+        Context context = getActivity();
+        for (int i = 1; i <= topArtists.size() && i <= 3; i++) {
+            String name = "artist" + i + "TV";
+            int id = getResources().getIdentifier(name, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) getView().findViewById(id);
+                textView.setText(topArtists.get(i - 1));
+            }
+        }
+
+        wrappedVM.getTopArtistImg().into((ImageView) view.findViewById(R.id.spotifyImage3));
+    }
+
+    private void getTopGenres() {
+        ArrayList<String> topGenres = wrappedVM.getTopGenres();
+
+        Context context = getActivity();
+        for (int i = 1; i <= topGenres.size() && i <= 3; i++) {
+            String name = "genre" + i + "TV";
+            int id = getResources().getIdentifier(name, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topGenres.get(i - 1));
+                System.out.println(topGenres.get(i - 1));
+            }
+        }
+    }
+
+    private void getTopSongs() {
+        ArrayList<Track> topSongList = wrappedVM.getTopSong();
+        Context context = getActivity();
+
+        for (int i = 1; i <= topSongList.size() && i <= 3; i++) {
+            String songName = "song" + i + "TV";
+
+            int id = getResources().getIdentifier(songName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topSongList.get(i - 1).getTrackName());
+            }
+
+            if (i == 1) {
+                String artistImg = topSongList.get(i - 1).getURL();
+                RequestCreator img = Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
+                img.into((ImageView) view.findViewById(R.id.spotifyImage2));
+            }
+        }
+    }
+
+    private void getTopAlbums() {
+        ArrayList<Track> topAlbumsList = wrappedVM.getTopAlbums();
+        Context context = getActivity();
+
+        for (int i = 1; i <= topAlbumsList.size() && i <= 3; i++) {
+            String songName = "album" + i + "TV";
+
+            int id = getResources().getIdentifier(songName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topAlbumsList.get(i - 1).getTrackName());
+            }
+
+            if (i == 1) {
+                String artistImg = topAlbumsList.get(i - 1).getURL();
+                RequestCreator img = Picasso.get().load(artistImg).resize(1000, 1000).centerCrop();
+                img.into((ImageView) view.findViewById(R.id.spotifyImage1));
+            }
+        }
+    }
+
+
 }
