@@ -119,6 +119,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Artist 1"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -130,6 +131,7 @@
                     android:layout_weight="1"
                     android:text="Song 1"
                     android:textColor="@color/white"
+                    android:maxLines="1"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -147,6 +149,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Artist 2"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -157,6 +160,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Song 2"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -175,6 +179,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Artist 3"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -185,6 +190,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Song 3"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -264,6 +270,7 @@
                     android:layout_weight="1"
                     android:text="Genre 1"
                     android:textColor="@color/white"
+                    android:maxLines="1"
                     android:textSize="20sp" />
 
                 <TextView
@@ -273,6 +280,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Album 1"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -292,6 +300,7 @@
                     android:layout_weight="1"
                     android:text="Genre 2"
                     android:textColor="@color/white"
+                    android:maxLines="1"
                     android:textSize="20sp" />
 
                 <TextView
@@ -301,6 +310,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Album 2"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -320,6 +330,7 @@
                     android:layout_weight="1"
                     android:text="Genre 3"
                     android:textColor="@color/white"
+                    android:maxLines="1"
                     android:textSize="20sp" />
 
                 <TextView
@@ -329,6 +340,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Album 3"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>

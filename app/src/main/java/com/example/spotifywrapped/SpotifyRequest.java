@@ -113,6 +113,8 @@ public class SpotifyRequest {
             return "https://api.spotify.com/v1/me";
         }
 
+        System.out.println(base);
+
         return base;
     }
 }
