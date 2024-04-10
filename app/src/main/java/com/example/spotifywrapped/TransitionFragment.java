@@ -142,16 +142,16 @@ public class TransitionFragment extends Fragment {
                 "You've Had Quite the Adventure So Far", "So Let's Check Out Your Journey So Far"};
 
         String[] TopArtist = {"You've Explored a Ton of Artists", "Some Artists Captivated Your Heart More than Others",
-                "Here Are The Ones You Just Couldn't Stop Listening To"};
+                "Here's Your Your Top Dogs."};
 
-        String[] TopSong = {"Your Top Songs, Your Soundtrack.", "The tunes you couldn't forget.",
-                "Here's your " + term + " in music."};
+        String[] TopSong = {"Your Top Songs are Straight Fire.", "They're Bangers You Can't Forget.",
+                "Here's a Peek into Heaven-"};
 
         String[] TopGenre = {"Your musical tapestry was woven with many diverse genres.",
                 "These genres refined your tastes and playlists",
                 "So let's Unveil the genres that defined your " + term};
 
-        String[] TopAlbums = {"Some People's Albums Are Trash", "But Not Yours.", "Here I Present... \n Your Holiest Albums"};
+        String[] TopAlbums = {"Some People's Albums Are Trash", "But Not Yours.", "Here I Present... \n Your Holy Scriptures"};
 
         String[] Summary = {"Here's everything we have seen so far...", "summarized just for you."};
 
