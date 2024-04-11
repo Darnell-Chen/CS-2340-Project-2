@@ -48,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Button changePasswordButton = findViewById(R.id.change_password);
+        Button changePasswordButton = findViewById(R.id.ChangePassword);
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
