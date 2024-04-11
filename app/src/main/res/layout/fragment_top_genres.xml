@@ -61,7 +61,7 @@
             android:gravity="center"
             android:paddingTop="30dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/white"
+            android:textColor="#d4ffc7"
             android:textStyle="bold"/>
 
         <Space
@@ -74,33 +74,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:rotation="15">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#6913ff03"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="#1"
-                android:textStyle="bold"
                 android:textColor="@color/genre1"
                 android:textSize="45sp"
-                android:backgroundTint="#6913ff03"/>
+                android:textStyle="bold" />
 
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre1"
-                android:textAllCaps="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#6913ff03"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre1"
+                android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/genre1"
-                android:textSize="30sp"
-                android:backgroundTint="#6913ff03"/>
+                android:textSize="40sp" />
 
         </LinearLayout>
 
@@ -112,7 +114,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="7.5">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,14 +132,15 @@
                 android:layout_weight="3"
                 android:id="@+id/genre2"
                 android:textAllCaps="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="genre2"
+                android:textStyle="bold"
                 android:textColor="@color/genre2"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:backgroundTint="#6903ff9e"/>
 
         </LinearLayout>
@@ -166,14 +170,15 @@
                 android:layout_weight="3"
                 android:id="@+id/genre3"
                 android:textAllCaps="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre3"
+                android:textStyle="bold"
                 android:textColor="@color/genre3"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:backgroundTint="#6903cdff"/>
 
         </LinearLayout>
@@ -186,7 +191,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="-7.5">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -203,14 +209,15 @@
                 android:layout_weight="3"
                 android:id="@+id/genre4"
                 android:textAllCaps="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre4"
+                android:textStyle="bold"
                 android:textColor="@color/genre4"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:backgroundTint="#69035fff"/>
 
         </LinearLayout>
@@ -223,7 +230,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="-15">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -232,7 +240,7 @@
                 android:paddingLeft="10dp"
                 android:text="#5"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre5"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
@@ -240,14 +248,15 @@
                 android:layout_weight="3"
                 android:id="@+id/genre5"
                 android:textAllCaps="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
+                android:textStyle="bold"
                 android:text="Genre5"
                 android:textColor="@color/genre5"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:backgroundTint="#69030bff"/>
 
         </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.spotifywrapped;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -25,11 +27,15 @@ public class GameSecondFragment extends Fragment {
     private WrappedViewModel vm;
     private ArrayList<Track> songList, songPool;
     private TextView currScore, highScore, prompt;
-    private Button option1, option2, option3, option4, homeButton;
+    private Button option1, option2, option3, option4;
     private Track correctChoice;
     private Track[] choices;
     private MediaPlayer mediaPlayer;
     private View ourView;
+
+    private Boolean newHS;
+
+    private int prevScore;
     public GameSecondFragment() {
         // Required empty public constructor
     }
@@ -63,6 +69,7 @@ public class GameSecondFragment extends Fragment {
         removeNullTracks();
         songPool = new ArrayList<Track>();
         choices = new Track[4];
+        newHS = false;
         getScreenItems(ourView);
         resetScore();
         promptUser();
@@ -93,7 +100,6 @@ public class GameSecondFragment extends Fragment {
         option2 = view.findViewById(R.id.choiceBTN2);
         option3 = view.findViewById(R.id.choiceBTN3);
         option4 = view.findViewById(R.id.choiceBTN4);
-        homeButton = getActivity().findViewById(R.id.homeBTN);
 
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,60 +172,76 @@ public class GameSecondFragment extends Fragment {
         option4.setEnabled(false);
 
         if (won) {
-            String[] highScoreSubs = highScore.getText().toString().split(" ");
-            int newScore = Integer.parseInt(currScore.getText().toString()) + 1;
-            int newHighScore = Integer.parseInt(highScoreSubs[2]);
-            currScore.setText(String.valueOf(newScore));
+            setHighScore();
+        } else {
+            gameOver();
+        }
+    }
 
-            if (newScore > newHighScore) {
-                newHighScore++;
-                highScore.setText("High Score: " + newHighScore);
+    private void setHighScore() {
+        String[] highScoreSubs = highScore.getText().toString().split(" ");
+        int newScore = Integer.parseInt(currScore.getText().toString()) + 1;
+        int newHighScore = Integer.parseInt(highScoreSubs[2]);
+        currScore.setText(String.valueOf(newScore));
+
+        if (newScore > newHighScore) {
+            newHighScore++;
+            newHS = false;
+            highScore.setText("High Score: " + newHighScore);
 
                 /* Could add a wait period during which the prompt text changes to say
                  "New High Score!". */
-            }
-
-            ourView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Reset button colors
-                    option1.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option2.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option3.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option4.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-
-                    option1.setEnabled(true);
-                    option2.setEnabled(true);
-                    option3.setEnabled(true);
-                    option4.setEnabled(true);
-
-                    // Proceed to next song
-                    promptUser();
-                }
-            }, 1000);
-        } else {
-            // TERMINATE GAME
-            /* Pop up in the middle of the screen which tells the user that they lost, what their score was,
-            and the high score they need to beat. */
-            ourView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Reset button colors
-                    option1.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option2.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option3.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-                    option4.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
-
-                    option1.setEnabled(true);
-                    option2.setEnabled(true);
-                    option3.setEnabled(true);
-                    option4.setEnabled(true);
-
-                    // Proceed to next song
-                    beginGame();
-                }
-            }, 1000);
         }
+
+        ourView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                resetButtons();
+                promptUser();
+            }
+        }, 1000);
+    }
+
+    private void gameOver() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setCancelable(false);
+
+        View view  = getActivity().getLayoutInflater().inflate(R.layout.game_over_dialog, null);
+        dialog.setContentView(view);
+
+        TextView topText = view.findViewById(R.id.gameOverTopTV);
+        TextView bottomText = view.findViewById(R.id.gameOverBottomTV);
+        TextView score = view.findViewById(R.id.theScoreTV);
+
+        if (newHS) {
+            topText.setText("Game Over!");
+            bottomText.setText("New High Score!");
+        }
+        score.setText(String.valueOf(Integer.parseInt(currScore.getText().toString())));
+
+
+        TextView restart = view.findViewById(R.id.restartGameTV);
+        TextView endGame = view.findViewById(R.id.endGameTV);
+
+
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetButtons();
+                beginGame();
+                dialog.dismiss();
+            }
+        });
+        endGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                releaseMediaPlayer();
+                startActivity(new Intent(getActivity(), InitialWrappedActivity.class));
+                getActivity().finish();
+            }
+        });
+
+        dialog.show();
     }
 
     private Track selectTrack(ArrayList<Track> pool) {
@@ -280,4 +302,18 @@ public class GameSecondFragment extends Fragment {
             button.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
         }
     }
+    
+    private void resetButtons() {
+        option1.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+        option2.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+        option3.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+        option4.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+
+        option1.setEnabled(true);
+        option2.setEnabled(true);
+        option3.setEnabled(true);
+        option4.setEnabled(true);
+    }
+    
+    
 }

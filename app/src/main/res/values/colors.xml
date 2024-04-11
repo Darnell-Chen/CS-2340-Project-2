@@ -8,10 +8,15 @@
     <color name="prevSummaryOrange">#ffa600</color>
     <color name="green">#00B51F</color>
     <color name="red">#F31403</color>
-    <color name="genre1">#ff0084</color>
-    <color name="genre2">#ff3700</color>
-    <color name="genre3">#ffd900</color>
-    <color name="genre4">#c3ff00</color>
-    <color name="genre5">#00ff99</color>
+    <color name="genre1">#c5a8ff</color>
+    <color name="genre2">#a8bfff</color>
+    <color name="genre3">#82cfff</color>
+    <color name="genre4">#69e1ff</color>
+    <color name="genre5">#33f5ff</color>
+    <color name="sArtist">#d0b0ff</color>
+    <color name="sGenre">#d0b0ff</color>
+    <color name="sSong">#d0b0ff</color>
+    <color name="sAlbum">#d0b0ff</color>
+    <color name="topArtist">#ffdccc</color>
 
 </resources>
