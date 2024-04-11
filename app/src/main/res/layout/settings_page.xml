@@ -42,5 +42,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-14dp" />
 
+    <Button
+        android:id="@+id/change_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password" />
+
+    <Button
+        android:id="@+id/change_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
