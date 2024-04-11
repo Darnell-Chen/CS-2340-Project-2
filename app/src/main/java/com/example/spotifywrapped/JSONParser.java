@@ -175,6 +175,7 @@ public class JSONParser {
         ArrayList<Track> trackList = new ArrayList<>();
 
         for (int i = 0; i < jsonTracks.length() && i < 20; i++) {
+
             JSONObject currTrackItem = jsonTracks.getJSONObject(i);
             String songName = currTrackItem.getString("name");
             String artistName = currTrackItem.getJSONArray("artists").getJSONObject(0).getString("name");

@@ -1,6 +1,7 @@
 package com.example.spotifywrapped;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -78,6 +79,8 @@ public class SummaryFragment extends Fragment {
         getTopGenres();
         getTopSongs();
         getTopAlbums();
+
+        exportImage();
     }
 
     private void getTopArtist() {
@@ -151,6 +154,17 @@ public class SummaryFragment extends Fragment {
                 img.into((ImageView) view.findViewById(R.id.spotifyImage1));
             }
         }
+    }
+
+    public void exportImage() {
+        FrameLayout summaryBackground = view.findViewById(R.id.summaryBackground);
+        summaryBackground.post(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = ImageExporter.captureLayoutAsBitmap(summaryBackground);
+                wrappedVM.addImage(bitmap);
+            }
+        });
     }
 
 

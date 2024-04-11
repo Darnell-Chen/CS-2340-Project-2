@@ -5,7 +5,6 @@ import static java.util.Arrays.asList;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -23,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import jp.shts.android.storiesprogressview.StoriesProgressView;
 
@@ -189,7 +189,24 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
         // below line is use to set the audio
         // stream type for our media player.
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        System.out.println(audioUrl);
+
+
+        String rick = getString(R.string.rickroll);
+
+
+        int randomCount = 0;
+        while (audioUrl.equals("null")) {
+            Random random = new Random();
+            audioUrl = audioList.get(random.nextInt(audioList.size() - fragments.size()) + fragments.size() - 1);
+
+            randomCount+=1;
+            if (randomCount > 5) {
+                audioUrl = rick;
+            }
+        }
 
         // below line is use to set our
         // url to our media player.

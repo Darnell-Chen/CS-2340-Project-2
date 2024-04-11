@@ -31,7 +31,7 @@
             app:layout_constraintVertical_bias="0.141" />
 
         <ImageView
-            android:id="@+id/miniFrame2"
+            android:id="@+id/miniFrame3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:rotation="-87"

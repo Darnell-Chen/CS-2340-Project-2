@@ -77,6 +77,9 @@ public class TransitionFragment extends Fragment {
         view.findViewById(R.id.miniFrame1).setRotationY(getRandom());
         view.findViewById(R.id.miniFrame2).setRotationY(getRandom());
         view.findViewById(R.id.miniFrame3).setRotationY(getRandom());
+        view.findViewById(R.id.miniFrame1).setRotationX(getRandom());
+        view.findViewById(R.id.miniFrame2).setRotationX(getRandom());
+        view.findViewById(R.id.miniFrame3).setRotationX(getRandom());
 
         Animation rotation = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
         Animation rotation2 = AnimationUtils.loadAnimation(getContext(), R.anim.rotation2);

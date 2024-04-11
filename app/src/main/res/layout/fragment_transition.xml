@@ -28,7 +28,7 @@
             app:layout_constraintVertical_bias="0.141" />
 
         <ImageView
-            android:id="@+id/miniFrame2"
+            android:id="@+id/miniFrame3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:rotation="300"
@@ -43,11 +43,12 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/miniFrame3"
+            android:id="@+id/miniFrame2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rotation="168"
-            android:rotationX="-49"
+            android:rotation="70"
+            android:rotationX="23"
+            android:rotationY="-113"
             android:src="#25ff9ea0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
