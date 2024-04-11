@@ -1,6 +1,6 @@
 package com.example.spotifywrapped;
 
-public class Card{
+public class Card implements Comparable<Card> {
 
     private String location;
     private String date;
@@ -53,5 +53,14 @@ public class Card{
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public int compareTo(Card otherCard) {
+        int dateComparison = otherCard.date.compareTo(this.date); // Reversed comparison
+        if (dateComparison != 0) {
+            return dateComparison;
+        }
+        return otherCard.time.compareTo(this.time); // Reversed comparison
     }
 }

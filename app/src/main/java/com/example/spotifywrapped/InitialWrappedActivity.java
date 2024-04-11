@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class InitialWrappedActivity extends AppCompatActivity {
 
-    private Button longBTN, medBTN, shortBTN, summaryBTN;
+    private Button longBTN, medBTN, shortBTN;
     private TextView backButton;
 
     private final String[] selectIntro = {"Hi!", "Select an Option to get Started!"};
@@ -33,7 +33,7 @@ public class InitialWrappedActivity extends AppCompatActivity {
         longBTN = findViewById(R.id.longTermBTN);
         medBTN = findViewById(R.id.mediumTermBTN);
         shortBTN = findViewById(R.id.shortTermBTN);
-        summaryBTN = findViewById(R.id.ViewPastButton);
+        //summaryBTN = findViewById(R.id.ViewPastButton);
 
         longBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +64,5 @@ public class InitialWrappedActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        summaryBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(InitialWrappedActivity.this, PastWrappedActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
     }
 }
