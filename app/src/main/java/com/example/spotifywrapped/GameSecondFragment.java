@@ -60,11 +60,24 @@ public class GameSecondFragment extends Fragment {
     }
 
     private void beginGame() {
+        removeNullTracks();
         songPool = new ArrayList<Track>();
         choices = new Track[4];
         getScreenItems(ourView);
         resetScore();
         promptUser();
+    }
+
+    private void removeNullTracks() {
+        ArrayList<Track> cleanedTracks = new ArrayList<>();
+
+        for (Track x: songList) {
+            if (!x.getURL().equals("null")) {
+                cleanedTracks.add(x);
+            }
+        }
+
+        songList = cleanedTracks;
     }
 
     private void resetScore() {
@@ -82,16 +95,11 @@ public class GameSecondFragment extends Fragment {
         option4 = view.findViewById(R.id.choiceBTN4);
         homeButton = getActivity().findViewById(R.id.homeBTN);
 
-//        homeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                releaseMediaPlayer();
-//            }
-//        });
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleRoundResult(checkChoice(0));
+                highlightChoice(option1, correctChoice.equals(choices[0]));
             }
         });
 
@@ -99,6 +107,7 @@ public class GameSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 handleRoundResult(checkChoice(1));
+                highlightChoice(option2, correctChoice.equals(choices[1]));
             }
         });
 
@@ -106,6 +115,7 @@ public class GameSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 handleRoundResult(checkChoice(2));
+                highlightChoice(option3, correctChoice.equals(choices[2]));
             }
         });
 
@@ -113,6 +123,7 @@ public class GameSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 handleRoundResult(checkChoice(3));
+                highlightChoice(option4, correctChoice.equals(choices[3]));
             }
         });
 
@@ -168,10 +179,6 @@ public class GameSecondFragment extends Fragment {
                  "New High Score!". */
             }
 
-            highlightChoice(option1, correctChoice.equals(choices[0]));
-            highlightChoice(option2, correctChoice.equals(choices[1]));
-            highlightChoice(option3, correctChoice.equals(choices[2]));
-            highlightChoice(option4, correctChoice.equals(choices[3]));
             ourView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -194,10 +201,6 @@ public class GameSecondFragment extends Fragment {
             // TERMINATE GAME
             /* Pop up in the middle of the screen which tells the user that they lost, what their score was,
             and the high score they need to beat. */
-            highlightChoice(option1, correctChoice.equals(choices[0]));
-            highlightChoice(option2, correctChoice.equals(choices[1]));
-            highlightChoice(option3, correctChoice.equals(choices[2]));
-            highlightChoice(option4, correctChoice.equals(choices[3]));
             ourView.postDelayed(new Runnable() {
                 @Override
                 public void run() {

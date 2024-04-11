@@ -83,7 +83,7 @@
                 android:paddingLeft="10dp"
                 android:text="#1"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre1"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
@@ -91,13 +91,14 @@
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre1"
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Genre 1"
-                android:textColor="#FFFFFF"
+                android:text="Genre1"
+                android:textColor="@color/genre1"
                 android:textSize="30sp"
                 android:backgroundTint="#6913ff03"/>
 
@@ -120,20 +121,21 @@
                 android:paddingLeft="10dp"
                 android:text="#2"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre2"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre2"
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Genre2"
-                android:textColor="#FFFFFF"
+                android:text="genre2"
+                android:textColor="@color/genre2"
                 android:textSize="30sp"
                 android:backgroundTint="#6903ff9e"/>
 
@@ -156,20 +158,21 @@
                 android:paddingLeft="10dp"
                 android:text="#3"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre3"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre3"
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre3"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre3"
                 android:textSize="30sp"
                 android:backgroundTint="#6903cdff"/>
 
@@ -192,20 +195,21 @@
                 android:paddingLeft="10dp"
                 android:text="#4"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre4"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre4"
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre4"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre4"
                 android:textSize="30sp"
                 android:backgroundTint="#69035fff"/>
 
@@ -235,13 +239,14 @@
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre5"
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre5"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre5"
                 android:textSize="30sp"
                 android:backgroundTint="#69030bff"/>
 
