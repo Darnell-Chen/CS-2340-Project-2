@@ -8,4 +8,10 @@
     <color name="prevSummaryOrange">#ffa600</color>
     <color name="green">#00B51F</color>
     <color name="red">#F31403</color>
+    <color name="genre1">#ff0084</color>
+    <color name="genre2">#ff3700</color>
+    <color name="genre3">#ffd900</color>
+    <color name="genre4">#c3ff00</color>
+    <color name="genre5">#00ff99</color>
+
 </resources>
