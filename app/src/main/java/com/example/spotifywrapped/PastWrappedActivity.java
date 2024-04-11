@@ -43,7 +43,7 @@ public class PastWrappedActivity extends AppCompatActivity {
         backBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PastWrappedActivity.this, InitialWrappedActivity.class));
+                startActivity(new Intent(PastWrappedActivity.this, DashboardActivity.class));
                 finish();
             }
         });
