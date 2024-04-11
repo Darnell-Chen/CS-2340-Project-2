@@ -1,10 +1,8 @@
 package com.example.spotifywrapped;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +19,23 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class DeleteAccount {
+public class ChangeEmail {
 
     private final Context context;
+    private static AlertDialog alert;
 
-    public DeleteAccount(Context context) {
+    public ChangeEmail(Context context) {
         this.context = context;
     }
 
-    public void terminateAccount() {
+    public void changeEmail() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirm");
-        builder.setMessage("Are you sure?");
+        builder.setTitle("ConfirmEmailChange");
+        builder.setMessage("Are you sure you want to change Email?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                ConfirmDeleteDialogFragment confirmDialog = new ConfirmDeleteDialogFragment();
-                confirmDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "confirmDelete");
+                ChangeEmailDialogFragment confirmDialog = new ChangeEmailDialogFragment();
+                confirmDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "confirmEmailChange");
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -46,11 +45,11 @@ public class DeleteAccount {
             }
         });
 
-        AlertDialog alert = builder.create();
+        alert = builder.create();
         alert.show();
     }
 
-    public static void reAuthenticate(String email, String password, Context context) {
+    public static void reAuthenticate(String email, String password, String newEmail, Context context) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             AuthCredential credential = EmailAuthProvider.getCredential(email, password);
@@ -60,7 +59,7 @@ public class DeleteAccount {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // On successful re-authentication, proceed to delete the account
-                            deleteAccount(context);
+                            setEmail(context, newEmail);
                         } else {
                             Toast.makeText(context, "Re-authentication failed", Toast.LENGTH_SHORT).show();
                         }
@@ -68,53 +67,49 @@ public class DeleteAccount {
         }
     }
 
-    private static void deleteAccount(Context context) {
+    private static void setEmail(Context context, String newEmail) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            currentUser.delete().addOnCompleteListener(task -> {
+            currentUser.verifyBeforeUpdateEmail(newEmail).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "Account has been deleted", Toast.LENGTH_SHORT).show();
-                    logout(context);
+                    Toast.makeText(context, "Verification sent to New Email.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "failed to change email.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    private static void logout(Context context) {
-        FirebaseAuth.getInstance().signOut();
-        Intent loginPage = new Intent(context, MainActivity.class);
-        loginPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(loginPage);
-        if (context instanceof Activity) {
-            ((Activity) context).finish();
-        }
-    }
-
     // DialogFragment for confirming account deletion with password
-    public static class ConfirmDeleteDialogFragment extends DialogFragment {
+    public static class ChangeEmailDialogFragment extends DialogFragment {
 
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.dialog_confirm_delete, null);
+            View view = inflater.inflate(R.layout.dialog_change_email, null);
 
-            final EditText emailInput = view.findViewById(R.id.email);
+            final EditText emailInput = view.findViewById(R.id.current_email);
             final EditText passwordInput = view.findViewById(R.id.password);
 
+            final EditText newEmailInput1 = view.findViewById(R.id.new_email);
+            final EditText newEmailInput2 = view.findViewById(R.id.reconfirm_email);
+
             builder.setView(view)
-                    .setTitle("Enter Credentials to Confirm Account Deletion")
+                    .setTitle("Enter Credentials to Confirm Email Change")
                     .setPositiveButton("Confirm", (dialog, id) -> {
                         String email = emailInput.getText().toString();
                         String password = passwordInput.getText().toString();
+                        String newEmail1 = newEmailInput1.getText().toString();
+                        String newEmail2 = newEmailInput2.getText().toString();
 
                         if (email.length() == 0 || password.length() == 0) {
                             Toast.makeText(getContext(), "No credentials entered", Toast.LENGTH_SHORT).show();
+                        } else if (!newEmail1.equals(newEmail2)){
+                            Toast.makeText(getContext(), "new emails don't match", Toast.LENGTH_SHORT).show();
                         } else {
-                            reAuthenticate(email, password, getContext());
+                            reAuthenticate(email, password, newEmail1, getContext());
                         }
                     });
 
