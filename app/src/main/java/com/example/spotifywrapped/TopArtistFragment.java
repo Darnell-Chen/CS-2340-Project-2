@@ -1,6 +1,7 @@
 package com.example.spotifywrapped;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
@@ -69,7 +70,6 @@ public class TopArtistFragment extends Fragment {
             }
         });
 
-        System.out.println("hello again from top artist fragment");
     }
 
     public void getData(View view) {

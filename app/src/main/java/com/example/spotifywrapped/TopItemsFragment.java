@@ -1,18 +1,25 @@
 package com.example.spotifywrapped;
 
+import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+
 public class TopItemsFragment extends Fragment {
 
-
+    private WrappedViewModel wrappedVM;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +41,43 @@ public class TopItemsFragment extends Fragment {
         animDrawable.setExitFadeDuration(2500);
         animDrawable.start();
 
+        wrappedVM = new ViewModelProvider(requireActivity()).get(WrappedViewModel.class);
+
+        wrappedVM.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                getData(view);
+            }
+        });
+
+    }
+
+    private void getData(View view) {
+        ArrayList<Track> topSongList = wrappedVM.getTopSong();
+
+        Context context = getActivity();
+        for (int i = 1; i <= topSongList.size(); i++) {
+            String songName = "songNameTV" + i;
+            String artistName = "songArtistTV" + i;
+            String songIMG = "songIV" + i;
+
+            int id = getResources().getIdentifier(songName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topSongList.get(i - 1).getTrackName());
+            }
+
+            id = getResources().getIdentifier(artistName, "id", context.getPackageName());
+            if (id != 0) {
+                TextView textView = (TextView) view.findViewById(id);
+                textView.setText(topSongList.get(i - 1).getArtistName());
+            }
+
+            id = getResources().getIdentifier(songIMG, "id", context.getPackageName());
+            if (id != 0) {
+                ImageView imageView = (ImageView) view.findViewById(id);
+                wrappedVM.transformImage(topSongList.get(i - 1).getURL()).into(imageView);
+            }
+        }
     }
 }

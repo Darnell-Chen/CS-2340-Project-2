@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,6 +18,7 @@ import dev.ai4j.openai4j.chat.ChatCompletionResponse;
 
 public class GPTRequest extends AppCompatActivity {
 
+    private WrappedViewModel wrappedVM;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -24,13 +26,9 @@ public class GPTRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.openai_page);
-
-        String[] songList = {"Uptown Funk", "All of Me", "Glorious", "Watermelon Sugar"};
-
-        openaiDescription(songList);
     }
 
-    public void openaiDescription(String[] songs) {
+    public void openaiDescription(ArrayList<Track> songs) {
         String prompt = generatePrompt(songs);
 
         executor.execute(() -> {
@@ -44,12 +42,13 @@ public class GPTRequest extends AppCompatActivity {
             }});
     }
 
-    private String generatePrompt(String[] songs) {
+    public String generatePrompt(ArrayList<Track> songs) {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("Describe the behavior, thoughts, and dress style of someone who listens to these songs: ");
-        for (int i = 0; i < songs.length; i++) {
-            promptBuilder.append(songs[i]);
-            if (i < songs.length - 1) {
+        for (int i = 0; i < songs.size(); i++) {
+            Track song = songs.get(i);
+            promptBuilder.append(song.getTrackName()).append(" by ").append(song.getArtistName());
+            if (i < songs.size() - 1) {
                 promptBuilder.append(", ");
             } else {
                 promptBuilder.append(".");
@@ -58,8 +57,9 @@ public class GPTRequest extends AppCompatActivity {
         return promptBuilder.toString();
     }
 
-    private String sendOpenAIRequest(String prompt) throws IOException {
-        String apiKey = BuildConfig.OPENAI_API_KEY;
+    public String sendOpenAIRequest(String prompt) throws IOException {
+        String apiKey = "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";
+        System.out.println(apiKey);
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)
                 .build();

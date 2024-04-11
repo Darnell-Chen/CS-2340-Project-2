@@ -1,14 +1,9 @@
 package com.example.spotifywrapped;
 
-import android.content.Context;
-
-import androidx.lifecycle.ViewModelProvider;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,10 +96,11 @@ public class JSONParser {
         // we call audio inside of getTopAlbums to prevent calling the same api twice, so we don't increase count for audio
         if (!key.equals("audio") && (vm.getRangeRetrieved().getValue() < vm.getMax_range())) {
             if (vm.getRangeRetrieved().getValue() == vm.getMax_range() - 1) {
-                vm.postRangeRetrieved(0);
-
                 // setRequestRetrieved() automatically adds by one
                 vm.setRequestRetrieved(vm.getRequestRetrieved());
+
+                // might want to have this second in case the program decides to race async threads
+                vm.postRangeRetrieved(0);
             } else {
                 vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
             }
@@ -164,7 +160,7 @@ public class JSONParser {
 
         ArrayList<Track> topAlbumList = new ArrayList<>();
 
-        while (!maxHeap.isEmpty() && count < 10) {
+        while (!maxHeap.isEmpty() && count < 5) {
             Map.Entry<Track, Integer> entry = maxHeap.poll();
             topAlbumList.add(entry.getKey());
             count++;
@@ -178,7 +174,8 @@ public class JSONParser {
 
         ArrayList<Track> trackList = new ArrayList<>();
 
-        for (int i = 0; i < jsonTracks.length(); i++) {
+        for (int i = 0; i < jsonTracks.length() && i < 20; i++) {
+
             JSONObject currTrackItem = jsonTracks.getJSONObject(i);
             String songName = currTrackItem.getString("name");
             String artistName = currTrackItem.getJSONArray("artists").getJSONObject(0).getString("name");
@@ -212,12 +209,42 @@ public class JSONParser {
 
         ArrayList<String> topGenreList = new ArrayList<>();
 
-        while (!maxHeap.isEmpty() && count < 10) {
+        while (!maxHeap.isEmpty() && count < 5) {
             Map.Entry<String, Integer> entry = maxHeap.poll();
             topGenreList.add(entry.getKey());
             count++;
         }
 
         storeList("genre", topGenreList, vm, range);
+    }
+
+    public static void parseUserProfile(JSONObject jsonObject, AuthViewModel vm) throws JSONException {
+        //get display name
+        String userName = jsonObject.getString("display_name");
+        //get image
+
+        JSONArray userImageRef = jsonObject.getJSONArray("images");
+
+        String userImage = "https://i1.sndcdn.com/artworks-kzdRRliuzKhhsTvk-Vx9EJg-t500x500.jpg";
+
+        int imgArraySize = userImageRef.length();
+
+        if (imgArraySize > 0) {
+            userImage = userImageRef.getJSONObject(imgArraySize - 1).getString("url");
+        }
+
+        System.out.println(imgArraySize);
+
+        System.out.println("username: " + userName);
+
+        //Store it to firebase
+        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        DatabaseReference currReference = fbDatabase.child("Users").child(auth.getUid().toString()).child("profile");
+        currReference.child("name").setValue(userName);
+        currReference.child("image").setValue(userImage);
+
+        vm.postRangeRetrieved(vm.getRangeRetrieved().getValue() + 1);
     }
 }

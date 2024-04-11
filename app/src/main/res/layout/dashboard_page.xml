@@ -4,20 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="#00D31212">
+    android:background="@drawable/transition2"
+    android:backgroundTint="#2596ffbd">
+
+    <ImageView
+        android:id="@+id/miniFrame1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rotation="-130"
+        android:rotationX="-253"
+        android:rotationY="-279"
+        android:alpha="0.2"
+        android:src="@drawable/background_color2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141" />
+
+    <ImageView
+        android:id="@+id/miniFrame2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rotation="232"
+        android:rotationX="-228"
+        android:rotationY="156"
+        android:alpha="0.2"
+        android:src="@drawable/background_color2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141" />
+
+    <ImageView
+        android:id="@+id/miniFrame3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:rotation="-317"
+        android:rotationX="-177"
+        android:rotationY="-245"
+        android:src="@drawable/background_color2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141" />
 
     <ImageButton
         android:id="@+id/SettingsBTN"
         android:layout_width="71dp"
         android:layout_height="62dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="openSettings"
+        android:paddingTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/settings_icon" />
 
     <ImageView
@@ -58,9 +109,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/spotifyGreen"
-            android:padding="10dp"
-            android:text="Play Mini-Game"
             android:onClick="openGames"
+            android:padding="10dp"
+            android:text="View Past Wrappeds"
             android:textSize="25dp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp" />

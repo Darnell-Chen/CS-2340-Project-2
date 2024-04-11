@@ -16,6 +16,12 @@
         android:theme="@style/Theme.SpotifyWrapped"
         tools:targetApi="31">
         <activity
+            android:name=".PastWrappedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPWActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -27,31 +33,24 @@
         <activity
             android:name=".RegisterActivity"
             android:noHistory="true" />
-
         <activity
             android:name=".AuthTokenActivity"
             android:exported="false" />
-
         <activity
             android:name=".DashboardActivity"
             android:noHistory="true" />
-
         <activity
             android:name=".InitialWrappedActivity"
             android:noHistory="true" />
-
         <activity
             android:name=".SettingsActivity"
-            android:noHistory="true"/>
-
+            android:noHistory="true" />
         <activity
             android:name=".GPTRequest"
             android:noHistory="true" />
-
         <activity
             android:name=".WrappedActivity"
             android:noHistory="true" />
-
         <activity
             android:name=".GamesActivity"
             android:exported="false" />

@@ -2,54 +2,52 @@ package com.example.spotifywrapped;
 
 import static java.util.Arrays.asList;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class WrappedActivity extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
     private WrappedViewModel wrappedVM;
 
-    private List<Class<? extends Fragment>> fragments = asList(TopArtistFragment.class, TopItemsFragment.class,
-            TopGenresFragment.class, TopAlbumsFragment.class,
+    private List<Class<? extends Fragment>> fragments = asList(
+            TransitionFragment.class, TransitionFragment.class,
+            TopArtistFragment.class, TransitionFragment.class,
+            TopItemsFragment.class, TransitionFragment.class,
+            TopGenresFragment.class, TransitionFragment.class,
+            TopAlbumsFragment.class, TransitionFragment.class,
             SummaryFragment.class, LLMFragment.class);
 
     private int numPages;
-
     long pressTime = 0L;
-    long limit = 500L;
+    long limit = 700L;
 
     private StoriesProgressView storiesProgressView;
     private ArrayList<String> audioList;
     private MediaPlayer mediaPlayer;
     private int counter = 0;
+
+    private boolean isSummary;
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
@@ -82,6 +80,13 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData(range);
 
+        // I hope no one ever sees this line of code. It tells you whether this is a summary or a regular wrapped.
+        if (range.length() > 15) {
+            isSummary = true;
+        } else {
+            isSummary = false;
+        }
+
         wrappedVM.getBool().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -89,6 +94,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 playAudio();
             }
         });
+
+        WrappedMiscellaneous.setCounter(0);
 
         numPages = fragments.size();
 
@@ -155,11 +162,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     private void getCorrectFragment(int i) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        boolean isForwardNavigation = i > counter;
+        boolean transactionForward = i > counter;
 
-        int enterAnimation = isForwardNavigation ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
-        int exitAnimation = isForwardNavigation ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
-
+        int enterAnimation = transactionForward ? R.anim.enter_right_to_left : R.anim.enter_left_to_right;
+        int exitAnimation = transactionForward ? R.anim.exit_right_to_left : R.anim.exit_left_to_right;
 
         fragmentManager.beginTransaction()
                 .setCustomAnimations( enterAnimation, exitAnimation)
@@ -169,6 +175,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .commit();
 
         counter = i;
+        WrappedMiscellaneous.setCounter(i);
     }
 
     private void playAudio() {
@@ -182,7 +189,24 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
         // below line is use to set the audio
         // stream type for our media player.
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        System.out.println(audioUrl);
+
+
+        String rick = getString(R.string.rickroll);
+
+
+        int randomCount = 0;
+        while (audioUrl.equals("null")) {
+            Random random = new Random();
+            audioUrl = audioList.get(random.nextInt(audioList.size() - fragments.size()) + fragments.size() - 1);
+
+            randomCount+=1;
+            if (randomCount > 5) {
+                audioUrl = rick;
+            }
+        }
 
         // below line is use to set our
         // url to our media player.
@@ -198,12 +222,73 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         }
     }
 
+
     @Override
     public void onComplete() {
-        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-        startActivity(i);
-        finish();
+
+        new AlertDialog.Builder(this)
+                .setMessage("Would you like to export an image file of your wrapped summary?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        getSummaryImage(true);
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity(DashboardActivity.class);
+                        }
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity(DashboardActivity.class);
+                        }
+                    }
+                }).show();
     }
+
+    private void showSecondDialog() {
+        new AlertDialog.Builder(WrappedActivity.this)
+                .setMessage("Would you like to save your wrapped summary to be viewed later?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        wrappedVM.storeWrapped();
+                        showThirdDialog();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showThirdDialog();
+                    }
+                }).show();
+    }
+
+    public void showThirdDialog() {
+        new AlertDialog.Builder(WrappedActivity.this)
+                .setMessage("Would you like to play a mini-game?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        endActivity(GamesActivity.class);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        endActivity(DashboardActivity.class);
+                    }
+                }).show();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -219,6 +304,26 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             mediaPlayer.release();
             mediaPlayer = null;
         }
+    }
+
+    public Bitmap getSummaryImage(boolean export) {
+        Bitmap summaryImage = wrappedVM.getScreenshots().get(0);
+        if (export) {
+            boolean exported = ImageExporter.saveBitmapToGallery(this, summaryImage,
+                    "summary_image", "Image exported from layout");
+            if (exported) {
+                Toast.makeText(this, "Image exported successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to export image", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return summaryImage;
+    }
+
+    public void endActivity(Class<?> activityClass) {
+        Intent i = new Intent(WrappedActivity.this, activityClass);
+        startActivity(i);
+        finish();
     }
 
 }

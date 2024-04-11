@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -67,12 +65,12 @@ public class SpotifyRequest {
                         JSONParser.parseTopAlbums(jsonObject, vm, range);
                     } else if (requestType.equals("genres")){
                         JSONParser.parseTopGenres(jsonObject, vm, range);
+                    } else if (requestType.equals("profile")) {
+                        JSONParser.parseUserProfile(jsonObject, vm);
                     }
 
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
-//                    Toast.makeText(currActivity, "Failed to parse data, watch Logcat for more details",
-//                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -108,6 +106,12 @@ public class SpotifyRequest {
         }
 
         base = base.concat(limit);
+
+        //return the api link. Tells link to retrieve profile
+        if (requestType.equals("profile")) {
+            System.out.println("returning profile base");
+            return "https://api.spotify.com/v1/me";
+        }
 
         System.out.println(base);
 

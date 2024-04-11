@@ -24,34 +24,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/termSelectTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
+        android:padding="20dp"
         android:text="Let's Get Started!"
         android:textAlignment="center"
         android:textSize="35dp"
         android:textStyle="bold"
-        android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/longTermBTN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/shortTermBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:layout_weight="1"
-        android:padding="10dp"
-        android:text="Short Term"
-        android:textSize="17sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/mediumTermBTN"
@@ -76,5 +63,33 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/mediumTermBTN"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/shortTermBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:text="Short Term"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/ViewPastButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ViewPastButton"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:text="View Past Summaries"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

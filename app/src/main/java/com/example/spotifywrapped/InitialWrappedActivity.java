@@ -33,6 +33,7 @@ public class InitialWrappedActivity extends AppCompatActivity {
         longBTN = findViewById(R.id.longTermBTN);
         medBTN = findViewById(R.id.mediumTermBTN);
         shortBTN = findViewById(R.id.shortTermBTN);
+        //summaryBTN = findViewById(R.id.ViewPastButton);
 
         longBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +64,5 @@ public class InitialWrappedActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }

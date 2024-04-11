@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button loginButton;
-    private TextView registerButton;
+    private TextView registerButton, resetPWButton;
 
     private FirebaseAuth auth;
 
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
+        resetPWButton = findViewById(R.id.forgotPasswordButton);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -46,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
+
+        resetPWButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ForgotPWActivity.class));
                 finish();
             }
         });

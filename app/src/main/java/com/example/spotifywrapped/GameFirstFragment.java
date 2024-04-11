@@ -1,5 +1,6 @@
 package com.example.spotifywrapped;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -38,10 +39,14 @@ public class GameFirstFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         startButton = getView().findViewById(R.id.beginGameBTN);
 
-        startButton.setAlpha(0);
-    }
+//        startButton.setAlpha(0);
 
-    public Button getStartButton(){
-        return startButton;
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GamesActivity currActivity = (GamesActivity) getActivity();
+                currActivity.switchFragment();
+            }
+        });
     }
 }

@@ -16,6 +16,34 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/miniFrame1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-160"
+            android:rotationX="8"
+            android:rotationY="-2"
+            android:src="#5400ffdd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+
+        <ImageView
+            android:id="@+id/miniFrame3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-37"
+            android:src="#2500ffdd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+
+        <ImageView
             android:id="@+id/spotifyImage"
             android:layout_width="200dp"
             android:layout_height="200dp"

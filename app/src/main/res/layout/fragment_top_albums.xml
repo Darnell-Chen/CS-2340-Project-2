@@ -11,22 +11,57 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:layout_height="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/miniFrame1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-143"
+            android:rotationX="28"
+            android:rotationY="6"
+            android:src="#1600ffdd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+
+        <ImageView
+            android:id="@+id/miniFrame3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-87"
+            android:rotationX="109"
+            android:rotationY="-288"
+            android:src="#25ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools2:ignore="UselessParent">
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textSize="40sp"
-            android:text="your top albums."
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="30dp"
             android:paddingBottom="10dp"
+            android:text="your top albums."
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,12 +73,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="1"/>
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/albumIV1"
@@ -61,30 +96,30 @@
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/albumNameTV1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Album Name"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:maxLines="1"
+                    android:text="Album Name"
                     android:textColor="@color/white"
-                    android:maxLines="1"/>
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/albumArtistTV1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:text="Artist Name"
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -99,12 +134,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="2"/>
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/albumIV2"
@@ -122,30 +157,30 @@
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/albumNameTV2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Album Name"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:maxLines="1"
+                    android:text="Album Name"
                     android:textColor="@color/white"
-                    android:maxLines="1"/>
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/albumArtistTV2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:text="Artist Name"
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -160,12 +195,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="3"/>
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/albumIV3"
@@ -183,30 +218,30 @@
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/albumNameTV3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Album Name"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:maxLines="1"
+                    android:text="Album Name"
                     android:textColor="@color/white"
-                    android:maxLines="1"/>
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/albumArtistTV3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:text="Artist Name"
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -221,12 +256,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="4"/>
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/albumIV4"
@@ -244,30 +279,30 @@
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/albumNameTV4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Album Name"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:maxLines="1"
+                    android:text="Album Name"
                     android:textColor="@color/white"
-                    android:maxLines="1"/>
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/albumArtistTV4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:text="Artist Name"
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -282,12 +317,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="5"/>
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/albumIV5"
@@ -305,34 +340,33 @@
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/albumNameTV5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Album Name"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:maxLines="1"
+                    android:text="Album Name"
                     android:textColor="@color/white"
-                    android:maxLines="1"/>
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/albumArtistTV5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:text="Artist Name"
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
-
 
 
     </LinearLayout>

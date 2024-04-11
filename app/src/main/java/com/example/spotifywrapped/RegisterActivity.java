@@ -21,8 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText email;
-    private EditText password;
+    private EditText email, password;
     private Button registerButton;
     private TextView backButton;
 
