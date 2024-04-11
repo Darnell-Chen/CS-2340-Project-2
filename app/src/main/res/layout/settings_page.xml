@@ -19,17 +19,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/ChangePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="@color/spotifyGreen"
-        android:text="Change Password"
         android:onClick="deleteAccount"
+        android:text="Change Password"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-14dp" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/DeleteAccountBTN"
@@ -37,10 +38,23 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:backgroundTint="@color/spotifyGreen"
-        android:text="Delete Account"
         android:onClick="deleteAccount"
+        android:text="Delete Account"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-14dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
+    <Button
+        android:id="@+id/change_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="492dp"
+        android:backgroundTint="@color/spotifyGreen"
+        android:text="Change Email"
+        app:layout_constraintBottom_toTopOf="@+id/ChangePassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
