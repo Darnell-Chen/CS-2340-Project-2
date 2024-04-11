@@ -6,4 +6,6 @@
     <color name="loginWhite">#20808080</color>
     <color name="gameButton">#40000000</color>
     <color name="prevSummaryOrange">#ffa600</color>
+    <color name="green">#00B51F</color>
+    <color name="red">#F31403</color>
 </resources>

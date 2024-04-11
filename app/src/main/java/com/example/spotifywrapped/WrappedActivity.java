@@ -236,7 +236,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                         if ((isSummary == false)) {
                             showSecondDialog();
                         } else {
-                            endActivity();
+                            endActivity(DashboardActivity.class);
                         }
                     }
                 })
@@ -246,7 +246,7 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                         if ((isSummary == false)) {
                             showSecondDialog();
                         } else {
-                            endActivity();
+                            endActivity(DashboardActivity.class);
                         }
                     }
                 }).show();
@@ -260,13 +260,31 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         wrappedVM.storeWrapped();
-                        endActivity();
+                        showThirdDialog();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        endActivity();
+                        showThirdDialog();
+                    }
+                }).show();
+    }
+
+    public void showThirdDialog() {
+        new AlertDialog.Builder(WrappedActivity.this)
+                .setMessage("Would you like to play a mini-game?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        endActivity(GamesActivity.class);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        endActivity(DashboardActivity.class);
                     }
                 }).show();
     }
@@ -302,8 +320,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         return summaryImage;
     }
 
-    public void endActivity() {
-        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
+    public void endActivity(Class<?> activityClass) {
+        Intent i = new Intent(WrappedActivity.this, activityClass);
         startActivity(i);
         finish();
     }

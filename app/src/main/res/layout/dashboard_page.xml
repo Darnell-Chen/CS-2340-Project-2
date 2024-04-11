@@ -107,9 +107,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/spotifyGreen"
-            android:padding="10dp"
-            android:text="Play Mini-Game"
             android:onClick="openGames"
+            android:padding="10dp"
+            android:text="View Past Wrappeds"
             android:textSize="25dp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp" />

@@ -1,5 +1,7 @@
 package com.example.spotifywrapped;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -147,6 +149,11 @@ public class GameSecondFragment extends Fragment {
     }
 
     private void handleRoundResult(boolean won) {
+        option1.setEnabled(false);
+        option2.setEnabled(false);
+        option3.setEnabled(false);
+        option4.setEnabled(false);
+
         if (won) {
             String[] highScoreSubs = highScore.getText().toString().split(" ");
             int newScore = Integer.parseInt(currScore.getText().toString()) + 1;
@@ -161,12 +168,54 @@ public class GameSecondFragment extends Fragment {
                  "New High Score!". */
             }
 
-            promptUser();
+            highlightChoice(option1, correctChoice.equals(choices[0]));
+            highlightChoice(option2, correctChoice.equals(choices[1]));
+            highlightChoice(option3, correctChoice.equals(choices[2]));
+            highlightChoice(option4, correctChoice.equals(choices[3]));
+            ourView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Reset button colors
+                    option1.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option2.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option3.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option4.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+
+                    option1.setEnabled(true);
+                    option2.setEnabled(true);
+                    option3.setEnabled(true);
+                    option4.setEnabled(true);
+
+                    // Proceed to next song
+                    promptUser();
+                }
+            }, 1000);
         } else {
             // TERMINATE GAME
             /* Pop up in the middle of the screen which tells the user that they lost, what their score was,
             and the high score they need to beat. */
-            beginGame();
+            highlightChoice(option1, correctChoice.equals(choices[0]));
+            highlightChoice(option2, correctChoice.equals(choices[1]));
+            highlightChoice(option3, correctChoice.equals(choices[2]));
+            highlightChoice(option4, correctChoice.equals(choices[3]));
+            ourView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Reset button colors
+                    option1.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option2.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option3.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+                    option4.setBackgroundTintList(ColorStateList.valueOf(Color.argb(64, 0, 0, 0)));
+
+                    option1.setEnabled(true);
+                    option2.setEnabled(true);
+                    option3.setEnabled(true);
+                    option4.setEnabled(true);
+
+                    // Proceed to next song
+                    beginGame();
+                }
+            }, 1000);
         }
     }
 
@@ -218,6 +267,14 @@ public class GameSecondFragment extends Fragment {
             mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+    }
+
+    private void highlightChoice(Button button, boolean isCorrect) {
+        if (isCorrect) {
+            button.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+        } else {
+            button.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
         }
     }
 }
