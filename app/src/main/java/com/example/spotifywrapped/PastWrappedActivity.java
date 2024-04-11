@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class PastWrappedActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class PastWrappedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_past_wrapped);
 
         auth = FirebaseAuth.getInstance();
@@ -81,6 +82,7 @@ public class PastWrappedActivity extends AppCompatActivity {
         for (int i = 0; i < summaryList.size(); i++) {
             summaryCards.add(new Card(summaryList.get(i)));
         }
+        Collections.sort(summaryCards);
         // just to clear it out :)
         summaryList = null;
         summaryMap = null;
