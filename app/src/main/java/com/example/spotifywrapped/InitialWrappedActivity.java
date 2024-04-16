@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class InitialWrappedActivity extends AppCompatActivity {
 
-    private Button longBTN, medBTN, shortBTN, summaryBTN;
+    private Button longBTN, medBTN, shortBTN;
     private TextView backButton;
 
     private FirebaseAuth auth;
@@ -52,7 +52,7 @@ public class InitialWrappedActivity extends AppCompatActivity {
         longBTN = findViewById(R.id.longTermBTN);
         medBTN = findViewById(R.id.mediumTermBTN);
         shortBTN = findViewById(R.id.shortTermBTN);
-        summaryBTN = findViewById(R.id.ViewPastButton);
+        //summaryBTN = findViewById(R.id.ViewPastButton);
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + auth.getUid().toString() + "/profile");
@@ -86,6 +86,7 @@ public class InitialWrappedActivity extends AppCompatActivity {
                 finish();
             }
         });
+<<<<<<< HEAD
 
         summaryBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,5 +126,7 @@ public class InitialWrappedActivity extends AppCompatActivity {
 
     private void NoDataFound() {
         Toast.makeText(this, "No summaries found", Toast.LENGTH_SHORT).show();
+=======
+>>>>>>> main
     }
 }

@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,9 +38,18 @@ public class WrappedViewModel extends ViewModel {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
+        DatabaseReference currPath;
+
         WrappedMiscellaneous.setTerm(range);
 
-        mDatabase.child("Users").child(auth.getUid()).child(range).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        if (range.equals("long_term") || range.equals("short_term") || range.equals("medium_term")) {
+            currPath = mDatabase.child("Users").child(auth.getUid()).child(range);
+        } else {
+            // re-using range to get date-time for past wrapped
+            currPath = mDatabase.child("Users").child(auth.getUid()).child("profile").child("Summary").child(range);
+        }
+
+        currPath.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -118,8 +129,8 @@ public class WrappedViewModel extends ViewModel {
 
         for (int i = 0; (i < snapshotSize) && (i < 5); i++) {
             DataSnapshot currSnapshot = topSongSnapshot.child("song" + i);
-            String currAlbumName = (String) currSnapshot.child("artist").getValue(String.class);
-            String currArtist = (String) currSnapshot.child("song").getValue(String.class);
+            String currAlbumName = (String) currSnapshot.child("song").getValue(String.class);
+            String currArtist = (String) currSnapshot.child("artist").getValue(String.class);
             String currImage = (String) currSnapshot.child("url").getValue(String.class);
 
             songList.add(new Track(currArtist, currAlbumName, currImage));
@@ -162,8 +173,6 @@ public class WrappedViewModel extends ViewModel {
             genreList.add(topGenreSnapshot.child("genre" + i).getValue(String.class));
         }
 
-        System.out.println("genreList: " + String.valueOf(genreList));
-
         return genreList;
     }
 
@@ -189,5 +198,21 @@ public class WrappedViewModel extends ViewModel {
     }
     public ArrayList<Bitmap> getScreenshots() {
         return screenshotList;
+    }
+
+    public void storeWrapped() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String currTime = currentDateTime.format(formatter);
+
+        // Remove milliseconds from the formatted date and time
+        String newRef = currTime.replace(".", "").concat(" " + WrappedMiscellaneous.getTerm());
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + auth.getUid().toString());
+
+
+        mDatabase.child("profile").child("Summary").child(newRef).setValue(dataResult.getValue());
     }
 }

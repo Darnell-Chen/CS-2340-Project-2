@@ -19,28 +19,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ChangePassword"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:backgroundTint="@color/spotifyGreen"
-        android:text="Change Password"
-        android:onClick="deleteAccount"
+        android:layout_marginTop="480dp"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-14dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsBack">
+
+        <Button
+            android:id="@+id/change_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/spotifyGreen"
+            android:text="Change Email"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/ChangePassword" />
+
+        <Button
+            android:id="@+id/ChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/spotifyGreen"
+            android:onClick="deleteAccount"
+            android:layout_marginBottom="10dp"
+            android:text="Change Password" />
 
 
-    <Button
-        android:id="@+id/DeleteAccountBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:backgroundTint="@color/spotifyGreen"
-        android:text="Delete Account"
-        android:onClick="deleteAccount"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-14dp" />
+        <Button
+            android:id="@+id/DeleteAccountBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/spotifyGreen"
+            android:onClick="deleteAccount"
+            android:layout_marginBottom="30dp"
+            android:text="Delete Account" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

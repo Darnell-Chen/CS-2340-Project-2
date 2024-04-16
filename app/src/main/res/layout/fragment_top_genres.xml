@@ -11,6 +11,42 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/miniFrame1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="292"
+            android:rotationX="100"
+            android:rotationY="-330"
+            android:src="#25ff9ea0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+
+        <ImageView
+            android:id="@+id/miniFrame3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-262"
+            android:rotationX="215"
+            android:rotationY="113"
+            android:alpha="0.3"
+            android:src="@drawable/transition1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.141" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +61,7 @@
             android:gravity="center"
             android:paddingTop="30dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/white"
+            android:textColor="#d4ffc7"
             android:textStyle="bold"/>
 
         <Space
@@ -38,32 +74,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:rotation="15">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#6913ff03"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="#1"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre1"
                 android:textSize="45sp"
-                android:backgroundTint="#6913ff03"/>
+                android:textStyle="bold" />
 
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#6913ff03"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Genre 1"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:backgroundTint="#6913ff03"/>
+                android:text="Genre1"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@color/genre1"
+                android:textSize="40sp" />
 
         </LinearLayout>
 
@@ -75,7 +114,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="7.5">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,21 +124,23 @@
                 android:paddingLeft="10dp"
                 android:text="#2"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre2"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre2"
-                android:layout_width="match_parent"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Genre2"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:text="genre2"
+                android:textStyle="bold"
+                android:textColor="@color/genre2"
+                android:textSize="40sp"
                 android:backgroundTint="#6903ff9e"/>
 
         </LinearLayout>
@@ -120,21 +162,23 @@
                 android:paddingLeft="10dp"
                 android:text="#3"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre3"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre3"
-                android:layout_width="match_parent"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre3"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/genre3"
+                android:textSize="40sp"
                 android:backgroundTint="#6903cdff"/>
 
         </LinearLayout>
@@ -147,7 +191,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="-7.5">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,21 +201,23 @@
                 android:paddingLeft="10dp"
                 android:text="#4"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre4"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre4"
-                android:layout_width="match_parent"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre4"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/genre4"
+                android:textSize="40sp"
                 android:backgroundTint="#69035fff"/>
 
         </LinearLayout>
@@ -183,7 +230,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rotation="-15">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -192,21 +240,23 @@
                 android:paddingLeft="10dp"
                 android:text="#5"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/genre5"
                 android:textSize="45sp"
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
                 android:layout_weight="3"
                 android:id="@+id/genre5"
-                android:layout_width="match_parent"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
+                android:textStyle="bold"
                 android:text="Genre5"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textColor="@color/genre5"
+                android:textSize="40sp"
                 android:backgroundTint="#69030bff"/>
 
         </LinearLayout>
