@@ -19,7 +19,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: gradlew build
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.1
