@@ -5,9 +5,7 @@ import static java.util.Arrays.asList;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,18 +19,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import jp.shts.android.storiesprogressview.StoriesProgressView;
 
@@ -56,6 +46,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
     private ArrayList<String> audioList;
     private MediaPlayer mediaPlayer;
     private int counter = 0;
+
+    private boolean isSummary;
 
     private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
@@ -88,12 +80,18 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         wrappedVM = new ViewModelProvider(this).get(WrappedViewModel.class);
         wrappedVM.getFirebaseData(range);
 
+        // I hope no one ever sees this line of code. It tells you whether this is a summary or a regular wrapped.
+        if (range.length() > 15) {
+            isSummary = true;
+        } else {
+            isSummary = false;
+        }
+
         wrappedVM.getBool().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 audioList = wrappedVM.getAudioList();
                 playAudio();
-
             }
         });
 
@@ -191,7 +189,24 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
         // below line is use to set the audio
         // stream type for our media player.
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        System.out.println(audioUrl);
+
+
+        String rick = getString(R.string.rickroll);
+
+
+        int randomCount = 0;
+        while (audioUrl.equals("null")) {
+            Random random = new Random();
+            audioUrl = audioList.get(random.nextInt(audioList.size() - fragments.size()) + fragments.size() - 1);
+
+            randomCount+=1;
+            if (randomCount > 5) {
+                audioUrl = rick;
+            }
+        }
 
         // below line is use to set our
         // url to our media player.
@@ -218,13 +233,21 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         getSummaryImage(true);
-                        showSecondDialog();
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity(DashboardActivity.class);
+                        }
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showSecondDialog();
+                        if ((isSummary == false)) {
+                            showSecondDialog();
+                        } else {
+                            endActivity(DashboardActivity.class);
+                        }
                     }
                 }).show();
     }
@@ -236,18 +259,32 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        storeBitmap(getSummaryImage(false));
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
+                        wrappedVM.storeWrapped();
+                        showThirdDialog();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(WrappedActivity.this, DashboardActivity.class);
-                        startActivity(i);
-                        finish();
+                        showThirdDialog();
+                    }
+                }).show();
+    }
+
+    public void showThirdDialog() {
+        new AlertDialog.Builder(WrappedActivity.this)
+                .setMessage("Would you like to play a mini-game?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        endActivity(GamesActivity.class);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        endActivity(DashboardActivity.class);
                     }
                 }).show();
     }
@@ -283,36 +320,10 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         return summaryImage;
     }
 
-    private static void storeBitmap(Bitmap bitmap) {
-        DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        DatabaseReference currReference
-                = fbDatabase.child("Users").child(auth.getUid().toString()).child("profile").child("Summaries");
-
-        ByteArrayOutputStream imageStore = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageStore);
-        byte[] imageData = imageStore.toByteArray();
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://spotify-wrapped-f4043.appspot.com");
-
-        String currImageName = "summaryData" + Long.toString(System.currentTimeMillis());
-        StorageReference currUser = storageRef.child(auth.getUid()).child(currImageName);
-
-        UploadTask uploadTask = currUser.putBytes(imageData);
-
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                currUser.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        currReference.child("summaryData" + Long.toString(System.currentTimeMillis())).setValue(url);
-                    }
-                });
-            }
-        });
+    public void endActivity(Class<?> activityClass) {
+        Intent i = new Intent(WrappedActivity.this, activityClass);
+        startActivity(i);
+        finish();
     }
 
 }
