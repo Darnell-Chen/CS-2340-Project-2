@@ -23,5 +23,4 @@ jobs:
         with:
           name: Spotify-Wrapped-Project.apk
           path: app/build/outputs/apk/app-debug.apk
-        
-    
+          
