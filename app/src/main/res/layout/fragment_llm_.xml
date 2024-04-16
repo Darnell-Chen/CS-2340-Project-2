@@ -43,30 +43,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.141" />
 
-        <ImageView
-            android:id="@+id/spotifyImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="88dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/llmText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
             android:text="Someone with your musical taste tends to ..."
+            android:padding="15dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spotifyImage" />
+            app:layout_constraintStart_toStartOf="@+id/miniFrame1"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

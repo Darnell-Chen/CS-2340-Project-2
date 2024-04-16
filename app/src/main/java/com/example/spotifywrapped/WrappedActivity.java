@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -92,6 +93,8 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             public void onChanged(Boolean aBoolean) {
                 audioList = wrappedVM.getAudioList();
                 playAudio();
+
+                getLLM();
             }
         });
 
@@ -124,6 +127,14 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
             }
         });
         skip.setOnTouchListener(onTouchListener);
+    }
+
+    private void getLLM() {
+        if (wrappedVM.getFragmentDataRecieved("LLM")) {
+            Log.d(null, "getLLM: LLM already recieved");
+        } else {
+            sendGPTRequest();
+        }
     }
 
     @Override
@@ -186,12 +197,6 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
 
         // initializing media player
         mediaPlayer = new MediaPlayer();
-
-        // below line is use to set the audio
-        // stream type for our media player.
-//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        System.out.println(audioUrl);
 
 
         String rick = getString(R.string.rickroll);
@@ -325,5 +330,23 @@ public class WrappedActivity extends AppCompatActivity implements StoriesProgres
         startActivity(i);
         finish();
     }
+
+    public void sendGPTRequest() {
+        new Thread(() -> {
+            try {
+                String response = wrappedVM.getGPTResponse();
+
+                this.runOnUiThread(() -> {
+                    // Now safe to update UI
+                    wrappedVM.setFragmentDataRecieved("LLM", true);
+                    wrappedVM.setLLMString(response);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+
 
 }

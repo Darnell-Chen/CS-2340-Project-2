@@ -86,14 +86,12 @@ public class InitialWrappedActivity extends AppCompatActivity {
                 finish();
             }
         });
-<<<<<<< HEAD
-
-        summaryBTN.setOnClickListener(new View.OnClickListener() {
+        /*summaryBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkExist();
             }
-        });
+        });*/
 
     }
 
@@ -126,7 +124,6 @@ public class InitialWrappedActivity extends AppCompatActivity {
 
     private void NoDataFound() {
         Toast.makeText(this, "No summaries found", Toast.LENGTH_SHORT).show();
-=======
->>>>>>> main
+
     }
 }

@@ -44,7 +44,7 @@ public class GPTRequest extends AppCompatActivity {
 
     public String generatePrompt(ArrayList<Track> songs) {
         StringBuilder promptBuilder = new StringBuilder();
-        promptBuilder.append("Describe the behavior, thoughts, and dress style of someone who listens to these songs: ");
+        promptBuilder.append("In exactly 3 short second-person (Ex. use your instead of their) sentences, describe the behavior, thoughts, and dress style of someone who listens to these songs: ");
         for (int i = 0; i < songs.size(); i++) {
             Track song = songs.get(i);
             promptBuilder.append(song.getTrackName()).append(" by ").append(song.getArtistName());
