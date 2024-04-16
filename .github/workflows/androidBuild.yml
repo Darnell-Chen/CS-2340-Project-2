@@ -6,17 +6,17 @@ on :
     branches : [ main ]
 
 jobs:
-  build:
-    runs-on : ubuntu-latest
+  open-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.2
-        
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4.2.1
-        with:
-          java-version: "20"
-          distribution: "adopt"
+      - run: |
+          gh issue --repo ${{ github.repository }} \
+            create --title "Issue title" --body "Issue body"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -26,3 +26,5 @@ jobs:
         with:
           name: Spotify-Wrapped-Project.apk
           path: app/build/outputs/apk/app-debug.apk
+
+
