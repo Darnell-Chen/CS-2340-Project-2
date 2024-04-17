@@ -15,6 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/archivo_black"
+            android:padding="5dp"
+            android:text="Spotify\nunWrapped"
+            android:textColor="#ff3419"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:alpha="0.65"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
         <ImageView
             android:id="@+id/miniFrame1"
             android:layout_width="match_parent"
@@ -96,13 +114,14 @@
                 android:layout_marginTop="0dp"
                 android:layout_weight="3"
                 android:backgroundTint="#6913ff03"
+                android:fontFamily="@font/bungee_shade"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre1"
-                android:textStyle="bold"
                 android:textAllCaps="true"
                 android:textColor="@color/genre1"
-                android:textSize="40sp" />
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -129,19 +148,20 @@
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre2"
-                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#6903ff9e"
+                android:fontFamily="@font/bungee_shade"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="genre2"
-                android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/genre2"
-                android:textSize="40sp"
-                android:backgroundTint="#6903ff9e"/>
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -167,19 +187,20 @@
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre3"
-                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#6903cdff"
+                android:fontFamily="@font/bungee_shade"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre3"
-                android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/genre3"
-                android:textSize="40sp"
-                android:backgroundTint="#6903cdff"/>
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -206,19 +227,20 @@
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre4"
-                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#69035fff"
+                android:fontFamily="@font/bungee_shade"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Genre4"
-                android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/genre4"
-                android:textSize="40sp"
-                android:backgroundTint="#69035fff"/>
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -245,19 +267,20 @@
                 android:backgroundTint="#6913ff03"/>
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/genre5"
-                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:backgroundTint="#69030bff"
+                android:fontFamily="@font/bungee_shade"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
                 android:text="Genre5"
+                android:textAllCaps="true"
                 android:textColor="@color/genre5"
-                android:textSize="40sp"
-                android:backgroundTint="#69030bff"/>
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

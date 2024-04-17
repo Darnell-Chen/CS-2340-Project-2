@@ -34,8 +34,6 @@ android {
             buildConfigField "String", "REDIRECT_URI", "\"${redirectURI}\""
         }
 
-        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
