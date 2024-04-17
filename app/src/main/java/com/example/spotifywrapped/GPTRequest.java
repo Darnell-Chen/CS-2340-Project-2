@@ -5,7 +5,9 @@ import static dev.ai4j.openai4j.chat.ChatCompletionModel.GPT_3_5_TURBO;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -59,6 +61,10 @@ public class GPTRequest extends AppCompatActivity {
 
     public String sendOpenAIRequest(String prompt) throws IOException {
         String apiKey = BuildConfig.OPENAI_API_KEY;
+
+        if (apiKey == null) {
+            return " . .No OpenAI Api Key Found. Please check local properties... .";
+        }
 
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)
