@@ -20,6 +20,14 @@ android {
 
         manifestPlaceholders = [redirectSchemeName: "spotifywrapped", redirectHostName: "auth"]
 
+        def localPropertiesFile = rootProject.file('local.properties')
+        if (localPropertiesFile.exists()) {
+            Properties localProperties = new Properties()
+            localProperties.load(new FileInputStream(localPropertiesFile))
+            String openAiApiKey = localProperties.getProperty('OPENAI_API_KEY')
+            buildConfigField "String", "OPENAI_API_KEY", "\"${openAiApiKey}\""
+        }
+
         buildConfigField "String", "OPENAI_API_KEY", "\"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\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
