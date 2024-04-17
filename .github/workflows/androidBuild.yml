@@ -1,0 +1,30 @@
+name: AndroidBuild
+on :
+  pull_request :
+    branches : [ main ]
+  push :
+    branches : [ main ]
+
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - run: |
+          gh issue --repo ${{ github.repository }} \
+            create --title "Issue title" --body "Issue body"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with Gradle
+        run: gradlew build
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: Spotify-Wrapped-Project.apk
+          path: app/build/outputs/apk/app-debug.apk
+
+
