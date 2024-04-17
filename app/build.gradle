@@ -26,6 +26,12 @@ android {
             localProperties.load(new FileInputStream(localPropertiesFile))
             String openAiApiKey = localProperties.getProperty('OPENAI_API_KEY')
             buildConfigField "String", "OPENAI_API_KEY", "\"${openAiApiKey}\""
+
+            String clientID = localProperties.getProperty('CLIENT_ID')
+            buildConfigField "String", "CLIENT_ID", "\"${clientID}\""
+
+            String redirectURI = localProperties.getProperty('REDIRECT_URI')
+            buildConfigField "String", "REDIRECT_URI", "\"${redirectURI}\""
         }
 
         buildConfigField "String", "OPENAI_API_KEY", "\"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\""

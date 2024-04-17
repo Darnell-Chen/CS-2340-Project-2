@@ -58,7 +58,7 @@ public class GPTRequest extends AppCompatActivity {
     }
 
     public String sendOpenAIRequest(String prompt) throws IOException {
-        String apiKey = "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";
+        String apiKey = BuildConfig.OPENAI_API_KEY;
 
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)
