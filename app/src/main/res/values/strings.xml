@@ -6,4 +6,5 @@
     <string name="password_autofill_hint">Enter password</string>
     <string name="confirm">CONFIRM</string>
     <string name="rickroll">"https://p.scdn.co/mp3-preview/b4c682084c3fd05538726d0a126b7e14b6e92c83?cid=cfe923b2d660439caf2b557b21f31221"</string>
+    <string name="gameRule">The rule\'s as simple as the name - simply guess the song correctly to accumulate points. \n \nClick below to begin!</string>
 </resources>

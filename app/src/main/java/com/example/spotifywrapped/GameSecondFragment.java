@@ -156,7 +156,7 @@ public class GameSecondFragment extends Fragment {
         option3.setText(choices[2].getTrackName());
         option4.setText(choices[3].getTrackName());
 
-        prompt.setText("Listen.");
+        prompt.setText("Guess the Song!");
 
         playAudio(correctChoice.getURL());
     }

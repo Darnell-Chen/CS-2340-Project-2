@@ -2,21 +2,12 @@ package com.example.spotifywrapped;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,16 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 public class AuthTokenActivity extends AppCompatActivity {
     TextView tv;
     Button connectButton;
     String[] stringMessages = {"Welcome", "This Is \n Spotify Unwrapped", "click below to get started"};
     int i = 0;
     AuthViewModel viewmodel;
-
     private DatabaseReference fbDatabase;
     private FirebaseAuth fbAuth;
     private String mAccessToken = "";
@@ -52,8 +39,6 @@ public class AuthTokenActivity extends AppCompatActivity {
 
         connectButton = findViewById(R.id.authButton);
 
-        // will implement fade-in for button in final part of project
-//        connectButton.setAlpha(0);
 
         tv = findViewById(R.id.TVAuthToken);
         setText();
@@ -64,6 +49,7 @@ public class AuthTokenActivity extends AppCompatActivity {
             newAuth.getToken(this);
             tv.setText("loading...");
             getFadeInViewPropertyAnimator().start();
+            connectButton.setEnabled(false);
         });
     }
 
@@ -95,7 +81,9 @@ public class AuthTokenActivity extends AppCompatActivity {
     };
 
     private void setText(){
-        tv.setText(stringMessages[i++]);
+        if (connectButton.isEnabled()) {
+            tv.setText(stringMessages[i++]);
+        }
     }
 
     @Override
