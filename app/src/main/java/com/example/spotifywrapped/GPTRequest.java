@@ -59,7 +59,7 @@ public class GPTRequest extends AppCompatActivity {
 
     public String sendOpenAIRequest(String prompt) throws IOException {
         String apiKey = "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";
-        System.out.println(apiKey);
+
         OpenAiClient client = OpenAiClient.builder()
                 .openAiApiKey(apiKey)
                 .build();
@@ -70,8 +70,6 @@ public class GPTRequest extends AppCompatActivity {
                 .build();
 
         ChatCompletionResponse response = client.chatCompletion(request).execute();
-        System.out.println(String.valueOf(response));
-        System.out.println("test");
         return String.valueOf(response);
     }
 
