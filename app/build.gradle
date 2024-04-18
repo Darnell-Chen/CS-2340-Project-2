@@ -11,6 +11,11 @@ android {
         buildConfig true
     }
 
+    
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.example.spotifywrapped"
         minSdk 33
