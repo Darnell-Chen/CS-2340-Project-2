@@ -3,18 +3,17 @@ package com.example.spotifywrapped;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
@@ -61,8 +60,6 @@ public class TopAlbumsFragment extends Fragment {
             String albumName = "albumNameTV" + i;
             String artistName = "albumArtistTV" + i;
             String albumIMG = "albumIV" + i;
-
-            System.out.println(topAlbumList.size());
 
             int id = getResources().getIdentifier(albumName, "id", context.getPackageName());
             if (id != 0) {

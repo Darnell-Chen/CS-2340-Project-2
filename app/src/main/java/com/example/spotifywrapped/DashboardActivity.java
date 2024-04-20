@@ -76,8 +76,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void openGames(View view) {
         checkExist();
-        //startActivity(new Intent(DashboardActivity.this, PastWrappedActivity.class));
-        //finish();
     }
 
     public void openSettings(View view) {

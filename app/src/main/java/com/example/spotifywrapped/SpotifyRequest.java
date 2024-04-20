@@ -107,7 +107,6 @@ public class SpotifyRequest {
 
         //return the api link. Tells link to retrieve profile
         if (requestType.equals("profile")) {
-            System.out.println("returning profile base");
             return "https://api.spotify.com/v1/me";
         }
 

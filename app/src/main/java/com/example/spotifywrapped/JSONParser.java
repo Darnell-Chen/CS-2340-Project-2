@@ -233,10 +233,6 @@ public class JSONParser {
             userImage = userImageRef.getJSONObject(imgArraySize - 1).getString("url");
         }
 
-        System.out.println(imgArraySize);
-
-        System.out.println("username: " + userName);
-
         //Store it to firebase
         DatabaseReference fbDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();

@@ -69,7 +69,6 @@ public class TopGenresFragment extends Fragment {
             if (id != 0) {
                 TextView textView = (TextView) view.findViewById(id);
                 textView.setText(topGenres.get(i - 1));
-                System.out.println(topGenres.get(i - 1));
             }
         }
     }
