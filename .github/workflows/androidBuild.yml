@@ -3,28 +3,31 @@ on :
   pull_request :
     branches : [ main ]
   push :
-    branches : [ main ]
+    branches-ignore: 
+      - main 
 
 jobs:
-  open-issue:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: write
+    
     steps:
-      - run: |
-          gh issue --repo ${{ github.repository }} \
-            create --title "Issue title" --body "Issue body"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v3
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: gradlew build
+    - name: build with gradle
+      run: ./gradlew build
 
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: Spotify-Wrapped-Project.apk
-          path: app/build/outputs/apk/app-debug.apk
+    - name: Linting
+      run: ./gradlew lint
+      
 
 
+          
