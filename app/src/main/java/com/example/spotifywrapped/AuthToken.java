@@ -2,7 +2,6 @@ package com.example.spotifywrapped;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.widget.Toast;
 
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
@@ -16,12 +15,8 @@ public class AuthToken {
     public void getToken(Activity currActivity) {
         CLIENT_ID = BuildConfig.CLIENT_ID;
         REDIRECT_URI = BuildConfig.REDIRECT_URI;
-        if (CLIENT_ID == null || REDIRECT_URI == null) {
-            Toast.makeText(currActivity, "Please Make Sure to input Client ID and Redirect URI in local properties", Toast.LENGTH_SHORT).show();
-        } else {
-            final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
-            AuthorizationClient.openLoginActivity(currActivity, AUTH_TOKEN_REQUEST_CODE, request);
-        }
+        final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
+        AuthorizationClient.openLoginActivity(currActivity, AUTH_TOKEN_REQUEST_CODE, request);
     }
 
     /**

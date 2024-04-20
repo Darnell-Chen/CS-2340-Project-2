@@ -1,6 +1,7 @@
 package com.example.spotifywrapped;
 
-import androidx.lifecycle.LiveData;
+import android.widget.Button;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -8,9 +9,9 @@ public class AuthViewModel extends ViewModel {
 
     // keeps track of which spotify request is currently being retrieved
     private Integer requestRetrieved;
-
-    private Integer profileRetrieved;
     private MutableLiveData<Integer> rangeRetrieved;
+
+    private Button connectButton;
 
     // this will define how many term ranges we have (short, medium, long)
     private final int max_range = 3;
@@ -47,6 +48,14 @@ public class AuthViewModel extends ViewModel {
 
     public int getMax_range() {
         return max_range;
+    }
+
+    public void addButton(Button button) {
+        connectButton = button;
+    }
+
+    public void setButton(boolean state) {
+        connectButton.setEnabled(state);
     }
 
 }

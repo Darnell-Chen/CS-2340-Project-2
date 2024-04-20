@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -38,6 +39,7 @@ public class AuthTokenActivity extends AppCompatActivity {
         viewmodel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         connectButton = findViewById(R.id.authButton);
+        viewmodel.addButton(connectButton);
 
 
         tv = findViewById(R.id.TVAuthToken);
@@ -100,8 +102,8 @@ public class AuthTokenActivity extends AppCompatActivity {
 
             fbDatabase.child("Users").child(fbAuth.getUid().toString()).child("AuthToken").setValue(mAccessToken);
 
-            System.out.println(mAccessToken);
             SpotifyRequest newRequest = new SpotifyRequest();
+            newRequest.setViewModel(viewmodel);
 
             String[] requestType = {"artists", "tracks", "albums", "genres", "profile"};
             String[] rangeType = {"long_term", "medium_term", "short_term"};
@@ -128,6 +130,9 @@ public class AuthTokenActivity extends AppCompatActivity {
                     }
                 }
             });
+        } else {
+            Toast.makeText(this, "Please check Spotify Client ID and Redirect URI", Toast.LENGTH_SHORT).show();
+            connectButton.setEnabled(true);
         }
     }
 }

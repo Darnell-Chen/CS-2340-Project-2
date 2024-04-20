@@ -5,8 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +20,7 @@ import okhttp3.Response;
 public class SpotifyRequest {
 
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
-
-    DatabaseReference fbDB = FirebaseDatabase.getInstance().getReference();
+    private static AuthViewModel viewmodel;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -31,6 +28,7 @@ public class SpotifyRequest {
     public void getUserTop(Activity currActivity, String mAccessToken, String requestType, String range, AuthViewModel vm) {
         if (mAccessToken == null) {
             Toast.makeText(currActivity, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
+            viewmodel.setButton(true);
             return;
         }
 
@@ -113,8 +111,10 @@ public class SpotifyRequest {
             return "https://api.spotify.com/v1/me";
         }
 
-        System.out.println(base);
-
         return base;
+    }
+
+    public void setViewModel(AuthViewModel vm) {
+        viewmodel = vm;
     }
 }

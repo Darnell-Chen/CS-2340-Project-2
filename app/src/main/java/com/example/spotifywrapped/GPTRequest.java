@@ -5,6 +5,7 @@ import static dev.ai4j.openai4j.chat.ChatCompletionModel.GPT_3_5_TURBO;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dev.ai4j.openai4j.OpenAiClient;
+import dev.ai4j.openai4j.OpenAiHttpException;
 import dev.ai4j.openai4j.chat.ChatCompletionRequest;
 import dev.ai4j.openai4j.chat.ChatCompletionResponse;
 
@@ -62,21 +64,28 @@ public class GPTRequest extends AppCompatActivity {
     public String sendOpenAIRequest(String prompt) throws IOException {
         String apiKey = BuildConfig.OPENAI_API_KEY;
 
-        if (apiKey == null) {
+        if (apiKey.equals("null")) {
             return " . .No OpenAI Api Key Found. Please check local properties... .";
         }
 
-        OpenAiClient client = OpenAiClient.builder()
-                .openAiApiKey(apiKey)
-                .build();
-        ChatCompletionRequest request = ChatCompletionRequest.builder()
-                .model(GPT_3_5_TURBO)
-                .addUserMessage(prompt)
-                .temperature(0.9)
-                .build();
+        try {
+            OpenAiClient client = OpenAiClient.builder()
+                    .openAiApiKey(apiKey)
+                    .build();
+            ChatCompletionRequest request = ChatCompletionRequest.builder()
+                    .model(GPT_3_5_TURBO)
+                    .addUserMessage(prompt)
+                    .temperature(0.9)
+                    .build();
 
-        ChatCompletionResponse response = client.chatCompletion(request).execute();
-        return String.valueOf(response);
+            ChatCompletionResponse response = client.chatCompletion(request).execute();
+            return String.valueOf(response);
+
+        } catch (OpenAiHttpException e){
+            Log.e("Error Sending GPT Request: ", e.getMessage());
+        }
+
+        return " . .No OpenAI Api Key Found. Please check local properties <3... .";
     }
 
 }
