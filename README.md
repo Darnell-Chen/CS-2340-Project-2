@@ -8,11 +8,17 @@ Our App enables users to create summaries of listening habits in three different
 - Medium Term (Approx. Past 6 Months)
 - Short Term (Approx. Past Month)
 
+All Wrapped can be saved and stored to Firebase Servers to be viewed in the future.
+
+Due to limitations imposed by the Spotify API, our Wrapped may not be 100% accurate.
+
+
 Made by students at Georgia Institute of Technology.
 
 
 ## Demo
 Here's a small snippet of what our app is about:
+(Credit to Tarun Ramji)
 
 [![Spotify UnWrapped](https://img.youtube.com/vi/_Fh7P1hxAhg/0.jpg)](https://www.youtube.com/watch?v=_Fh7P1hxAhg)
 
@@ -43,3 +49,4 @@ REDIRECT_URI = mySpotifyWrapped://auth
 Documentation concerning Spotify API can be found [here](https://developer.spotify.com/documentation/web-api).
 Steps to getting your client id and redirect uri can also be found in the link above.
 
+You can then follow the demo to create an account!
