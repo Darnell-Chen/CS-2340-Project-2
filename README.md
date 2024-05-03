@@ -10,9 +10,6 @@ Our App enables users to create summaries of listening habits in three different
 
 All Wrapped can be saved and stored to Firebase Servers to be viewed in the future.
 
-Due to limitations imposed by the Spotify API, our Wrapped may not be 100% accurate.
-
-
 Made by students at Georgia Institute of Technology.
 
 
@@ -50,3 +47,5 @@ Documentation concerning Spotify API can be found [here](https://developer.spoti
 Steps to getting your client id and redirect uri can also be found in the link above.
 
 You can then follow the demo to create an account!
+
+Note: Due to limitations imposed by the Spotify API, our Wrapped may not be 100% accurate.
