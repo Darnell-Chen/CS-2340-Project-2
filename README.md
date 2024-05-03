@@ -2,7 +2,7 @@ Made by students at Georgia Institute of Technology.
 
 
 # Demo
-[<img src="https://i.ytimg.com/vi/Hc79sDi3f0U/maxresdefault.jpg" width="50%">](https://youtu.be/_Fh7P1hxAhg "Now in Android: 55")
+[<img src="https://youtu.be/_Fh7P1hxAhg" width="50%">](https://youtu.be/_Fh7P1hxAhg "Now in Android: 55")
 
 
 # How to Use
