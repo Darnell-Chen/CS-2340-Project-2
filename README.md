@@ -1,11 +1,12 @@
+# Spotify UnWrapped
 Made by students at Georgia Institute of Technology.
 
 
-# Demo
-[<img src="https://youtu.be/_Fh7P1hxAhg" width="50%">](https://youtu.be/_Fh7P1hxAhg "Now in Android: 55")
+## Demo
+[![Spotify UnWrapped](https://img.youtube.com/vi/Fh7P1hxAhg/0.jpg)](https://www.youtube.com/watch?v=_Fh7P1hxAhg)
 
 
-# How to Use
+## How to Use
 To use the program, please include the following three into your local.properties file:
 
 
