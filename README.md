@@ -15,6 +15,7 @@ Made by students at Georgia Institute of Technology.
 
 ## Demo
 Here's a small snippet of what our app is about:
+
 (Credit to Tarun Ramji)
 
 [![Spotify UnWrapped](https://img.youtube.com/vi/_Fh7P1hxAhg/0.jpg)](https://www.youtube.com/watch?v=_Fh7P1hxAhg)
