@@ -3,7 +3,7 @@ Made by students at Georgia Institute of Technology.
 
 
 ## Demo
-[![Spotify UnWrapped](https://img.youtube.com/vi/Fh7P1hxAhg/0.jpg)](https://www.youtube.com/watch?v=_Fh7P1hxAhg)
+[![Spotify UnWrapped](https://img.youtube.com/vi/_Fh7P1hxAhg/0.jpg)](https://www.youtube.com/watch?v=_Fh7P1hxAhg)
 
 
 ## How to Use
